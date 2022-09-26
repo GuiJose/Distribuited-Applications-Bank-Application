@@ -1,0 +1,2 @@
+obj\Debug\net6.0\Protos/BankClient.cs \
+obj\Debug\net6.0\Protos/BankClientGrpc.cs: Protos/BankClient.proto

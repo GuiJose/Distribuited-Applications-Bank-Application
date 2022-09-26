@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "BankClient";
+
+service BankClientService {
+  rpc Deposit (DepositRequest) returns (DepositReply);
+}
+
+
+message DepositRequest {
+	double ammount = 1;
+}
+message DepositReply {
+	string  reply = 1;
+}
+
+message WithdrawalRequest {
+	double ammmount = 1;
+}
+message WithdrawalRply {
+	string reply = 1;
+}
+
+message ReadBalanceRequest {}
+message ReadBalanceReply {
+	string reply = 1;
+}

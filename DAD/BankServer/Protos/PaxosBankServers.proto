@@ -1,0 +1,13 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "BankPaxosClient";
+
+service BankPaxosService {
+  rpc Greeting (GreetRequest) returns (GreetReply);
+}
+message GreetRequest {
+	bool hi = 1;
+}
+message GreetReply {
+	bool hi = 1;
+}

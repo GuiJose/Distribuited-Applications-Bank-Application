@@ -2,14 +2,8 @@
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace BankClient
+namespace Client
 {
     static class BankClientClient
     {
@@ -27,9 +21,9 @@ namespace BankClient
             GrpcChannel channel = GrpcChannel.ForAddress("http://" + ServerHostname + ":" + ServerPort);
             CallInvoker interceptingInvoker = channel.Intercept(clientInterceptor);
             var client = new BankClientService.BankClientServiceClient(interceptingInvoker);
-            RegisterRequest registerRequest = new RegisterRequest { Message = "test" };
-            Reply reply = client.Test(registerRequest);
-            Console.WriteLine("reply: " + reply.Status);
+            RegisterRequest registerRequest = new RegisterRequest {};
+            RegisterReply reply = client.Register(registerRequest);
+            Console.WriteLine("reply: ");
             Console.ReadKey();
         }
     }

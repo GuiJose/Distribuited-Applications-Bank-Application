@@ -1,43 +1,38 @@
 ﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using BankClient;
 
 namespace BankClient
 {
     // ChatServerService is the namespace defined in the protobuf
     // ChatServerServiceBase is the generated base implementation of the service
-    public class BankClientService : BankClientService.BankClientServiceBase
+    public class BankService : BankClientService.BankClientServiceBase
     {
         private Dictionary<string, string> clientMap = new Dictionary<string, string>();
 
-        public BankClientService()
+        public BankService()
         {
         }
 
-        public override Task<PerfectChannelReply> Test(
+        public override Task<RegisterReply> Register(
             RegisterRequest request, ServerCallContext context)
         {
             return Task.FromResult(Reg(request));
         }
 
-        public PerfectChannelReply Reg(RegisterRequest request)
+        public RegisterReply Reg(RegisterRequest request)
         {
 
             lock (this)
             {
-                Console.WriteLine($"Received request with message: {request.Message}");
+                Console.WriteLine("Received request to register");
             }
-            return new PerfectChannelReply
-            {
-                Status = true
-            };
+            return new RegisterReply{};
         }
     }
-    class DADPerfectChannelServer
+    class BankServer
     {
+        private double balance;
+        private readonly object balanceLock = new object();
         static void Main(string[] args)
         {
             const int ServerPort = 1001;
@@ -45,7 +40,7 @@ namespace BankClient
 
             Server server = new Server
             {
-                Services = { BankClientService.BindService(new BankClientService()).Intercept(new ServerInterceptor()) },
+                Services = { BankClientService.BindService(new BankService()).Intercept(new ServerInterceptor()) },
                 Ports = { new ServerPort(ServerHostname, ServerPort, ServerCredentials.Insecure) }
             };
             server.Start();
@@ -56,22 +51,6 @@ namespace BankClient
             server.ShutdownAsync().Wait();
 
         }
-    }
-    public class ServerInterceptor : Interceptor
-    {
-
-        public override Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
-        {
-            string callId = context.RequestHeaders.GetValue("dad");
-            Console.WriteLine("DAD header: " + callId);
-            return base.UnaryServerHandler(request, context, continuation);
-        }
-
-    }
-    public class BankServer
-    {
-        private double balance;
-        private readonly object balanceLock = new object();
 
         private void deposit(double value)
         {
@@ -97,8 +76,17 @@ namespace BankClient
             }
             return success;
         }
-
-        private double read() { return balance; }
     }
 }
+    public class ServerInterceptor : Interceptor
+    {
+
+        public override Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
+        {
+            string callId = context.RequestHeaders.GetValue("dad");
+            Console.WriteLine("DAD header: " + callId);
+            return base.UnaryServerHandler(request, context, continuation);
+        }
+
+    }
 

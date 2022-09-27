@@ -1,0 +1,2 @@
+obj\Release\net6.0\Protos/BankClient.cs \
+obj\Release\net6.0\Protos/BankClientGrpc.cs: Protos/BankClient.proto

@@ -5,14 +5,10 @@
       "Google.Protobuf/3.21.6": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Google.Protobuf.dll": {
-            "related": ".pdb;.xml"
-          }
+          "lib/net5.0/Google.Protobuf.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Google.Protobuf.dll": {
-            "related": ".pdb;.xml"
-          }
+          "lib/net5.0/Google.Protobuf.dll": {}
         }
       },
       "Grpc.Core/2.46.5": {
@@ -22,14 +18,10 @@
           "System.Memory": "4.5.3"
         },
         "compile": {
-          "lib/netstandard2.0/Grpc.Core.dll": {
-            "related": ".pdb;.xml"
-          }
+          "lib/netstandard2.0/Grpc.Core.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Grpc.Core.dll": {
-            "related": ".pdb;.xml"
-          }
+          "lib/netstandard2.0/Grpc.Core.dll": {}
         },
         "runtimeTargets": {
           "runtimes/linux-arm64/native/libgrpc_csharp_ext.arm64.so": {
@@ -60,14 +52,10 @@
           "System.Memory": "4.5.3"
         },
         "compile": {
-          "lib/netstandard2.1/Grpc.Core.Api.dll": {
-            "related": ".pdb;.xml"
-          }
+          "lib/netstandard2.1/Grpc.Core.Api.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/Grpc.Core.Api.dll": {
-            "related": ".pdb;.xml"
-          }
+          "lib/netstandard2.1/Grpc.Core.Api.dll": {}
         }
       },
       "Grpc.Tools/2.49.0": {
@@ -243,19 +231,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\zesan\\.nuget\\packages\\": {}
+    "C:\\Users\\Asus\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PaxosServer\\PaxosServer.csproj",
+      "projectUniqueName": "C:\\Users\\Asus\\Source\\Repos\\Dad\\DAD\\PaxosServer\\PaxosServer.csproj",
       "projectName": "PaxosServer",
-      "projectPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PaxosServer\\PaxosServer.csproj",
-      "packagesPath": "C:\\Users\\zesan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PaxosServer\\obj\\",
+      "projectPath": "C:\\Users\\Asus\\Source\\Repos\\Dad\\DAD\\PaxosServer\\PaxosServer.csproj",
+      "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Asus\\Source\\Repos\\Dad\\DAD\\PaxosServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\zesan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -302,8 +290,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -312,7 +299,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

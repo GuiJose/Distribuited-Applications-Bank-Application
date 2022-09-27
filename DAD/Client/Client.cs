@@ -1,4 +1,4 @@
-﻿using DADPerfectChannelClient;
+﻿using BankClient;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
@@ -9,9 +9,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DADPerfectChannel
+namespace BankClient
 {
-    static class DADPerfectChannelClient
+    static class BankClientClient
     {
         /// <summary>
         ///  The main entry point for the application.
@@ -26,9 +26,9 @@ namespace DADPerfectChannel
             var clientInterceptor = new ClientInterceptor();
             GrpcChannel channel = GrpcChannel.ForAddress("http://" + ServerHostname + ":" + ServerPort);
             CallInvoker interceptingInvoker = channel.Intercept(clientInterceptor);
-            var client = new PerfectChannelService.PerfectChannelServiceClient(interceptingInvoker);
-            PerfectChannelRequest registerRequest = new PerfectChannelRequest { Message = "test" };
-            PerfectChannelReply reply = client.Test(registerRequest);
+            var client = new BankClientService.BankClientServiceClient(interceptingInvoker);
+            RegisterRequest registerRequest = new RegisterRequest { Message = "test" };
+            Reply reply = client.Test(registerRequest);
             Console.WriteLine("reply: " + reply.Status);
             Console.ReadKey();
         }

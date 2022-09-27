@@ -3,26 +3,27 @@ using Grpc.Core.Interceptors;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BankClient;
 
-namespace DADPerfectChannel
+namespace BankClient
 {
     // ChatServerService is the namespace defined in the protobuf
     // ChatServerServiceBase is the generated base implementation of the service
-    public class DADPerfectChannelService : PerfectChannelService.PerfectChannelServiceBase
+    public class BankClientService : BankClientService.BankClientServiceBase
     {
         private Dictionary<string, string> clientMap = new Dictionary<string, string>();
 
-        public DADPerfectChannelService()
+        public BankClientService()
         {
         }
 
         public override Task<PerfectChannelReply> Test(
-            PerfectChannelRequest request, ServerCallContext context)
+            RegisterRequest request, ServerCallContext context)
         {
             return Task.FromResult(Reg(request));
         }
 
-        public PerfectChannelReply Reg(PerfectChannelRequest request)
+        public PerfectChannelReply Reg(RegisterRequest request)
         {
 
             lock (this)
@@ -44,7 +45,7 @@ namespace DADPerfectChannel
 
             Server server = new Server
             {
-                Services = { PerfectChannelService.BindService(new DADPerfectChannelService()).Intercept(new ServerInterceptor()) },
+                Services = { BankClientService.BindService(new BankClientService()).Intercept(new ServerInterceptor()) },
                 Ports = { new ServerPort(ServerHostname, ServerPort, ServerCredentials.Insecure) }
             };
             server.Start();
@@ -67,30 +68,37 @@ namespace DADPerfectChannel
         }
 
     }
+    public class BankServer
+    {
+        private double balance;
+        private readonly object balanceLock = new object();
 
-    private void deposit(double value)
-    {
-        lock (balanceLock)
+        private void deposit(double value)
         {
-            balance += value;
-        }
-    }
-    private bool withdrawal(double value)
-    {
-        bool success = false;
-        lock (balanceLock)
-        {
-            if (balance < value)
+            lock (balanceLock)
             {
-                success = false;
-            }
-            else
-            {
-                balance = balance - value;
-                success = true;
+                balance += value;
             }
         }
-        return success;
+        private bool withdrawal(double value)
+        {
+            bool success = false;
+            lock (balanceLock)
+            {
+                if (balance < value)
+                {
+                    success = false;
+                }
+                else
+                {
+                    balance = balance - value;
+                    success = true;
+                }
+            }
+            return success;
+        }
+
+        private double read() { return balance; }
     }
 }
 

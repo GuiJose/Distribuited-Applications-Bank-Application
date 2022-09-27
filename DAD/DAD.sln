@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaxosServer", "PaxosServer\PaxosServer.csproj", "{3979E4D3-8B7D-41CC-BE53-E64C629D8AD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaxosServer", "PaxosServer\PaxosServer.csproj", "{3979E4D3-8B7D-41CC-BE53-E64C629D8AD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankServer", "BankServer\BankServer.csproj", "{2B157130-D669-48E1-A65D-C1AEE02B0F41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankServer", "BankServer\BankServer.csproj", "{2B157130-D669-48E1-A65D-C1AEE02B0F41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{8094E12B-549A-4205-878B-8AC7E1423815}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2B157130-D669-48E1-A65D-C1AEE02B0F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B157130-D669-48E1-A65D-C1AEE02B0F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B157130-D669-48E1-A65D-C1AEE02B0F41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8094E12B-549A-4205-878B-8AC7E1423815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8094E12B-549A-4205-878B-8AC7E1423815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8094E12B-549A-4205-878B-8AC7E1423815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8094E12B-549A-4205-878B-8AC7E1423815}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

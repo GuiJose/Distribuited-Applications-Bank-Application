@@ -1,40 +1,17 @@
 ﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
 
-namespace BankClient
+namespace BankServer
 {
-    // ChatServerService is the namespace defined in the protobuf
-    // ChatServerServiceBase is the generated base implementation of the service
-    public class BankService : BankClientService.BankClientServiceBase
-    {
-        private Dictionary<string, string> clientMap = new Dictionary<string, string>();
-
-        public BankService()
-        {
-        }
-
-        public override Task<RegisterReply> Register(
-            RegisterRequest request, ServerCallContext context)
-        {
-            return Task.FromResult(Reg(request));
-        }
-
-        public RegisterReply Reg(RegisterRequest request)
-        {
-
-            lock (this)
-            {
-                Console.WriteLine("Received request to register");
-            }
-            return new RegisterReply{};
-        }
-    }
     class BankServer
     {
-        private double balance;
-        private readonly object balanceLock = new object();
+        private static bool frozen = false;
+        private static double balance = 0;
+        private static readonly object balanceLock = new object();
+        private static readonly object frozenLock = new object();
         static void Main(string[] args)
         {
+            bool keepRunning = true;
             const int ServerPort = 1001;
             const string ServerHostname = "localhost";
 
@@ -44,22 +21,43 @@ namespace BankClient
                 Ports = { new ServerPort(ServerHostname, ServerPort, ServerCredentials.Insecure) }
             };
             server.Start();
+
             Console.WriteLine("ChatServer server listening on port " + ServerPort);
-            Console.WriteLine("Press any key to stop the server...");
-            Console.ReadKey();
 
+            while (keepRunning)
+            {
+                Console.WriteLine("Press 'F' to frozen the process, 'N' to put the process in its normal condition or press" +
+                    "'X' to finish the process.\r\n");
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.F:
+                        lock (frozenLock)
+                        {
+                            frozen = true;
+                        }
+                        break;
+                    case ConsoleKey.N:
+                        lock (frozenLock)
+                        {
+                            frozen = false;
+                        }
+                        break;
+                    case ConsoleKey.X:
+                        keepRunning = false;
+                        break;
+                }
+            }
             server.ShutdownAsync().Wait();
-
         }
 
-        private void deposit(double value)
+        public static void Deposit(double value)
         {
             lock (balanceLock)
             {
                 balance += value;
             }
         }
-        private bool withdrawal(double value)
+        public static bool Withdrawal(double value)
         {
             bool success = false;
             lock (balanceLock)
@@ -76,6 +74,21 @@ namespace BankClient
             }
             return success;
         }
+
+        public static double GetBalance() {
+            lock (balanceLock)
+            {
+                return balance;
+            }
+        }
+
+        public static bool GetFrozen()
+        {
+            lock (frozenLock)
+            {
+                return frozen;
+            }
+        }
     }
 }
     public class ServerInterceptor : Interceptor
@@ -84,9 +97,8 @@ namespace BankClient
         public override Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
         {
             string callId = context.RequestHeaders.GetValue("dad");
-            Console.WriteLine("DAD header: " + callId);
+            //Console.WriteLine("DAD header: " + callId);
             return base.UnaryServerHandler(request, context, continuation);
         }
 
     }
-

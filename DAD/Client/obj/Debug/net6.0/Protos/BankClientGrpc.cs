@@ -57,10 +57,6 @@ namespace BankClient {
     static readonly grpc::Marshaller<global::BankClient.ReadBalanceRequest> __Marshaller_ReadBalanceRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BankClient.ReadBalanceRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::BankClient.ReadBalanceReply> __Marshaller_ReadBalanceReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BankClient.ReadBalanceReply.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::BankClient.RegisterRequest> __Marshaller_RegisterRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BankClient.RegisterRequest.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::BankClient.RegisterReply> __Marshaller_RegisterReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BankClient.RegisterReply.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::BankClient.DepositRequest, global::BankClient.DepositReply> __Method_Deposit = new grpc::Method<global::BankClient.DepositRequest, global::BankClient.DepositReply>(
@@ -85,14 +81,6 @@ namespace BankClient {
         "ReadBalance",
         __Marshaller_ReadBalanceRequest,
         __Marshaller_ReadBalanceReply);
-
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::BankClient.RegisterRequest, global::BankClient.RegisterReply> __Method_Register = new grpc::Method<global::BankClient.RegisterRequest, global::BankClient.RegisterReply>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "Register",
-        __Marshaller_RegisterRequest,
-        __Marshaller_RegisterReply);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -186,26 +174,6 @@ namespace BankClient {
       public virtual grpc::AsyncUnaryCall<global::BankClient.ReadBalanceReply> ReadBalanceAsync(global::BankClient.ReadBalanceRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_ReadBalance, null, options, request);
-      }
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::BankClient.RegisterReply Register(global::BankClient.RegisterRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return Register(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::BankClient.RegisterReply Register(global::BankClient.RegisterRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_Register, null, options, request);
-      }
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::BankClient.RegisterReply> RegisterAsync(global::BankClient.RegisterRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return RegisterAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::BankClient.RegisterReply> RegisterAsync(global::BankClient.RegisterRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_Register, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

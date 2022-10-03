@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8094e12b-549a-4205-878b-8ac7e1423815": {
+      "ProjectGuid": "8094e12b-549a-4205-878b-8ac7e1423815",
+      "DisplayName": "Client",
+      "ColorIndex": 0
+    },
+    "2b157130-d669-48e1-a65d-c1aee02b0f41": {
+      "ProjectGuid": "2b157130-d669-48e1-a65d-c1aee02b0f41",
+      "DisplayName": "BankServer",
+      "ColorIndex": 1
+    },
+    "3979e4d3-8b7d-41cc-be53-e64c629d8ad3": {
+      "ProjectGuid": "3979e4d3-8b7d-41cc-be53-e64c629d8ad3",
+      "DisplayName": "PaxosServer",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

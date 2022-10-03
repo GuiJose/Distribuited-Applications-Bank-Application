@@ -56,10 +56,6 @@ public static partial class BankClientService
   static readonly grpc::Marshaller<global::ReadBalanceRequest> __Marshaller_ReadBalanceRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ReadBalanceRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::ReadBalanceReply> __Marshaller_ReadBalanceReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ReadBalanceReply.Parser));
-  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::RegisterRequest> __Marshaller_RegisterRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::RegisterRequest.Parser));
-  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::RegisterReply> __Marshaller_RegisterReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::RegisterReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DepositRequest, global::DepositReply> __Method_Deposit = new grpc::Method<global::DepositRequest, global::DepositReply>(
@@ -84,14 +80,6 @@ public static partial class BankClientService
       "ReadBalance",
       __Marshaller_ReadBalanceRequest,
       __Marshaller_ReadBalanceReply);
-
-  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Method<global::RegisterRequest, global::RegisterReply> __Method_Register = new grpc::Method<global::RegisterRequest, global::RegisterReply>(
-      grpc::MethodType.Unary,
-      __ServiceName,
-      "Register",
-      __Marshaller_RegisterRequest,
-      __Marshaller_RegisterReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -121,12 +109,6 @@ public static partial class BankClientService
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::System.Threading.Tasks.Task<global::RegisterReply> Register(global::RegisterRequest request, grpc::ServerCallContext context)
-    {
-      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-    }
-
   }
 
   /// <summary>Creates service definition that can be registered with a server</summary>
@@ -137,8 +119,7 @@ public static partial class BankClientService
     return grpc::ServerServiceDefinition.CreateBuilder()
         .AddMethod(__Method_Deposit, serviceImpl.Deposit)
         .AddMethod(__Method_Withdrawal, serviceImpl.Withdrawal)
-        .AddMethod(__Method_ReadBalance, serviceImpl.ReadBalance)
-        .AddMethod(__Method_Register, serviceImpl.Register).Build();
+        .AddMethod(__Method_ReadBalance, serviceImpl.ReadBalance).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -151,7 +132,6 @@ public static partial class BankClientService
     serviceBinder.AddMethod(__Method_Deposit, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DepositRequest, global::DepositReply>(serviceImpl.Deposit));
     serviceBinder.AddMethod(__Method_Withdrawal, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::WithdrawalRequest, global::WithdrawalReply>(serviceImpl.Withdrawal));
     serviceBinder.AddMethod(__Method_ReadBalance, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ReadBalanceRequest, global::ReadBalanceReply>(serviceImpl.ReadBalance));
-    serviceBinder.AddMethod(__Method_Register, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::RegisterRequest, global::RegisterReply>(serviceImpl.Register));
   }
 
 }

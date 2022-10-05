@@ -8,6 +8,8 @@ namespace PaxosServer
         const int Port = 1002;
         static void Main(string[] args)
         {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
             Server server = new Server
             {
                 Services = { BankPaxosService.BindService(new ServerService()).Intercept(new PaxosServerInterceptor()) },

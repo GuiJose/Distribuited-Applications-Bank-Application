@@ -17,6 +17,8 @@ namespace BankServer
             const int PaxosPort = 1002;
             const string ServerHostname = "localhost";
 
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
             Server server = new Server
             {
                 Services = { BankClientService.BindService(new BankService(account)).Intercept(new BankServerInterceptor()) },

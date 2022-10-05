@@ -6,8 +6,10 @@ namespace BankServer
     // ChatServerServiceBase is the generated base implementation of the service
     public class BankService : BankClientService.BankClientServiceBase
     {
-        public BankService()
+        private BankAccount account;
+        public BankService(BankAccount account)
         {
+            this.account = account;
         }
         public override Task<DepositReply> Deposit(
             DepositRequest request, ServerCallContext context)
@@ -19,8 +21,8 @@ namespace BankServer
         public DepositReply Reg(DepositRequest request)
         {
             Console.WriteLine("Received request to deposit");
-            BankServer.Deposit(request.Ammount);
-            return new DepositReply { Balance = BankServer.GetBalance() };
+            account.Deposit(request.Ammount);
+            return new DepositReply { Balance = account.GetBalance() };
         }
 
         public override Task<WithdrawalReply> Withdrawal(
@@ -33,8 +35,8 @@ namespace BankServer
         public WithdrawalReply Reg2(WithdrawalRequest request)
         {
             Console.WriteLine("Received request to read Balance");
-            bool ok = BankServer.Withdrawal(request.Ammount);
-            return new WithdrawalReply { Balance = BankServer.GetBalance(), Success = ok};
+            bool ok = account.Withdrawal(request.Ammount);
+            return new WithdrawalReply { Balance = account.GetBalance(), Success = ok};
         }
 
         public override Task<ReadBalanceReply> ReadBalance(
@@ -47,7 +49,7 @@ namespace BankServer
         public ReadBalanceReply Reg3(ReadBalanceRequest request)
         {
             Console.WriteLine("Received request to read Balance");
-            return new ReadBalanceReply {Balance = BankServer.GetBalance() };
+            return new ReadBalanceReply {Balance = account.GetBalance() };
         }
     }
 }

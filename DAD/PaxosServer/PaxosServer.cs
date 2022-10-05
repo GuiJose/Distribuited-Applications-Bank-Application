@@ -1,36 +1,16 @@
 ﻿using Grpc.Core;
+using Grpc.Core.Interceptors;
 
 namespace PaxosServer
 {
-    public class ServerService : BankPaxosService.BankPaxosServiceBase
-    {
-        public ServerService()
-        {
-        }
-
-        public override Task<GreetReply> Greeting(
-            GreetRequest request, ServerCallContext context)
-        {
-            return Task.FromResult(Reg(request));
-        }
-
-        public GreetReply Reg(GreetRequest request)
-        {
-            Console.WriteLine("Received an hi from bank server.");
-            return new GreetReply
-            {
-                Hi = true
-            };
-        }
-    }
     class PaxosServer
     {
-        const int Port = 1001;
+        const int Port = 1002;
         static void Main(string[] args)
         {
             Server server = new Server
             {
-                Services = { BankPaxosService.BindService(new ServerService()) },
+                Services = { BankPaxosService.BindService(new ServerService()).Intercept(new PaxosServerInterceptor()) },
                 Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
             };
             server.Start();
@@ -40,5 +20,32 @@ namespace PaxosServer
 
             server.ShutdownAsync().Wait();
         }
+    }
+}
+
+public class PaxosServerInterceptor : Interceptor
+{
+    public override Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
+    {
+        string callId = context.RequestHeaders.GetValue("dad");
+        //Console.WriteLine("DAD header: " + callId);
+        return base.UnaryServerHandler(request, context, continuation);
+    }
+    public override TResponse BlockingUnaryCall<TRequest, TResponse>(TRequest request, ClientInterceptorContext<TRequest, TResponse> context, BlockingUnaryCallContinuation<TRequest, TResponse> continuation)
+    {
+
+        Metadata metadata = context.Options.Headers; // read original headers
+        if (metadata == null) { metadata = new Metadata(); }
+        metadata.Add("dad", "dad-value"); // add the additional metadata
+
+        // create new context because original context is readonly
+        ClientInterceptorContext<TRequest, TResponse> modifiedContext =
+            new ClientInterceptorContext<TRequest, TResponse>(context.Method, context.Host,
+                new CallOptions(metadata, context.Options.Deadline,
+                    context.Options.CancellationToken, context.Options.WriteOptions,
+                    context.Options.PropagationToken, context.Options.Credentials));
+        //Console.Write("calling server...");
+        TResponse response = base.BlockingUnaryCall(request, modifiedContext, continuation);
+        return response;
     }
 }

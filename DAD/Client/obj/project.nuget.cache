@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Rl79TQUkxBkaD9/e56uoACLR5fwFIpKd8wbyKRPsI+THJZOB1HYt7youQACV/pxq4IU4pyKVX0dQk6LX9JA5oA==",
+  "dgSpecHash": "hpwm59G23ZFSTBU+d3qRLMg2tS2e2e9AJoYiaRNQLwjtPLMVJ/Rb6SResbGUnhJGXyqzAwtDAk/fAqo1mjJTwA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\Client\\Client.csproj",
+  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\Client\\Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\google.protobuf\\3.21.6\\google.protobuf.3.21.6.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\grpc.core\\2.46.5\\grpc.core.2.46.5.nupkg.sha512",

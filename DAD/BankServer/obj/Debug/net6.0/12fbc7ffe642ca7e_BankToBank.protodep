@@ -1,0 +1,2 @@
+obj\Debug\net6.0\Protos/BankToBank.cs \
+obj\Debug\net6.0\Protos/BankToBankGrpc.cs: Protos/BankToBank.proto

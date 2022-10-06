@@ -1,5 +1,8 @@
-﻿using Grpc.Core;
+﻿using System.Collections.Generic;
+using BankPaxosClient;
+using Grpc.Core;
 using Grpc.Core.Interceptors;
+using Grpc.Net.Client;
 
 namespace BankServer
 {
@@ -9,6 +12,8 @@ namespace BankServer
         private static BankAccount account = new BankAccount();
         private static bool frozen = false;
         private static readonly object frozenLock = new object();
+        private static Dictionary<string, BankToBankService.BankToBankServiceClient> otherBankServers = new Dictionary<string, BankToBankService.BankToBankServiceClient>();
+        private static Dictionary<string, BankPaxosService.BankPaxosServiceClient> PaxosServers = new Dictionary<string, BankPaxosService.BankPaxosServiceClient>();
         static void Main(string[] args)
         {
             bool keepRunning = true;
@@ -19,7 +24,8 @@ namespace BankServer
 
             Server server = new Server
             {
-                Services = { BankClientService.BindService(new BankService(account)).Intercept(new BankServerInterceptor()) },
+                Services = { BankClientService.BindService(new BankService(account)).Intercept(new BankServerInterceptor()),
+                BankToBankService.BindService(new BankBankService()).Intercept(new BankServerInterceptor())},
                 Ports = { new ServerPort(ServerHostname, port, ServerCredentials.Insecure) }
             };
             server.Start();
@@ -29,6 +35,24 @@ namespace BankServer
             //GrpcChannel channel = GrpcChannel.ForAddress("http://" + ServerHostname + ":" + PaxosPort);
             //CallInvoker interceptingInvoker = channel.Intercept(new BankServerInterceptor());
             //var paxosServer = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
+
+            createChannels(args);
+            Console.WriteLine("Press any key to talk to other banks");
+            Console.ReadKey();
+            GreetRequest request = new GreetRequest { Hi = true };
+            otherBankServers["http://localhost:10004"].GreetingAsync(request);
+            otherBankServers["http://localhost:10005"].GreetingAsync(request);
+            foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> kvp in PaxosServers)
+            {
+                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+            }
+            GreetRequest3 request3 = new GreetRequest3 { Hi = true };
+            PaxosServers["http://localhost:10000"].GreetingAsync(request3);
+            PaxosServers["http://localhost:10001"].GreetingAsync(request3);
+            PaxosServers["http://localhost:10002"].GreetingAsync(request3);
+
+
+
 
             while (keepRunning)
             {
@@ -68,6 +92,33 @@ namespace BankServer
             lock (frozenLock)
             {
                 return frozen;
+            }
+        }
+        private static void createChannels(string[] args)
+        {
+            for (int i = 1; i < args.Length; i++)
+            {
+                if (i < 3)
+                {
+                    GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:" + args[i]);
+                    CallInvoker interceptingInvoker = channel.Intercept(new BankServerInterceptor());
+                    BankToBankService.BankToBankServiceClient server = new BankToBankService.BankToBankServiceClient(interceptingInvoker);
+                    string host = "http://localhost:" + args[i];
+                    otherBankServers.Add(host, server);
+                }
+                else
+                {
+                    GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:" + args[i]);
+                    CallInvoker interceptingInvoker = channel.Intercept(new BankServerInterceptor());
+                    BankPaxosService.BankPaxosServiceClient server = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
+                    string host = "http://localhost:" + args[i];
+                    PaxosServers.Add(host, server);
+                }
+            }
+
+            foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> kvp in otherBankServers)
+            {
+                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
             }
         }
     }

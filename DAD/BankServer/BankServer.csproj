@@ -20,6 +20,7 @@
   <ItemGroup>
     <Protobuf Include="Protos\PaxosBankServers.proto" GrpcServices="Client" />
 	<Protobuf Include="Protos\BankClient.proto" GrpcServices="Server" />
+	 <Protobuf Include="Protos\BankToBank.proto" GrpcServices="Both" />
   </ItemGroup>
 
 </Project>

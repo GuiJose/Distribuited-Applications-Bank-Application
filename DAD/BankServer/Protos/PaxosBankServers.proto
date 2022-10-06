@@ -3,11 +3,11 @@
 option csharp_namespace = "BankPaxosClient";
 
 service BankPaxosService {
-  rpc Greeting (GreetRequest) returns (GreetReply);
+  rpc Greeting (GreetRequest3) returns (GreetReply3);
 }
-message GreetRequest {
+message GreetRequest3 {
 	bool hi = 1;
 }
-message GreetReply {
+message GreetReply3 {
 	bool hi = 1;
 }

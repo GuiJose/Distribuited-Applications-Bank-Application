@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PaxosServer\\PaxosServer.csproj": {}
+    "C:\\Users\\diogo\\Source\\Repos\\Dad\\DAD\\PaxosServer\\PaxosServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PaxosServer\\PaxosServer.csproj": {
+    "C:\\Users\\diogo\\Source\\Repos\\Dad\\DAD\\PaxosServer\\PaxosServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PaxosServer\\PaxosServer.csproj",
+        "projectUniqueName": "C:\\Users\\diogo\\Source\\Repos\\Dad\\DAD\\PaxosServer\\PaxosServer.csproj",
         "projectName": "PaxosServer",
-        "projectPath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PaxosServer\\PaxosServer.csproj",
-        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PaxosServer\\obj\\",
+        "projectPath": "C:\\Users\\diogo\\Source\\Repos\\Dad\\DAD\\PaxosServer\\PaxosServer.csproj",
+        "packagesPath": "C:\\Users\\diogo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diogo\\Source\\Repos\\Dad\\DAD\\PaxosServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -65,7 +65,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -74,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

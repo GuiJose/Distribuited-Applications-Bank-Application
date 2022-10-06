@@ -1,37 +1,100 @@
 ﻿using System.Diagnostics;
-using System;
 
 
 string[] text = File.ReadAllLines("configuration_sample.txt");
-string bankPorts = "";
-string paxosPorts = "";
+List<string> bankPorts = new List<string>();
+List<string> paxosPorts = new List<string>();
+int numberClients = 0;
 
-foreach (string line in text[0..3])
+Dictionary<string, string> processes = new Dictionary<string, string>();
+
+foreach (string line in text)
 {
+    if (line[0] == 'P')
+    {
+        if (line.Split(' ')[2].Equals("boney"))
+        {
+            paxosPorts.Add(line.Split(':')[2]);
+        }
+        else if (line.Split(' ')[2].Equals("bank"))
+        {
+            bankPorts.Add(line.Split(':')[2]);
+        }
+        else
+        {
+            numberClients++;
+        }
+    }
+}
+
+//inicializar os servidores paxos
+for (int i = 0; i < paxosPorts.Count(); i++)
+{
+    List<string> sendingPorts = new List<string>();
+    sendingPorts.Add(paxosPorts[i]);
+    foreach (string port in paxosPorts)
+    {
+        if (!port.Equals(paxosPorts[i]))
+        {
+            sendingPorts.Add(port);
+        }
+    }
+    
     ProcessStartInfo paxosServer = new ProcessStartInfo("C:/Users/Asus/source/repos/Dad/DAD/PaxosServer/bin/Debug/net6.0/PaxosServer.exe");
-    paxosServer.Arguments = line.Split(':')[2];
+    foreach (string port in sendingPorts)
+    {
+        paxosServer.ArgumentList.Add(port);
+        
+    }
+
     paxosServer.CreateNoWindow = false;
     paxosServer.UseShellExecute = true;
     Process p = Process.Start(paxosServer);
 }
-foreach (string line in text[3..6])
+
+
+//inicializar os servidores do banco
+
+for (int i = 0; i < bankPorts.Count(); i++)
 {
+    List<string> sendingPorts = new List<string>();
+    sendingPorts.Add(bankPorts[i]);
+    foreach (string port in bankPorts)
+    {
+        if (!port.Equals(bankPorts[i]))
+        {
+            sendingPorts.Add(port);
+        }
+    }
+    foreach (string port in paxosPorts)
+    {
+        sendingPorts.Add(port);
+    }
+
     ProcessStartInfo bankServer = new ProcessStartInfo("C:/Users/Asus/source/repos/Dad/DAD/BankServer/bin/Debug/net6.0/BankServer.exe");
-    bankServer.Arguments = line.Split(':')[2];
-    bankPorts += line.Split(':')[2] + "|";
+    foreach (string port in sendingPorts)
+    {
+        bankServer.ArgumentList.Add(port);
+    }
+
     bankServer.CreateNoWindow = false;
     bankServer.UseShellExecute = true;
     Process p = Process.Start(bankServer);
 }
 
 
-foreach (string line in text[6..8])
+//inicializar os clientes
+
+for (int i = 0; i < numberClients; i++)
 {
     ProcessStartInfo client = new ProcessStartInfo("C:/Users/Asus/source/repos/Dad/DAD/Client/bin/Debug/net6.0/Client.exe");
-    client.Arguments = bankPorts;
-    Console.WriteLine(bankPorts);
+    foreach (string port in bankPorts)
+    {
+        client.ArgumentList.Add(port);
+    }
     client.CreateNoWindow = false;
     client.UseShellExecute = true;
     Process p = Process.Start(client);
-}   
+}
+
 

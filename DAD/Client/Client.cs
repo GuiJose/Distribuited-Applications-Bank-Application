@@ -12,7 +12,7 @@ namespace Client
         static void Main(string[] args)
         {
             bool keepRunnning = true;
-            createChannels(args[0]);
+            createChannels(args);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             while (keepRunnning)
@@ -55,16 +55,12 @@ namespace Client
             }
         }
 
-        public static void createChannels(string args)
+        public static void createChannels(string[] args)
         {
-            string[] ports = args.Split('|');
-            ports = ports.Take(ports.Count() - 1).ToArray();
-
-            foreach (string port in ports)
+            foreach (string port in args)
             {
-                var clientInterceptor = new ClientInterceptor();
                 GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:" + port);
-                CallInvoker interceptingInvoker = channel.Intercept(clientInterceptor);
+                CallInvoker interceptingInvoker = channel.Intercept(new ClientInterceptor());
                 BankClientService.BankClientServiceClient server = new BankClientService.BankClientServiceClient(interceptingInvoker);
                 string host = "http://localhost:" + port;
                 servers.Add(host, server);

@@ -1,13 +1,11 @@
-﻿using BankPaxosClient;
-using Grpc.Core;
+﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
-using Grpc.Net.Client;
 
 namespace BankServer
 {
     class BankServer
     {
-        static int port;
+        private static int port;
         private static BankAccount account = new BankAccount();
         private static bool frozen = false;
         private static readonly object frozenLock = new object();
@@ -15,7 +13,6 @@ namespace BankServer
         {
             bool keepRunning = true;
             port = Int16.Parse(args[0]);
-            const int PaxosPort = 1002;
             const string ServerHostname = "localhost";
 
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
@@ -26,12 +23,12 @@ namespace BankServer
                 Ports = { new ServerPort(ServerHostname, port, ServerCredentials.Insecure) }
             };
             server.Start();
-
-            GrpcChannel channel = GrpcChannel.ForAddress("http://" + ServerHostname + ":" + PaxosPort);
-            CallInvoker interceptingInvoker = channel.Intercept(new BankServerInterceptor());
-            var paxosServer = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
-
             Console.WriteLine("ChatServer server listening on port " + port);
+
+
+            //GrpcChannel channel = GrpcChannel.ForAddress("http://" + ServerHostname + ":" + PaxosPort);
+            //CallInvoker interceptingInvoker = channel.Intercept(new BankServerInterceptor());
+            //var paxosServer = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
 
             while (keepRunning)
             {
@@ -52,9 +49,9 @@ namespace BankServer
                         }
                         break;
                     case ConsoleKey.A:
-                        GreetRequest request = new GreetRequest { Hi = true };
-                        GreetReply reply = paxosServer.Greeting(request);
-                        Console.WriteLine(reply.ToString());
+                        //GreetRequest request = new GreetRequest { Hi = true };
+                        //GreetReply reply = paxosServer.Greeting(request);
+                        //Console.WriteLine(reply.ToString());
                         break;
 
                     case ConsoleKey.X:
@@ -65,6 +62,7 @@ namespace BankServer
             }
             server.ShutdownAsync().Wait();
         }
+
         public static bool GetFrozen()
         {
             lock (frozenLock)

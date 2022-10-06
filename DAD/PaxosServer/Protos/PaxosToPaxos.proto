@@ -1,0 +1,11 @@
+﻿syntax = "proto3";
+
+service PaxosToPaxosService {
+  rpc Greeting2 (GreetRequest2) returns (GreetReply2);
+}
+message GreetRequest2 {
+	bool hi = 1;
+}
+message GreetReply2 {
+	bool hi = 1;
+}

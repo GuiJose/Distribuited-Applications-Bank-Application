@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.Net.Client" Version="2.49.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="configuration_sample.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

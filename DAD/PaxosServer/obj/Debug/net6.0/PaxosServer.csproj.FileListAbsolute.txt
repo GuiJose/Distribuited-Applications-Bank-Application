@@ -70,3 +70,6 @@ C:\Users\Asus\source\repos\DAD\DAD\PaxosServer\obj\Debug\net6.0\PaxosServer.dll
 C:\Users\Asus\source\repos\DAD\DAD\PaxosServer\obj\Debug\net6.0\ref\PaxosServer.dll
 C:\Users\Asus\source\repos\DAD\DAD\PaxosServer\obj\Debug\net6.0\PaxosServer.pdb
 C:\Users\Asus\source\repos\DAD\DAD\PaxosServer\obj\Debug\net6.0\PaxosServer.genruntimeconfig.cache
+C:\Users\Asus\source\repos\DAD\DAD\PaxosServer\bin\Debug\net6.0\Grpc.Net.Client.dll
+C:\Users\Asus\source\repos\DAD\DAD\PaxosServer\bin\Debug\net6.0\Grpc.Net.Common.dll
+C:\Users\Asus\source\repos\DAD\DAD\PaxosServer\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll

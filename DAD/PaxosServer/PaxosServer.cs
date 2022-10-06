@@ -1,29 +1,43 @@
 ﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
+using Grpc.Net.Client;
 
 namespace PaxosServer
 {
     class PaxosServer
     {
-
-        static int Port;
+        private static int Port;
+        private static Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient> otherPaxosServers = new Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient>();
         static void Main(string[] args)
         {
             Port = Int16.Parse(args[0]);
-            Console.WriteLine(Port);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             Server server = new Server
             {
-                Services = { BankPaxosService.BindService(new ServerService()).Intercept(new PaxosServerInterceptor()) },
+                Services = { BankPaxosService.BindService(new BankService()).Intercept(new PaxosServerInterceptor()),  
+                PaxosToPaxosService.BindService(new PaxosPaxosService()).Intercept(new PaxosServerInterceptor())},
                 Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
             };
             server.Start();
             Console.WriteLine("PaxosServer server listening on port " + Port);
+
+            createChannels(args);
+
             Console.WriteLine("Press any key to stop the server...");
             Console.ReadKey();
-
             server.ShutdownAsync().Wait();
+        }
+        private static void createChannels(string[] args)
+        {
+            for (int i = 1; i < args.Length; i++)
+            {
+                GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:" + args[i]);
+                CallInvoker interceptingInvoker = channel.Intercept(new PaxosServerInterceptor());
+                PaxosToPaxosService.PaxosToPaxosServiceClient server = new PaxosToPaxosService.PaxosToPaxosServiceClient(interceptingInvoker);
+                string host = "http://localhost:" + args[i];
+                otherPaxosServers.Add(host, server);
+            }
         }
     }
 }

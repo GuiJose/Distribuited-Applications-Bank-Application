@@ -1,0 +1,28 @@
+﻿syntax = "proto3";
+
+service BankClientService {
+  rpc Deposit (DepositRequest) returns (DepositReply);
+  rpc Withdrawal (WithdrawalRequest) returns (WithdrawalReply);
+  rpc ReadBalance (ReadBalanceRequest) returns (ReadBalanceReply);
+}
+
+message DepositRequest {
+	double ammount = 1;
+}
+message DepositReply {
+	double balance = 1;
+}
+
+message WithdrawalRequest {
+	double ammount = 1;
+}
+message WithdrawalReply {
+	double balance = 1;
+	bool success = 2;
+}
+
+message ReadBalanceRequest {}
+
+message ReadBalanceReply {
+	double balance = 1;
+}

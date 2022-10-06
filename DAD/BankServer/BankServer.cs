@@ -7,13 +7,14 @@ namespace BankServer
 {
     class BankServer
     {
+        static int port;
         private static BankAccount account = new BankAccount();
         private static bool frozen = false;
         private static readonly object frozenLock = new object();
         static void Main(string[] args)
         {
             bool keepRunning = true;
-            const int ServerPort = 1001;
+            port = Int16.Parse(args[0]);
             const int PaxosPort = 1002;
             const string ServerHostname = "localhost";
 
@@ -22,7 +23,7 @@ namespace BankServer
             Server server = new Server
             {
                 Services = { BankClientService.BindService(new BankService(account)).Intercept(new BankServerInterceptor()) },
-                Ports = { new ServerPort(ServerHostname, ServerPort, ServerCredentials.Insecure) }
+                Ports = { new ServerPort(ServerHostname, port, ServerCredentials.Insecure) }
             };
             server.Start();
 
@@ -30,7 +31,7 @@ namespace BankServer
             CallInvoker interceptingInvoker = channel.Intercept(new BankServerInterceptor());
             var paxosServer = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
 
-            Console.WriteLine("ChatServer server listening on port " + ServerPort);
+            Console.WriteLine("ChatServer server listening on port " + port);
 
             while (keepRunning)
             {

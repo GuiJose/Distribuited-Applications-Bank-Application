@@ -5,9 +5,12 @@ namespace PaxosServer
 {
     class PaxosServer
     {
-        const int Port = 1002;
+
+        static int Port;
         static void Main(string[] args)
         {
+            Port = Int16.Parse(args[0]);
+            Console.WriteLine(Port);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             Server server = new Server

@@ -1,0 +1,16 @@
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\bin\Debug\net6.0\PuppetMaster.exe
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\bin\Debug\net6.0\PuppetMaster.deps.json
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\bin\Debug\net6.0\PuppetMaster.runtimeconfig.json
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\bin\Debug\net6.0\PuppetMaster.dll
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\bin\Debug\net6.0\ref\PuppetMaster.dll
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\bin\Debug\net6.0\PuppetMaster.pdb
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\obj\Debug\net6.0\PuppetMaster.csproj.AssemblyReference.cache
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\obj\Debug\net6.0\PuppetMaster.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\obj\Debug\net6.0\PuppetMaster.AssemblyInfoInputs.cache
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\obj\Debug\net6.0\PuppetMaster.AssemblyInfo.cs
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\obj\Debug\net6.0\PuppetMaster.csproj.CoreCompileInputs.cache
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\obj\Debug\net6.0\PuppetMaster.dll
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\obj\Debug\net6.0\ref\PuppetMaster.dll
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\obj\Debug\net6.0\PuppetMaster.pdb
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\obj\Debug\net6.0\PuppetMaster.genruntimeconfig.cache
+C:\Users\Asus\source\repos\Dad\DAD\PuppetMaster\bin\Debug\net6.0\configuration_sample.txt

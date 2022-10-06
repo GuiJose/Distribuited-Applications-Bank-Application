@@ -15,7 +15,17 @@
       "ProjectGuid": "3979e4d3-8b7d-41cc-be53-e64c629d8ad3",
       "DisplayName": "PaxosServer",
       "ColorIndex": 2
+    },
+    "50146f40-7d90-4596-b48b-0a38b1d6115c": {
+      "ProjectGuid": "50146f40-7d90-4596-b48b-0a38b1d6115c",
+      "DisplayName": "PuppetMaster",
+      "ColorIndex": 3
+    },
+    "5832f73e-8b54-46d5-8cf7-dc052c3da20e": {
+      "ProjectGuid": "5832f73e-8b54-46d5-8cf7-dc052c3da20e",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 5
 }

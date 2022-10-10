@@ -7,18 +7,18 @@ namespace PaxosServer
     public class PaxosServer
     {
         private static int Port;
+        private static Paxos paxos;
         private static Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient> otherPaxosServers = new Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient>();
-        private static Paxos Paxos;
         static void Main(string[] args)
         {
-            Port = Int16.Parse(args[0]);
-            Paxos = new Paxos(args.Length - 1);
+            paxos = new Paxos(Int16.Parse(args[0]));
+            Port = Int16.Parse(args[1]);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             Server server = new Server
             {
                 Services = { BankPaxosService.BindService(new BankService()).Intercept(new PaxosServerInterceptor()),  
-                PaxosToPaxosService.BindService(new PaxosPaxosService(Paxos.getAcceptors(), Paxos.getLearners(), Paxos.getProposers())).Intercept(new PaxosServerInterceptor())},
+                PaxosToPaxosService.BindService(new PaxosPaxosService(paxos)).Intercept(new PaxosServerInterceptor())},
                 Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
             };
             server.Start();
@@ -26,13 +26,18 @@ namespace PaxosServer
 
             createChannels(args);
 
+            if (Port != 10000)
+            {
+                otherPaxosServers["http://localhost:10000"].PrepareRequestAsync(new Prepare { ProposerID = 2 });
+            }
+
             Console.WriteLine("Press any key to stop the server...");
             Console.ReadKey();
             server.ShutdownAsync().Wait();
         }
         private static void createChannels(string[] args)
         {
-            for (int i = 1; i < args.Length; i++)
+            for (int i = 2; i < args.Length; i++)
             {
                 GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:" + args[i]);
                 CallInvoker interceptingInvoker = channel.Intercept(new PaxosServerInterceptor());
@@ -41,6 +46,7 @@ namespace PaxosServer
                 otherPaxosServers.Add(host, server);
             }
         }
+
     }
 }
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj": {}
+    "C:\\Users\\diogo\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj": {
+    "C:\\Users\\diogo\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+        "projectUniqueName": "C:\\Users\\diogo\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
         "projectName": "PuppetMaster",
-        "projectPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
-        "packagesPath": "C:\\Users\\zesan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\obj\\",
+        "projectPath": "C:\\Users\\diogo\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+        "packagesPath": "C:\\Users\\diogo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diogo\\source\\repos\\Dad\\DAD\\PuppetMaster\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\zesan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

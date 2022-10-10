@@ -1,52 +1,45 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 
 namespace PaxosServer
 {
     public class PaxosPaxosService : PaxosToPaxosService.PaxosToPaxosServiceBase
     {
-        private Acceptor[] acceptors;
-        private Learner[] learners;
-        private Proposer[] proposers;
-
-        public PaxosPaxosService(Acceptor[] acceptors, Learner[] learners, Proposer[] proposers)
+        private Paxos paxos;
+        public PaxosPaxosService(Paxos paxos)
         {
-            this.acceptors = acceptors;
-            this.learners = learners;
-            this.proposers = proposers;
+            this.paxos = paxos;
         }
 
-        public override Task<GreetReply2> Greeting2(
-            GreetRequest2 request, ServerCallContext context)
+        public override Task<Promise> PrepareRequest(Prepare request, ServerCallContext context)
         {
-            Console.WriteLine("Received an Hi from another Paxos Server.");
-            return Task.FromResult(Reg(request));
+            return Task.FromResult(Promise(request));
         }
 
-        public GreetReply2 Reg(GreetRequest2 request)
+
+        public Promise Promise(Prepare request)
         {
-            return new GreetReply2
-            {
-                Hi = true
-            };
+            return new Promise { Value = { paxos.promise(request.ProposerID) } };
         }
 
-        public override Task<AcceptReply> Accept( AcceptRequest request, ServerCallContext context)
-        {
-            return Task.FromResult(Accepted(request));
-        }
+        //public override Task<Accepted_message> AcceptRequest(Accept request, ServerCallContext context)
+        //{
+          //  return Task.FromResult(Accepted(request));
+        //}
 
-        public AcceptReply Accepted( AcceptRequest request)
-        {
-            int acceptedCount = 0;
-            for(int i = 0; i < acceptors.Length; i++)
-            {
-                if (acceptors[i].Accept(request.ProposerNumber, request.Value)) acceptedCount++;
-            }
 
-            if (acceptedCount > acceptors.Length / 2) return new AcceptReply { Accepted = true };
-            
-            return new AcceptReply { Accepted = false };
-        }
+        //public Accepted_message Accepted(Accept request)
+        //{
+            //int acceptedCount = 0;
+            //for (int i = 0; i < acceptors.Length; i++)
+            //{
+              //  if (acceptors[i].Accept(request.ProposerID, request.Value)) acceptedCount++;
+            //}
+
+            //if (acceptedCount > acceptors.Length / 2) return new Accepted_message { Accepted = true };
+
+            //return new Accepted_message { Accepted = false };
+        //}
 
     }
 }

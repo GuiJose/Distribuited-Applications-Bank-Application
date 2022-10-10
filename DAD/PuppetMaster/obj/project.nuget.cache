@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "N5zdHBLts7MfSiILbShRpkewUIZ6B4mYOQVhaaCY5JyyQlB4rRyPGnd3qlkbBJRi3elUl8TgwjSWN/Pd7cWHpA==",
+  "dgSpecHash": "hC4jrd4Oj2a+aU5JiGvHpT9AQpbOXB0edmklpKKhv1J9QkLqo90eMPpQGlrqsliMKnfXAvqJ0o4zyNrbPbvryw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+  "projectFilePath": "C:\\Users\\diogo\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\zesan\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
-    "C:\\Users\\zesan\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
-    "C:\\Users\\zesan\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
-    "C:\\Users\\zesan\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
-    "C:\\Users\\zesan\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+    "C:\\Users\\diogo\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
+    "C:\\Users\\diogo\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
+    "C:\\Users\\diogo\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
+    "C:\\Users\\diogo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\diogo\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
   ],
   "logs": []
 }

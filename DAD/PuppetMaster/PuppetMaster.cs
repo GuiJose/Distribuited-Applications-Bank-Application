@@ -8,6 +8,8 @@ int numberClients = 0;
 
 Dictionary<string, string> processes = new Dictionary<string, string>();
 
+int iD = 1;
+
 foreach (string line in text)
 {
     if (line[0] == 'P')
@@ -31,6 +33,8 @@ foreach (string line in text)
 for (int i = 0; i < paxosPorts.Count(); i++)
 {
     List<string> sendingPorts = new List<string>();
+    sendingPorts.Add(iD.ToString());
+    iD++;
     sendingPorts.Add(paxosPorts[i]);
     foreach (string port in paxosPorts)
     {

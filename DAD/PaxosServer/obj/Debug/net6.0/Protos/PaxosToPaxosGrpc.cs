@@ -45,29 +45,39 @@ public static partial class PaxosToPaxosService
   }
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::GreetRequest2> __Marshaller_GreetRequest2 = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetRequest2.Parser));
+  static readonly grpc::Marshaller<global::Accept> __Marshaller_Accept = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Accept.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::GreetReply2> __Marshaller_GreetReply2 = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetReply2.Parser));
+  static readonly grpc::Marshaller<global::Accepted_message> __Marshaller_Accepted_message = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Accepted_message.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::AcceptRequest> __Marshaller_AcceptRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AcceptRequest.Parser));
+  static readonly grpc::Marshaller<global::Prepare> __Marshaller_Prepare = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Prepare.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::AcceptReply> __Marshaller_AcceptReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AcceptReply.Parser));
+  static readonly grpc::Marshaller<global::Promise> __Marshaller_Promise = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Promise.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::Decided> __Marshaller_Decided = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Decided.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Method<global::GreetRequest2, global::GreetReply2> __Method_Greeting2 = new grpc::Method<global::GreetRequest2, global::GreetReply2>(
+  static readonly grpc::Method<global::Accept, global::Accepted_message> __Method_AcceptRequest = new grpc::Method<global::Accept, global::Accepted_message>(
       grpc::MethodType.Unary,
       __ServiceName,
-      "Greeting2",
-      __Marshaller_GreetRequest2,
-      __Marshaller_GreetReply2);
+      "AcceptRequest",
+      __Marshaller_Accept,
+      __Marshaller_Accepted_message);
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Method<global::AcceptRequest, global::AcceptReply> __Method_Accept = new grpc::Method<global::AcceptRequest, global::AcceptReply>(
+  static readonly grpc::Method<global::Prepare, global::Promise> __Method_PrepareRequest = new grpc::Method<global::Prepare, global::Promise>(
       grpc::MethodType.Unary,
       __ServiceName,
-      "Accept",
-      __Marshaller_AcceptRequest,
-      __Marshaller_AcceptReply);
+      "PrepareRequest",
+      __Marshaller_Prepare,
+      __Marshaller_Promise);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::Accepted_message, global::Decided> __Method_Accepted = new grpc::Method<global::Accepted_message, global::Decided>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "Accepted",
+      __Marshaller_Accepted_message,
+      __Marshaller_Decided);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -80,13 +90,19 @@ public static partial class PaxosToPaxosService
   public abstract partial class PaxosToPaxosServiceBase
   {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::System.Threading.Tasks.Task<global::GreetReply2> Greeting2(global::GreetRequest2 request, grpc::ServerCallContext context)
+    public virtual global::System.Threading.Tasks.Task<global::Accepted_message> AcceptRequest(global::Accept request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::System.Threading.Tasks.Task<global::AcceptReply> Accept(global::AcceptRequest request, grpc::ServerCallContext context)
+    public virtual global::System.Threading.Tasks.Task<global::Promise> PrepareRequest(global::Prepare request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::Decided> Accepted(global::Accepted_message request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -121,44 +137,64 @@ public static partial class PaxosToPaxosService
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::GreetReply2 Greeting2(global::GreetRequest2 request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::Accepted_message AcceptRequest(global::Accept request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return Greeting2(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return AcceptRequest(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::GreetReply2 Greeting2(global::GreetRequest2 request, grpc::CallOptions options)
+    public virtual global::Accepted_message AcceptRequest(global::Accept request, grpc::CallOptions options)
     {
-      return CallInvoker.BlockingUnaryCall(__Method_Greeting2, null, options, request);
+      return CallInvoker.BlockingUnaryCall(__Method_AcceptRequest, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::GreetReply2> Greeting2Async(global::GreetRequest2 request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::Accepted_message> AcceptRequestAsync(global::Accept request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return Greeting2Async(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return AcceptRequestAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::GreetReply2> Greeting2Async(global::GreetRequest2 request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::Accepted_message> AcceptRequestAsync(global::Accept request, grpc::CallOptions options)
     {
-      return CallInvoker.AsyncUnaryCall(__Method_Greeting2, null, options, request);
+      return CallInvoker.AsyncUnaryCall(__Method_AcceptRequest, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::AcceptReply Accept(global::AcceptRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::Promise PrepareRequest(global::Prepare request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return Accept(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return PrepareRequest(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::AcceptReply Accept(global::AcceptRequest request, grpc::CallOptions options)
+    public virtual global::Promise PrepareRequest(global::Prepare request, grpc::CallOptions options)
     {
-      return CallInvoker.BlockingUnaryCall(__Method_Accept, null, options, request);
+      return CallInvoker.BlockingUnaryCall(__Method_PrepareRequest, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::AcceptReply> AcceptAsync(global::AcceptRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::Promise> PrepareRequestAsync(global::Prepare request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return AcceptAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return PrepareRequestAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::AcceptReply> AcceptAsync(global::AcceptRequest request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::Promise> PrepareRequestAsync(global::Prepare request, grpc::CallOptions options)
     {
-      return CallInvoker.AsyncUnaryCall(__Method_Accept, null, options, request);
+      return CallInvoker.AsyncUnaryCall(__Method_PrepareRequest, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::Decided Accepted(global::Accepted_message request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return Accepted(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::Decided Accepted(global::Accepted_message request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_Accepted, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::Decided> AcceptedAsync(global::Accepted_message request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return AcceptedAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::Decided> AcceptedAsync(global::Accepted_message request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_Accepted, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -174,8 +210,9 @@ public static partial class PaxosToPaxosService
   public static grpc::ServerServiceDefinition BindService(PaxosToPaxosServiceBase serviceImpl)
   {
     return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_Greeting2, serviceImpl.Greeting2)
-        .AddMethod(__Method_Accept, serviceImpl.Accept).Build();
+        .AddMethod(__Method_AcceptRequest, serviceImpl.AcceptRequest)
+        .AddMethod(__Method_PrepareRequest, serviceImpl.PrepareRequest)
+        .AddMethod(__Method_Accepted, serviceImpl.Accepted).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -185,8 +222,9 @@ public static partial class PaxosToPaxosService
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   public static void BindService(grpc::ServiceBinderBase serviceBinder, PaxosToPaxosServiceBase serviceImpl)
   {
-    serviceBinder.AddMethod(__Method_Greeting2, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GreetRequest2, global::GreetReply2>(serviceImpl.Greeting2));
-    serviceBinder.AddMethod(__Method_Accept, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AcceptRequest, global::AcceptReply>(serviceImpl.Accept));
+    serviceBinder.AddMethod(__Method_AcceptRequest, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Accept, global::Accepted_message>(serviceImpl.AcceptRequest));
+    serviceBinder.AddMethod(__Method_PrepareRequest, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Prepare, global::Promise>(serviceImpl.PrepareRequest));
+    serviceBinder.AddMethod(__Method_Accepted, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Accepted_message, global::Decided>(serviceImpl.Accepted));
   }
 
 }

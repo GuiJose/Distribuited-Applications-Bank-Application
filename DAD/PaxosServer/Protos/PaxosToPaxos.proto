@@ -2,10 +2,20 @@
 
 service PaxosToPaxosService {
   rpc Greeting2 (GreetRequest2) returns (GreetReply2);
+  rpc Accept (AcceptRequest) returns (AcceptReply);
 }
 message GreetRequest2 {
 	bool hi = 1;
 }
 message GreetReply2 {
 	bool hi = 1;
+}
+
+message AcceptRequest{
+	int32 proposerNumber = 1;
+	int32 value = 2;
+}
+
+message AcceptReply{
+	bool accepted = 1;
 }

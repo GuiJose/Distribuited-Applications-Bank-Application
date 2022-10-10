@@ -100,3 +100,6 @@ C:\Users\diogo\Source\Repos\Dad\DAD\PaxosServer\bin\Debug\net6.0\PaxosServer.pdb
 C:\Users\diogo\Source\Repos\Dad\DAD\PaxosServer\obj\Debug\net6.0\PaxosServer.csproj.CopyComplete
 C:\Users\diogo\Source\Repos\Dad\DAD\PaxosServer\obj\Debug\net6.0\PaxosServer.genruntimeconfig.cache
 C:\Users\diogo\Source\Repos\Dad\DAD\PaxosServer\obj\Debug\net6.0\ref\PaxosServer.dll
+C:\Users\zesan\source\repos\Dad\DAD\PaxosServer\bin\Debug\net6.0\Grpc.Net.Client.dll
+C:\Users\zesan\source\repos\Dad\DAD\PaxosServer\bin\Debug\net6.0\Grpc.Net.Common.dll
+C:\Users\zesan\source\repos\Dad\DAD\PaxosServer\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll

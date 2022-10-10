@@ -4,19 +4,21 @@ using Grpc.Net.Client;
 
 namespace PaxosServer
 {
-    class PaxosServer
+    public class PaxosServer
     {
         private static int Port;
         private static Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient> otherPaxosServers = new Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient>();
+        private static Paxos Paxos;
         static void Main(string[] args)
         {
             Port = Int16.Parse(args[0]);
+            Paxos = new Paxos(args.Length - 1);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             Server server = new Server
             {
                 Services = { BankPaxosService.BindService(new BankService()).Intercept(new PaxosServerInterceptor()),  
-                PaxosToPaxosService.BindService(new PaxosPaxosService()).Intercept(new PaxosServerInterceptor())},
+                PaxosToPaxosService.BindService(new PaxosPaxosService(Paxos.getAcceptors(), Paxos.getLearners(), Paxos.getProposers())).Intercept(new PaxosServerInterceptor())},
                 Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
             };
             server.Start();

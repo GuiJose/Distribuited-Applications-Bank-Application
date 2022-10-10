@@ -48,6 +48,10 @@ public static partial class PaxosToPaxosService
   static readonly grpc::Marshaller<global::GreetRequest2> __Marshaller_GreetRequest2 = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetRequest2.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::GreetReply2> __Marshaller_GreetReply2 = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetReply2.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::AcceptRequest> __Marshaller_AcceptRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AcceptRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::AcceptReply> __Marshaller_AcceptReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AcceptReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::GreetRequest2, global::GreetReply2> __Method_Greeting2 = new grpc::Method<global::GreetRequest2, global::GreetReply2>(
@@ -56,6 +60,14 @@ public static partial class PaxosToPaxosService
       "Greeting2",
       __Marshaller_GreetRequest2,
       __Marshaller_GreetReply2);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::AcceptRequest, global::AcceptReply> __Method_Accept = new grpc::Method<global::AcceptRequest, global::AcceptReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "Accept",
+      __Marshaller_AcceptRequest,
+      __Marshaller_AcceptReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -69,6 +81,12 @@ public static partial class PaxosToPaxosService
   {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public virtual global::System.Threading.Tasks.Task<global::GreetReply2> Greeting2(global::GreetRequest2 request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::AcceptReply> Accept(global::AcceptRequest request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -122,6 +140,26 @@ public static partial class PaxosToPaxosService
     {
       return CallInvoker.AsyncUnaryCall(__Method_Greeting2, null, options, request);
     }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::AcceptReply Accept(global::AcceptRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return Accept(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::AcceptReply Accept(global::AcceptRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_Accept, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::AcceptReply> AcceptAsync(global::AcceptRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return AcceptAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::AcceptReply> AcceptAsync(global::AcceptRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_Accept, null, options, request);
+    }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     protected override PaxosToPaxosServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -136,7 +174,8 @@ public static partial class PaxosToPaxosService
   public static grpc::ServerServiceDefinition BindService(PaxosToPaxosServiceBase serviceImpl)
   {
     return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_Greeting2, serviceImpl.Greeting2).Build();
+        .AddMethod(__Method_Greeting2, serviceImpl.Greeting2)
+        .AddMethod(__Method_Accept, serviceImpl.Accept).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -147,6 +186,7 @@ public static partial class PaxosToPaxosService
   public static void BindService(grpc::ServiceBinderBase serviceBinder, PaxosToPaxosServiceBase serviceImpl)
   {
     serviceBinder.AddMethod(__Method_Greeting2, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GreetRequest2, global::GreetReply2>(serviceImpl.Greeting2));
+    serviceBinder.AddMethod(__Method_Accept, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AcceptRequest, global::AcceptReply>(serviceImpl.Accept));
   }
 
 }

@@ -6,7 +6,7 @@ using Grpc.Net.Client;
 
 namespace BankServer
 {
-    class BankServer
+    public class BankServer
     {
         private static int port;
         private static BankAccount account = new BankAccount();

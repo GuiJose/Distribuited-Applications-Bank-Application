@@ -26,10 +26,16 @@ namespace PaxosServer
 
             createChannels(args);
 
-            if (Port != 10000)
+            int pedido = 0;
+            foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
-                otherPaxosServers["http://localhost:10000"].PrepareRequestAsync(new Prepare { ProposerID = 2 });
+                pedido++;
+                Promise reply = paxosserver.Value.PrepareRequest(new Prepare { ProposerID = paxos.getID() });
+                Console.WriteLine(reply.Value.ToString() + "pedido" + pedido + "\r\n");
+
             }
+
+     
 
             Console.WriteLine("Press any key to stop the server...");
             Console.ReadKey();

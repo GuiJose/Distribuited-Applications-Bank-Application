@@ -3,22 +3,28 @@
     public class Paxos
     {
         private int ID;
-        private int value;
-        private int write_ts;
-        private int read_ts;
+        private int value = 45;
+        private int write_ts = 0;
+        private int read_ts = 0;
+        int pedido = 1;
         public Paxos(int iD)
         {
-            ID = iD;
+            this.ID = iD;
         }
 
         public List<int> promise(int id)
         {
-            Console.WriteLine("recebi o pedido");
+            
+            Console.WriteLine("recebi o pedido do ID" + id + " pedido" + pedido + "READ = " + read_ts);
+
             if (id > read_ts)
             {
-                read_ts = id;
-                return new List<int> {write_ts,value};
+                lock (this) { read_ts = id; }
+
+                pedido++;
+                return new List<int> { write_ts, value };
             }
+            pedido++;
             return new List<int>();
         }
 

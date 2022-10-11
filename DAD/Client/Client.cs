@@ -25,28 +25,37 @@ namespace Client
                         Console.WriteLine("\r\nHow much do you want to deposit ?\r\n");
                         double ammount = Convert.ToDouble(Console.ReadLine());
                         DepositRequest request = new DepositRequest{Ammount = ammount};
-                        DepositReply reply = servers["http://localhost:10003"].Deposit(request);
-                        Console.WriteLine("Well Done! Your current balance is:" + reply.Balance.ToString() + "\r\n");
+                        foreach (KeyValuePair<string, BankClientService.BankClientServiceClient> server in servers)
+                        {
+                            DepositReply reply = server.Value.Deposit(request);
+                            Console.WriteLine("Well Done! Your current balance is:" + reply.Balance.ToString() + "\r\n");
+                        }
                         break;
                     
                     case ConsoleKey.W:
                         Console.WriteLine("\r\nHow much do you want to withdrawal ?\r\n");
                         double ammount2 = Convert.ToDouble(Console.ReadLine());
-                        WithdrawalRequest request2 = new WithdrawalRequest { Ammount = ammount2};
-                        WithdrawalReply reply2 = servers["http://localhost:10003"].Withdrawal(request2);
-                        if (reply2.Success)
+                        foreach (KeyValuePair<string, BankClientService.BankClientServiceClient> server in servers)
                         {
-                            Console.WriteLine("Well Done! Your current balance is:" + reply2.Balance.ToString() + "\r\n");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Ups, you are not rich enough! Your current balance is:" + reply2.Balance.ToString() + "\r\n");
+                            WithdrawalRequest request2 = new WithdrawalRequest { Ammount = ammount2 };
+                            WithdrawalReply reply2 = server.Value.Withdrawal(request2);
+                            if (reply2.Success)
+                            {
+                                Console.WriteLine("Well Done! Your current balance is:" + reply2.Balance.ToString() + "\r\n");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ups, you are not rich enough! Your current balance is:" + reply2.Balance.ToString() + "\r\n");
+                            }
                         }
                         break;
                     case ConsoleKey.R:
                         ReadBalanceRequest request3 = new ReadBalanceRequest { };
-                        ReadBalanceReply reply3 = servers["http://localhost:10003"].ReadBalance(request3);
-                        Console.WriteLine("\r\nYour current balance is:" + reply3.Balance.ToString() + "\r\n");
+                        foreach (KeyValuePair<string, BankClientService.BankClientServiceClient> server in servers)
+                        {
+                            ReadBalanceReply reply3 = server.Value.ReadBalance(request3);
+                            Console.WriteLine("\r\nYour current balance is:" + reply3.Balance.ToString() + "\r\n");
+                        }
                         break;
                     case ConsoleKey.X:
                         keepRunnning = false;

@@ -37,22 +37,6 @@ namespace BankServer
             //var paxosServer = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
 
             createChannels(args);
-            Console.WriteLine("Press any key to talk to other banks");
-            Console.ReadKey();
-            GreetRequest request = new GreetRequest { Hi = true };
-            otherBankServers["http://localhost:10004"].GreetingAsync(request);
-            otherBankServers["http://localhost:10005"].GreetingAsync(request);
-            foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> kvp in PaxosServers)
-            {
-                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-            }
-            GreetRequest3 request3 = new GreetRequest3 { Hi = true };
-            PaxosServers["http://localhost:10000"].GreetingAsync(request3);
-            PaxosServers["http://localhost:10001"].GreetingAsync(request3);
-            PaxosServers["http://localhost:10002"].GreetingAsync(request3);
-
-
-
 
             while (keepRunning)
             {
@@ -114,11 +98,6 @@ namespace BankServer
                     string host = "http://localhost:" + args[i];
                     PaxosServers.Add(host, server);
                 }
-            }
-
-            foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> kvp in otherBankServers)
-            {
-                Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
             }
         }
     }

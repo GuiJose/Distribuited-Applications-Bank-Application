@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PaxosServer
+﻿namespace PaxosServer
 {
     public class Paxos
     {
@@ -26,6 +20,11 @@ namespace PaxosServer
                 return new List<int> {write_ts,value};
             }
             return new List<int>();
+        }
+
+        public int getID()
+        {
+            return ID;
         }
     }
 }

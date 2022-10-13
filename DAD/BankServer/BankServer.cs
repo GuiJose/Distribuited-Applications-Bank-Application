@@ -171,6 +171,8 @@ namespace BankServer
 
         public static void executeCommands(String key)
         {
+
+            //account.setValue(balance);
             Console.WriteLine("key = " + key);
             key = "7 1";
             Console.WriteLine(commands.ContainsKey(key));

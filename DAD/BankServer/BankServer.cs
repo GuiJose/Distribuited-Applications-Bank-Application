@@ -12,17 +12,23 @@ namespace BankServer
     {
         private static int id;
         private static int port;
+        private static bool primary = false;
+        private static List<int> banksID = new List<int>();
         private static BankAccount account = new BankAccount();
         private static bool frozen = false;
         private static readonly object frozenLock = new object();
         private static Dictionary<string, BankToBankService.BankToBankServiceClient> otherBankServers = new Dictionary<string, BankToBankService.BankToBankServiceClient>();
         private static Dictionary<string, BankPaxosService.BankPaxosServiceClient> PaxosServers = new Dictionary<string, BankPaxosService.BankPaxosServiceClient>();
+        private static Dictionary<string, string> commands = new Dictionary<string, string>();
         static void Main(string[] args)
         {
             bool keepRunning = true;
             id = Int16.Parse(args[0]);
             port = Int16.Parse(args[1]);
+            banksID.Add(id);
             const string ServerHostname = "localhost";
+
+            Console.WriteLine(id);
 
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
@@ -41,12 +47,14 @@ namespace BankServer
             //var paxosServer = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
 
             createChannels(args);
+            GreetBankServers();
 
-            var timer = new System.Timers.Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
+
+            /*var timer = new System.Timers.Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
 
             timer.AutoReset = true;
             timer.Elapsed += PrimaryElection;
-            timer.Start();
+            timer.Start();*/
 
 
             while (keepRunning)
@@ -125,10 +133,67 @@ namespace BankServer
                 }
             }
         }
+
+        private static void GreetBankServers()
+        {
+            int count = 0;
+            foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
+            {
+                GreetReply reply = server.Value.Greeting(new GreetRequest { Id = id });
+                if (reply.Hi) count++;
+            }
+            if (count == otherBankServers.Count && id == banksID.Min()) setPrimary(true);          
+        }
+
+        public static List<int> getBankID() { return banksID; }
+
+        private static void setPrimary(bool value) { primary = value; }
+
+        public static bool getPrimary() { return primary; }
+
+        public static Dictionary<string,string> getCommands() { return commands; }
+
+        public static Dictionary<string ,BankToBankService.BankToBankServiceClient> getOtherBankServers() { return otherBankServers; }
+
+        public static void Replica (string key)
+        {
+            ReplicaRequest request = new ReplicaRequest { Key = key };
+            foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
+            {
+                server.Value.Replica(request);
+            }
+        }
+
+        public static void executeCommands(String key)
+        {
+            Console.WriteLine("key = " + key);
+            key = "7 1";
+            Console.WriteLine(commands.ContainsKey(key));
+            if (commands.ContainsKey(key))  
+            {
+                if (commands[key].Split(" ")[0].Equals("D"))
+                {
+                    Console.WriteLine(commands[key].Split(" ")[1]);
+                    account.Deposit(Double.Parse(commands[key].Split(" ")[1]));
+                    commands.Remove(key);
+                }
+                if (commands[key].Split(" ")[0].Equals("W"))
+                {
+                    account.Withdrawal(Double.Parse(commands[key].Split(" ")[1]));
+                    commands.Remove(key);
+                }
+
+            }
+            Console.WriteLine("COMANDOS DEPOIS DA REPLICA:");
+            foreach(KeyValuePair<string,string> kvp in commands)
+            {
+                Console.WriteLine(kvp.Key + "=" + kvp.Value );
+            }
+        }
     }
 
 
-
+    //aaa
 
     public class BankServerInterceptor : Interceptor
     {

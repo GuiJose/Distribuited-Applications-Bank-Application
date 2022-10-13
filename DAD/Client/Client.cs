@@ -1,4 +1,5 @@
-﻿using BankClient;
+﻿using System.Runtime.Serialization;
+using BankClient;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
@@ -7,10 +8,13 @@ namespace Client
 {
     static class BankClient
     {
+        private static int id;
         private static Dictionary<string, BankClientService.BankClientServiceClient> servers = new Dictionary<string, BankClientService.BankClientServiceClient>();  
         [STAThread]
         static void Main(string[] args)
         {
+            id = Int16.Parse(args[0]);
+            Console.WriteLine("ID = " + id);
             bool keepRunnning = true;
             createChannels(args);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
@@ -28,7 +32,9 @@ namespace Client
                         foreach (KeyValuePair<string, BankClientService.BankClientServiceClient> server in servers)
                         {
                             DepositReply reply = server.Value.Deposit(request);
-                            Console.WriteLine("Well Done! Your current balance is:" + reply.Balance.ToString() + "\r\n");
+                            if (reply.Balance != -1)
+                                Console.WriteLine("Well Done! Your current balance is:" + reply.Balance.ToString() + "\r\n");
+                            else continue;
                         }
                         break;
                     
@@ -43,9 +49,13 @@ namespace Client
                             {
                                 Console.WriteLine("Well Done! Your current balance is:" + reply2.Balance.ToString() + "\r\n");
                             }
-                            else
+                            else if (!reply2.Success && reply2.Balance != -1 )
                             {
                                 Console.WriteLine("Ups, you are not rich enough! Your current balance is:" + reply2.Balance.ToString() + "\r\n");
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
                         break;
@@ -66,12 +76,12 @@ namespace Client
 
         public static void createChannels(string[] args)
         {
-            foreach (string port in args)
+            for(int i = 1; i < args.Length; i++)
             {
-                GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:" + port);
-                CallInvoker interceptingInvoker = channel.Intercept(new ClientInterceptor());
+                GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:" + args[i]);
+                CallInvoker interceptingInvoker = channel.Intercept(new ClientInterceptor(id));
                 BankClientService.BankClientServiceClient server = new BankClientService.BankClientServiceClient(interceptingInvoker);
-                string host = "http://localhost:" + port;
+                string host = "http://localhost:" + args[i];
                 servers.Add(host, server);
             }
         }
@@ -79,18 +89,23 @@ namespace Client
 
     public class ClientInterceptor : Interceptor
     {
-        // private readonly ILogger logger;
+        private int Id;
+        private int count;
 
-        //public GlobalServerLoggerInterceptor(ILogger logger) {
-        //    this.logger = logger;
-        //}
+        public ClientInterceptor(int id)
+        {
+            Id = id;
+            count = 1;
+        }
 
         public override TResponse BlockingUnaryCall<TRequest, TResponse>(TRequest request, ClientInterceptorContext<TRequest, TResponse> context, BlockingUnaryCallContinuation<TRequest, TResponse> continuation)
         {
 
-            Metadata metadata = context.Options.Headers; // read original headers
+            Metadata metadata = new Metadata ();
+            metadata.Add("dad",Id.ToString() + " " + count.ToString());
+
+            count++;
             if (metadata == null) { metadata = new Metadata(); }
-            metadata.Add("dad", "dad-value"); // add the additional metadata
 
             // create new context because original context is readonly
             ClientInterceptorContext<TRequest, TResponse> modifiedContext =

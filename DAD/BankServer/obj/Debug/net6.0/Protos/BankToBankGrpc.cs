@@ -48,6 +48,10 @@ public static partial class BankToBankService
   static readonly grpc::Marshaller<global::GreetRequest> __Marshaller_GreetRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::GreetReply> __Marshaller_GreetReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::ReplicaRequest> __Marshaller_ReplicaRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ReplicaRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::ReplicaReply> __Marshaller_ReplicaReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::ReplicaReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::GreetRequest, global::GreetReply> __Method_Greeting = new grpc::Method<global::GreetRequest, global::GreetReply>(
@@ -56,6 +60,14 @@ public static partial class BankToBankService
       "Greeting",
       __Marshaller_GreetRequest,
       __Marshaller_GreetReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::ReplicaRequest, global::ReplicaReply> __Method_Replica = new grpc::Method<global::ReplicaRequest, global::ReplicaReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "Replica",
+      __Marshaller_ReplicaRequest,
+      __Marshaller_ReplicaReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -69,6 +81,12 @@ public static partial class BankToBankService
   {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public virtual global::System.Threading.Tasks.Task<global::GreetReply> Greeting(global::GreetRequest request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::ReplicaReply> Replica(global::ReplicaRequest request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -122,6 +140,26 @@ public static partial class BankToBankService
     {
       return CallInvoker.AsyncUnaryCall(__Method_Greeting, null, options, request);
     }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::ReplicaReply Replica(global::ReplicaRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return Replica(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::ReplicaReply Replica(global::ReplicaRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_Replica, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::ReplicaReply> ReplicaAsync(global::ReplicaRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return ReplicaAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::ReplicaReply> ReplicaAsync(global::ReplicaRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_Replica, null, options, request);
+    }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     protected override BankToBankServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -136,7 +174,8 @@ public static partial class BankToBankService
   public static grpc::ServerServiceDefinition BindService(BankToBankServiceBase serviceImpl)
   {
     return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_Greeting, serviceImpl.Greeting).Build();
+        .AddMethod(__Method_Greeting, serviceImpl.Greeting)
+        .AddMethod(__Method_Replica, serviceImpl.Replica).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -147,6 +186,7 @@ public static partial class BankToBankService
   public static void BindService(grpc::ServiceBinderBase serviceBinder, BankToBankServiceBase serviceImpl)
   {
     serviceBinder.AddMethod(__Method_Greeting, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GreetRequest, global::GreetReply>(serviceImpl.Greeting));
+    serviceBinder.AddMethod(__Method_Replica, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ReplicaRequest, global::ReplicaReply>(serviceImpl.Replica));
   }
 
 }

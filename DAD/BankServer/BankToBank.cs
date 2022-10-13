@@ -17,10 +17,24 @@ namespace BankServer
 
         public GreetReply Reg(GreetRequest request)
         {
-            return new GreetReply
+            if (!BankServer.getBankID().Contains(request.Id))
             {
-                Hi = true
-            };
+                BankServer.getBankID().Add(request.Id);
+                return new GreetReply { Hi = true };
+            }
+            return new GreetReply { Hi = false };
+        }
+
+
+        public override Task<ReplicaReply> Replica(ReplicaRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(Replicate(request));
+        }
+
+        public ReplicaReply Replicate(ReplicaRequest request)
+        {
+            BankServer.executeCommands(request.Key);
+            return new ReplicaReply { };
         }
     }
 }

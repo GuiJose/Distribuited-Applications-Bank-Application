@@ -2,10 +2,17 @@
 
 service BankToBankService {
   rpc Greeting (GreetRequest) returns (GreetReply);
+  rpc Replica (ReplicaRequest) returns (ReplicaReply);
 }
 message GreetRequest {
-	bool hi = 1;
+	int32 id = 1;
 }
 message GreetReply {
 	bool hi = 1;
+}
+
+message ReplicaRequest {
+	string key = 1;
+}
+message ReplicaReply {
 }

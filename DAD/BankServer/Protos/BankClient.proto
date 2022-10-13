@@ -26,3 +26,4 @@ message ReadBalanceRequest {}
 message ReadBalanceReply {
 	double balance = 1;
 }
+

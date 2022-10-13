@@ -164,6 +164,11 @@ namespace BankServer
             }
         }
 
+
+
+        //EM VEZ DE FAZER COMANDO A COMANDO ENVIAR APENAS O BALANCE ATULIZADO
+        //CRIAR FINCAP SET BALANCE NA CLASSE BANK ACCOUNT E QUANDO RECEBE O VALOR ATUALIZA
+
         public static void executeCommands(String key)
         {
             Console.WriteLine("key = " + key);

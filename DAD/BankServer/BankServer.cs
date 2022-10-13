@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Timers;
 using BankPaxosClient;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
@@ -8,6 +10,7 @@ namespace BankServer
 {
     public class BankServer
     {
+        private static int id;
         private static int port;
         private static BankAccount account = new BankAccount();
         private static bool frozen = false;
@@ -17,7 +20,8 @@ namespace BankServer
         static void Main(string[] args)
         {
             bool keepRunning = true;
-            port = Int16.Parse(args[0]);
+            id = Int16.Parse(args[0]);
+            port = Int16.Parse(args[1]);
             const string ServerHostname = "localhost";
 
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
@@ -37,6 +41,13 @@ namespace BankServer
             //var paxosServer = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
 
             createChannels(args);
+
+            var timer = new System.Timers.Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
+
+            timer.AutoReset = true;
+            timer.Elapsed += PrimaryElection;
+            timer.Start();
+
 
             while (keepRunning)
             {
@@ -80,9 +91,9 @@ namespace BankServer
         }
         private static void createChannels(string[] args)
         {
-            for (int i = 1; i < args.Length; i++)
+            for (int i = 2; i < args.Length; i++)
             {
-                if (i < 3)
+                if (i < 4)
                 {
                     GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:" + args[i]);
                     CallInvoker interceptingInvoker = channel.Intercept(new BankServerInterceptor());
@@ -100,8 +111,25 @@ namespace BankServer
                 }
             }
         }
+
+        private static void PrimaryElection(object sender, ElapsedEventArgs e)
+        {
+            if (id == 4)
+            {
+                foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
+                {
+
+                    GreetReply3 reply = paxosserver.Value.Greeting(new GreetRequest3 { Hi = true });
+                    Console.WriteLine(reply.Hi.ToString() + "\r\n");
+
+                }
+            }
+        }
     }
-}
+
+
+
+
     public class BankServerInterceptor : Interceptor
     {
         public override Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
@@ -127,4 +155,5 @@ namespace BankServer
             TResponse response = base.BlockingUnaryCall(request, modifiedContext, continuation);
             return response;
         }
+    }
 }

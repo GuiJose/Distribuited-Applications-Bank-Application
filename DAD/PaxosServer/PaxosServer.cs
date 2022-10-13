@@ -26,6 +26,19 @@ namespace PaxosServer
 
             createChannels(args);
 
+
+            //Começar processo Paxos
+            /* Esqueleto:
+             processo_paxos(){
+                PREPARE_PROMISSE();
+                VERIFICAÇÕES
+                ACCEPT_ACCEPTED();
+                FOI ACEITE?
+                DEVOLVER RESPOSTA AO BANCO
+            }
+            */
+            //Quando recebe mensagem dos bancos executa este codigo a baixo (transformar em função)
+
             int pedido = 0;
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
@@ -34,6 +47,8 @@ namespace PaxosServer
                 Console.WriteLine(reply.Value.ToString() + "pedido" + pedido + "\r\n");
 
             }
+
+            //Fazer accept
 
      
 

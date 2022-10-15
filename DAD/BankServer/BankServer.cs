@@ -164,38 +164,22 @@ namespace BankServer
             }
         }
 
-
-
-        //EM VEZ DE FAZER COMANDO A COMANDO ENVIAR APENAS O BALANCE ATULIZADO
-        //CRIAR FINCAP SET BALANCE NA CLASSE BANK ACCOUNT E QUANDO RECEBE O VALOR ATUALIZA
-
         public static void executeCommands(String key)
         {
+            String commands_key = key.Split(" ")[0] + ":" + key.Split(" ")[1];
+            String command_value = key.Split(" ")[2] + ":" + key.Split(" ")[3];
+            commands.Add(commands_key, command_value);
 
-            //account.setValue(balance);
-            Console.WriteLine("key = " + key);
-            key = "7 1";
-            Console.WriteLine(commands.ContainsKey(key));
-            if (commands.ContainsKey(key))  
+            if (command_value.Split(":")[0] == "D")
             {
-                if (commands[key].Split(" ")[0].Equals("D"))
-                {
-                    Console.WriteLine(commands[key].Split(" ")[1]);
-                    account.Deposit(Double.Parse(commands[key].Split(" ")[1]));
-                    commands.Remove(key);
-                }
-                if (commands[key].Split(" ")[0].Equals("W"))
-                {
-                    account.Withdrawal(Double.Parse(commands[key].Split(" ")[1]));
-                    commands.Remove(key);
-                }
-
+                account.Deposit(int.Parse(command_value.Split(":")[1]));
             }
             Console.WriteLine("COMANDOS DEPOIS DA REPLICA:");
             foreach(KeyValuePair<string,string> kvp in commands)
             {
                 Console.WriteLine(kvp.Key + "=" + kvp.Value );
             }
+            Console.WriteLine(account.GetBalance().ToString());
         }
     }
 

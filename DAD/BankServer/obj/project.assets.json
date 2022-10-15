@@ -360,19 +360,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\zesan\\.nuget\\packages\\": {}
+    "C:\\Users\\diogo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\BankServer\\BankServer.csproj",
+      "projectUniqueName": "C:\\Users\\diogo\\source\\repos\\Dad\\DAD\\BankServer\\BankServer.csproj",
       "projectName": "BankServer",
-      "projectPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\BankServer\\BankServer.csproj",
-      "packagesPath": "C:\\Users\\zesan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\BankServer\\obj\\",
+      "projectPath": "C:\\Users\\diogo\\source\\repos\\Dad\\DAD\\BankServer\\BankServer.csproj",
+      "packagesPath": "C:\\Users\\diogo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\diogo\\source\\repos\\Dad\\DAD\\BankServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\zesan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\diogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

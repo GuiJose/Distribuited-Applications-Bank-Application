@@ -111,6 +111,101 @@ public static partial class BankClientService
 
   }
 
+  /// <summary>Client for BankClientService</summary>
+  public partial class BankClientServiceClient : grpc::ClientBase<BankClientServiceClient>
+  {
+    /// <summary>Creates a new client for BankClientService</summary>
+    /// <param name="channel">The channel to use to make remote calls.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public BankClientServiceClient(grpc::ChannelBase channel) : base(channel)
+    {
+    }
+    /// <summary>Creates a new client for BankClientService that uses a custom <c>CallInvoker</c>.</summary>
+    /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public BankClientServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+    {
+    }
+    /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected BankClientServiceClient() : base()
+    {
+    }
+    /// <summary>Protected constructor to allow creation of configured clients.</summary>
+    /// <param name="configuration">The client configuration.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected BankClientServiceClient(ClientBaseConfiguration configuration) : base(configuration)
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DepositReply Deposit(global::DepositRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return Deposit(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DepositReply Deposit(global::DepositRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_Deposit, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DepositReply> DepositAsync(global::DepositRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return DepositAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DepositReply> DepositAsync(global::DepositRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_Deposit, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::WithdrawalReply Withdrawal(global::WithdrawalRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return Withdrawal(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::WithdrawalReply Withdrawal(global::WithdrawalRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_Withdrawal, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::WithdrawalReply> WithdrawalAsync(global::WithdrawalRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return WithdrawalAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::WithdrawalReply> WithdrawalAsync(global::WithdrawalRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_Withdrawal, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::ReadBalanceReply ReadBalance(global::ReadBalanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return ReadBalance(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::ReadBalanceReply ReadBalance(global::ReadBalanceRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_ReadBalance, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::ReadBalanceReply> ReadBalanceAsync(global::ReadBalanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return ReadBalanceAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::ReadBalanceReply> ReadBalanceAsync(global::ReadBalanceRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_ReadBalance, null, options, request);
+    }
+    /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected override BankClientServiceClient NewInstance(ClientBaseConfiguration configuration)
+    {
+      return new BankClientServiceClient(configuration);
+    }
+  }
+
   /// <summary>Creates service definition that can be registered with a server</summary>
   /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

@@ -42,10 +42,6 @@ namespace BankServer
             Console.WriteLine("ChatServer server listening on port " + port);
 
 
-            //GrpcChannel channel = GrpcChannel.ForAddress("http://" + ServerHostname + ":" + PaxosPort);
-            //CallInvoker interceptingInvoker = channel.Intercept(new BankServerInterceptor());
-            //var paxosServer = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
-
             createChannels(args);
             GreetBankServers();
 
@@ -153,38 +149,44 @@ namespace BankServer
 
         public static Dictionary<string,string> getCommands() { return commands; }
 
+        public static void AddCommands( string key, string value) { 
+            commands.Add(key, value);
+        }
+
         public static Dictionary<string ,BankToBankService.BankToBankServiceClient> getOtherBankServers() { return otherBankServers; }
 
-        public static void Replica (string key)
+        public static void Replica (ReplicaRequest request)
         {
-            ReplicaRequest request = new ReplicaRequest { Key = key };
             foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
             {
                 server.Value.Replica(request);
             }
         }
 
-        public static void executeCommands(String key)
+        public static bool executeCommands(String key)
         {
-            String commands_key = key.Split(" ")[0] + ":" + key.Split(" ")[1];
-            String command_value = key.Split(" ")[2] + ":" + key.Split(" ")[3];
-            commands.Add(commands_key, command_value);
-
-            if (command_value.Split(":")[0] == "D")
+            Console.WriteLine("COMANDO KEY = " + key);
+            if (commands.ContainsKey(key))
             {
-                account.Deposit(int.Parse(command_value.Split(":")[1]));
+                if (commands[key].Split(" ")[0] == "D")
+                {
+                    account.Deposit(int.Parse(commands[key].Split(" ")[1]));
+                    commands.Remove(key);
+                    return true;
+                }
+                else if (commands[key].Split(" ")[0] == "W")
+                {
+                    bool ok  = account.Withdrawal(int.Parse(commands[key].Split(" ")[1]));
+                    commands.Remove(key);
+                    return ok;
+                }
             }
-            Console.WriteLine("COMANDOS DEPOIS DA REPLICA:");
-            foreach(KeyValuePair<string,string> kvp in commands)
-            {
-                Console.WriteLine(kvp.Key + "=" + kvp.Value );
-            }
-            Console.WriteLine(account.GetBalance().ToString());
+            return true;
         }
     }
 
 
-    //aaa
+
 
     public class BankServerInterceptor : Interceptor
     {

@@ -23,7 +23,7 @@ namespace PaxosServer
         }
 
 
-
+/*
         public override Task<Accepted_message> AcceptRequest(Accept request, ServerCallContext context)
         {
             return Task.FromResult(Acceptor(request));
@@ -32,9 +32,9 @@ namespace PaxosServer
 
         public Accepted_message Acceptor(Accept request)
         {
-            return new Accepted_message { Value = { paxos.promise(request.ProposerID) } };
+            return new Accepted_message { ProposerID = { paxos.promise(request.ProposerID) } };
         }
         
-
+        */
     }
 }

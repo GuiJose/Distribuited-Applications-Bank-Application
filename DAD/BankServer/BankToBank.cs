@@ -4,8 +4,10 @@ namespace BankServer
 {
     public class BankBankService : BankToBankService.BankToBankServiceBase
     {
+        
         public BankBankService()
         {
+            
         }
 
         public override Task<GreetReply> Greeting(

@@ -28,3 +28,14 @@ message ReadBalanceRequest {}
 message ReadBalanceReply {
 	double balance = 1;
 }
+
+
+service BanktoBankService{
+	rpc Replica (ReplicaRequest) returns (ReplicaReply);
+}
+
+message ReplicaRequest {
+	string key = 1;
+}
+message ReplicaReply {
+}

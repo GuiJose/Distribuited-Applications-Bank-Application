@@ -20,17 +20,20 @@ namespace BankServer
 
         public DepositReply Reg(DepositRequest request, ServerCallContext context)
         {
-            Console.WriteLine("CHEGUEI A FUNCAO");
             Console.WriteLine("Received request to deposit");
+            string key = context.RequestHeaders.GetValue("dad");
+            BankServer.AddCommands(key, "D " + request.Ammount.ToString());
             if (BankServer.getPrimary())
             {
-                Console.WriteLine("SOU PRIMARIO");
-                account.Deposit(request.Ammount);
-                BankServer.Replica(context.RequestHeaders.GetValue("dad") + " D " +request.Ammount);
+                BankServer.executeCommands(key);
                 return new DepositReply { Balance = account.GetBalance() };
             }
-            //else BankServer.getCommands().Add(context.RequestHeaders.GetValue("dad"), "D " + request.Ammount.ToString());
-            return new DepositReply { Balance = -1 };
+            else
+            {
+                BankServer.executeCommands(key);
+                return new DepositReply { Balance = -1};
+            }
+
         }
 
         public override Task<WithdrawalReply> Withdrawal(
@@ -43,13 +46,18 @@ namespace BankServer
         public WithdrawalReply Reg2(WithdrawalRequest request, ServerCallContext context)
         {
             Console.WriteLine("Received request to Withdrawal");
+            string key = context.RequestHeaders.GetValue("dad");
+            BankServer.AddCommands(key, "W " + request.Ammount.ToString());
             if (BankServer.getPrimary())
             {
-                bool ok = account.Withdrawal(request.Ammount);
+                bool ok = BankServer.executeCommands(key);
                 return new WithdrawalReply { Balance = account.GetBalance(), Success = ok };
             }
-            else BankServer.getCommands().Add(context.RequestHeaders.GetValue("dad"), "W " + request.Ammount.ToString());
-            return new WithdrawalReply { Balance = -1, Success = false };
+            else
+            {
+                BankServer.executeCommands(key);
+                return new WithdrawalReply { Balance = -1, Success = false };
+            }
         }
 
         public override Task<ReadBalanceReply> ReadBalance(
@@ -65,6 +73,7 @@ namespace BankServer
             return new ReadBalanceReply {Balance = account.GetBalance() };
         }
 
+       
 
     }
 }

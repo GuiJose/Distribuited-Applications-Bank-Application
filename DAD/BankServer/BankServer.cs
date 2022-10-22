@@ -163,19 +163,13 @@ namespace BankServer
 
         public static bool executeCommands(String key)
         {
-<<<<<<< HEAD
             Console.WriteLine("COMANDO KEY = " + key);
-=======
-            //String commands_key = key.Split(" ")[0] + ":" + key.Split(" ")[1];
-            //String command_value = key.Split(" ")[2] + ":" + key.Split(" ")[3];
-            //commands.Add(commands_key, command_value);
 
->>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
             if (commands.ContainsKey(key))
             {
                 if (commands[key].Split(" ")[0] == "D")
                 {
-<<<<<<< HEAD
+
                     account.Deposit(int.Parse(commands[key].Split(" ")[1]));
                     commands.Remove(key);
                     return true;
@@ -185,22 +179,13 @@ namespace BankServer
                     bool ok  = account.Withdrawal(int.Parse(commands[key].Split(" ")[1]));
                     commands.Remove(key);
                     return ok;
-=======
-                    account.Deposit(int.Parse(commands[key]));
-                    commands.Remove(key);
->>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
+
                 }
             }
             return true;
         }
     }
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
     public class BankServerInterceptor : Interceptor
     {
         public override Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)

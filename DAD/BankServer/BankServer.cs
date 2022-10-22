@@ -49,7 +49,6 @@ namespace BankServer
             createChannels(args);
             GreetBankServers();
 
-
             /*var timer = new System.Timers.Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
 
             timer.AutoReset = true;
@@ -129,7 +128,6 @@ namespace BankServer
 
                     GreetReply3 reply = paxosserver.Value.Greeting(new GreetRequest3 { Hi = true });
                     Console.WriteLine(reply.Hi.ToString() + "\r\n");
-
                 }
             }
         }
@@ -166,13 +164,17 @@ namespace BankServer
 
         public static void executeCommands(String key)
         {
-            String commands_key = key.Split(" ")[0] + ":" + key.Split(" ")[1];
-            String command_value = key.Split(" ")[2] + ":" + key.Split(" ")[3];
-            commands.Add(commands_key, command_value);
+            //String commands_key = key.Split(" ")[0] + ":" + key.Split(" ")[1];
+            //String command_value = key.Split(" ")[2] + ":" + key.Split(" ")[3];
+            //commands.Add(commands_key, command_value);
 
-            if (command_value.Split(":")[0] == "D")
+            if (commands.ContainsKey(key))
             {
-                account.Deposit(int.Parse(command_value.Split(":")[1]));
+                if (commands[key].Split(" ")[0] == "D")
+                {
+                    account.Deposit(int.Parse(commands[key]));
+                    commands.Remove(key);
+                }
             }
             Console.WriteLine("COMANDOS DEPOIS DA REPLICA:");
             foreach(KeyValuePair<string,string> kvp in commands)
@@ -182,9 +184,6 @@ namespace BankServer
             Console.WriteLine(account.GetBalance().ToString());
         }
     }
-
-
-    //aaa
 
     public class BankServerInterceptor : Interceptor
     {

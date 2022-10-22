@@ -2,12 +2,20 @@
 
 service PaxosToPaxosService {
   rpc AcceptRequest (Accept) returns (Accepted_message);
-  rpc PrepareRequest (Prepare) returns (Promise);
+  rpc Prepare (PrepareRequest) returns (Promise);
   rpc Accepted (Accepted_message) returns (Decided);
+  rpc Alive (AliveRequest) returns (AliveResponse);
 }
 
-message Prepare{
-	int32 proposerID= 1;
+message AliveRequest{
+	int32 id = 1;
+}
+
+message AliveResponse{
+}
+
+message PrepareRequest{
+	int32 proposerID = 1;
 }
 
 message Promise{

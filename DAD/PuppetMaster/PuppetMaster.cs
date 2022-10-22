@@ -44,7 +44,11 @@ for (int i = 0; i < paxosPorts.Count(); i++)
         }
     }
     
+<<<<<<< HEAD
     ProcessStartInfo paxosServer = new ProcessStartInfo("C:/Users/zesan/source/repos/Dad/DAD/PaxosServer/bin/Debug/net6.0/PaxosServer.exe");
+=======
+    ProcessStartInfo paxosServer = new ProcessStartInfo("C:/Users/Asus/source/repos/Dad/DAD/PaxosServer/bin/Debug/net6.0/PaxosServer.exe");
+>>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
     foreach (string port in sendingPorts)
     {
         paxosServer.ArgumentList.Add(port);
@@ -77,7 +81,11 @@ for (int i = 0; i < bankPorts.Count(); i++)
         sendingPorts.Add(port);
     }
 
+<<<<<<< HEAD
     ProcessStartInfo bankServer = new ProcessStartInfo("C:/Users/zesan/source/repos/Dad/DAD/BankServer/bin/Debug/net6.0/BankServer.exe");
+=======
+    ProcessStartInfo bankServer = new ProcessStartInfo("C:/Users/Asus/source/repos/Dad/DAD/BankServer/bin/Debug/net6.0/BankServer.exe");
+>>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
     foreach (string port in sendingPorts)
     {
         bankServer.ArgumentList.Add(port);
@@ -94,7 +102,11 @@ for (int i = 0; i < bankPorts.Count(); i++)
 for (int i = 0; i < numberClients; i++)
 {
     
+<<<<<<< HEAD
     ProcessStartInfo client = new ProcessStartInfo("C:/Users/zesan/source/repos/Dad/DAD/Client/bin/Debug/net6.0/Client.exe");
+=======
+    ProcessStartInfo client = new ProcessStartInfo("C:/Users/Asus/source/repos/Dad/DAD/Client/bin/Debug/net6.0/Client.exe");
+>>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
     client.ArgumentList.Add(iD.ToString());
     iD++;
     foreach (string port in bankPorts)

@@ -25,15 +25,13 @@ namespace BankServer
             BankServer.AddCommands(key, "D " + request.Ammount.ToString());
             if (BankServer.getPrimary())
             {
-                BankServer.executeCommands(key);
+                Console.WriteLine("SOU PRIMARIO");
+                account.Deposit(request.Ammount);
+                BankServer.Replica(context.RequestHeaders.GetValue("dad") + " D " +request.Ammount);
                 return new DepositReply { Balance = account.GetBalance() };
             }
-            else
-            {
-                BankServer.executeCommands(key);
-                return new DepositReply { Balance = -1};
-            }
-
+            //else BankServer.getCommands().Add(context.RequestHeaders.GetValue("dad"), "D " + request.Ammount.ToString());
+            return new DepositReply { Balance = -1 };
         }
 
         public override Task<WithdrawalReply> Withdrawal(

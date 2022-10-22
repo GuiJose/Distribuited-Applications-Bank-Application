@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "N5zdHBLts7MfSiILbShRpkewUIZ6B4mYOQVhaaCY5JyyQlB4rRyPGnd3qlkbBJRi3elUl8TgwjSWN/Pd7cWHpA==",
   "success": true,
   "projectFilePath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
@@ -9,6 +10,17 @@
     "C:\\Users\\zesan\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
     "C:\\Users\\zesan\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
     "C:\\Users\\zesan\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+=======
+  "dgSpecHash": "OIcv6TRp33od2CmuK52+gzAt7mcv9lY2T6E5+z+H/d3Sg1IpnAHseL8pORhrtL61Bd2YXvID9qOyjGuo05cu3Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Asus\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+>>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
   ],
   "logs": []
 }

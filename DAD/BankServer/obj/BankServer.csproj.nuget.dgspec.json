@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\BankServer\\BankServer.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\zesan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\BankServer\\BankServer.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\BankServer\\BankServer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\BankServer\\BankServer.csproj",
+        "projectName": "BankServer",
+        "projectPath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\BankServer\\BankServer.csproj",
+        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\BankServer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -65,8 +82,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -75,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

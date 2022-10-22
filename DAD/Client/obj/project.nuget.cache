@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "kia0fqTXwB3ZjjIWtsZS78vv2AA51HeB4uBge3qLLst3k7MAtpCmYqTPSu/QW3VMIdgFjCBAeVMeobatcK0d3Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\Client\\Client.csproj",
@@ -12,6 +13,20 @@
     "C:\\Users\\zesan\\.nuget\\packages\\grpc.tools\\2.49.1\\grpc.tools.2.49.1.nupkg.sha512",
     "C:\\Users\\zesan\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
     "C:\\Users\\zesan\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+=======
+  "dgSpecHash": "hpwm59G23ZFSTBU+d3qRLMg2tS2e2e9AJoYiaRNQLwjtPLMVJ/Rb6SResbGUnhJGXyqzAwtDAk/fAqo1mjJTwA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\Client\\Client.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Asus\\.nuget\\packages\\google.protobuf\\3.21.6\\google.protobuf.3.21.6.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\grpc.core\\2.46.5\\grpc.core.2.46.5.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\grpc.tools\\2.49.1\\grpc.tools.2.49.1.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+>>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
   ],
   "logs": []
 }

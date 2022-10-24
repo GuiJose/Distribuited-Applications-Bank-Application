@@ -1,0 +1,2 @@
+obj\Release\net6.0\Protos/PaxosToPaxos.cs \
+obj\Release\net6.0\Protos/PaxosToPaxosGrpc.cs: Protos/PaxosToPaxos.proto

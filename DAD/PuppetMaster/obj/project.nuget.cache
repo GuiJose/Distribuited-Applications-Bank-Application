@@ -1,26 +1,21 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "N5zdHBLts7MfSiILbShRpkewUIZ6B4mYOQVhaaCY5JyyQlB4rRyPGnd3qlkbBJRi3elUl8TgwjSWN/Pd7cWHpA==",
+  "dgSpecHash": "LRPXTDjGwWODJOpe1TR/QBHj4QrzCtjNsP+A715IOmdFxtzpBgwBJ6oVJZy5h/ii6iHcqJlJ5WxgH2rHzLxRWw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+  "projectFilePath": "C:\\Users\\diogo\\Source\\Repos\\Dad_oficial\\DAD\\PuppetMaster\\PuppetMaster.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\zesan\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
-    "C:\\Users\\zesan\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
-    "C:\\Users\\zesan\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
-    "C:\\Users\\zesan\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
-    "C:\\Users\\zesan\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
-=======
-  "dgSpecHash": "OIcv6TRp33od2CmuK52+gzAt7mcv9lY2T6E5+z+H/d3Sg1IpnAHseL8pORhrtL61Bd2YXvID9qOyjGuo05cu3Q==",
-  "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Asus\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
-    "C:\\Users\\Asus\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
-    "C:\\Users\\Asus\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
-    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
-    "C:\\Users\\Asus\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
->>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
+    "C:\\Users\\diogo\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
+    "C:\\Users\\diogo\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
+    "C:\\Users\\diogo\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
+    "C:\\Users\\diogo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\diogo\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema ao ler o arquivo de cache C:\\Users\\diogo\\Source\\Repos\\Dad_oficial\\DAD\\PuppetMaster\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

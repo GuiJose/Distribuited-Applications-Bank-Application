@@ -23,21 +23,24 @@ public static partial class BankClientReflection {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
           "ChdQcm90b3MvQmFua0NsaWVudC5wcm90byIhCg5EZXBvc2l0UmVxdWVzdBIP",
-          "CgdhbW1vdW50GAEgASgBIh0KDERlcG9zaXRSZXBseRINCgVyZXBseRgBIAEo",
-          "CSIlChFXaXRoZHJhd2FsUmVxdWVzdBIQCghhbW1tb3VudBgBIAEoASIfCg5X",
-          "aXRoZHJhd2FsUnBseRINCgVyZXBseRgBIAEoCSIUChJSZWFkQmFsYW5jZVJl",
-          "cXVlc3QiIQoQUmVhZEJhbGFuY2VSZXBseRINCgVyZXBseRgBIAEoCTI+ChFC",
-          "YW5rQ2xpZW50U2VydmljZRIpCgdEZXBvc2l0Eg8uRGVwb3NpdFJlcXVlc3Qa",
-          "DS5EZXBvc2l0UmVwbHliBnByb3RvMw=="));
+          "CgdhbW1vdW50GAEgASgBIh8KDERlcG9zaXRSZXBseRIPCgdiYWxhbmNlGAEg",
+          "ASgBIiQKEVdpdGhkcmF3YWxSZXF1ZXN0Eg8KB2FtbW91bnQYASABKAEiMwoP",
+          "V2l0aGRyYXdhbFJlcGx5Eg8KB2JhbGFuY2UYASABKAESDwoHc3VjY2VzcxgC",
+          "IAEoCCIUChJSZWFkQmFsYW5jZVJlcXVlc3QiIwoQUmVhZEJhbGFuY2VSZXBs",
+          "eRIPCgdiYWxhbmNlGAEgASgBMqkBChFCYW5rQ2xpZW50U2VydmljZRIpCgdE",
+          "ZXBvc2l0Eg8uRGVwb3NpdFJlcXVlc3QaDS5EZXBvc2l0UmVwbHkSMgoKV2l0",
+          "aGRyYXdhbBISLldpdGhkcmF3YWxSZXF1ZXN0GhAuV2l0aGRyYXdhbFJlcGx5",
+          "EjUKC1JlYWRCYWxhbmNlEhMuUmVhZEJhbGFuY2VSZXF1ZXN0GhEuUmVhZEJh",
+          "bGFuY2VSZXBseWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::DepositRequest), global::DepositRequest.Parser, new[]{ "Ammount" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::DepositReply), global::DepositReply.Parser, new[]{ "Reply" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::WithdrawalRequest), global::WithdrawalRequest.Parser, new[]{ "Ammmount" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::WithdrawalRply), global::WithdrawalRply.Parser, new[]{ "Reply" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::DepositReply), global::DepositReply.Parser, new[]{ "Balance" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::WithdrawalRequest), global::WithdrawalRequest.Parser, new[]{ "Ammount" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::WithdrawalReply), global::WithdrawalReply.Parser, new[]{ "Balance", "Success" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ReadBalanceRequest), global::ReadBalanceRequest.Parser, null, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::ReadBalanceReply), global::ReadBalanceReply.Parser, new[]{ "Reply" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::ReadBalanceReply), global::ReadBalanceReply.Parser, new[]{ "Balance" }, null, null, null, null)
         }));
   }
   #endregion
@@ -267,7 +270,7 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public DepositReply(DepositReply other) : this() {
-    reply_ = other.reply_;
+    balance_ = other.balance_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -277,15 +280,15 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
     return new DepositReply(this);
   }
 
-  /// <summary>Field number for the "reply" field.</summary>
-  public const int ReplyFieldNumber = 1;
-  private string reply_ = "";
+  /// <summary>Field number for the "balance" field.</summary>
+  public const int BalanceFieldNumber = 1;
+  private double balance_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Reply {
-    get { return reply_; }
+  public double Balance {
+    get { return balance_; }
     set {
-      reply_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      balance_ = value;
     }
   }
 
@@ -304,7 +307,7 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Reply != other.Reply) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Balance, other.Balance)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -312,7 +315,7 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Reply.Length != 0) hash ^= Reply.GetHashCode();
+    if (Balance != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Balance);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -331,9 +334,9 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Reply.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Reply);
+    if (Balance != 0D) {
+      output.WriteRawTag(9);
+      output.WriteDouble(Balance);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -345,9 +348,9 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Reply.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Reply);
+    if (Balance != 0D) {
+      output.WriteRawTag(9);
+      output.WriteDouble(Balance);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -359,8 +362,8 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Reply.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Reply);
+    if (Balance != 0D) {
+      size += 1 + 8;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -374,8 +377,8 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
     if (other == null) {
       return;
     }
-    if (other.Reply.Length != 0) {
-      Reply = other.Reply;
+    if (other.Balance != 0D) {
+      Balance = other.Balance;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -392,8 +395,8 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 10: {
-          Reply = input.ReadString();
+        case 9: {
+          Balance = input.ReadDouble();
           break;
         }
       }
@@ -411,8 +414,8 @@ public sealed partial class DepositReply : pb::IMessage<DepositReply>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
-        case 10: {
-          Reply = input.ReadString();
+        case 9: {
+          Balance = input.ReadDouble();
           break;
         }
       }
@@ -456,7 +459,7 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public WithdrawalRequest(WithdrawalRequest other) : this() {
-    ammmount_ = other.ammmount_;
+    ammount_ = other.ammount_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -466,15 +469,15 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
     return new WithdrawalRequest(this);
   }
 
-  /// <summary>Field number for the "ammmount" field.</summary>
-  public const int AmmmountFieldNumber = 1;
-  private double ammmount_;
+  /// <summary>Field number for the "ammount" field.</summary>
+  public const int AmmountFieldNumber = 1;
+  private double ammount_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public double Ammmount {
-    get { return ammmount_; }
+  public double Ammount {
+    get { return ammount_; }
     set {
-      ammmount_ = value;
+      ammount_ = value;
     }
   }
 
@@ -493,7 +496,7 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Ammmount, other.Ammmount)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Ammount, other.Ammount)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -501,7 +504,7 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Ammmount != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Ammmount);
+    if (Ammount != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Ammount);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -520,9 +523,9 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Ammmount != 0D) {
+    if (Ammount != 0D) {
       output.WriteRawTag(9);
-      output.WriteDouble(Ammmount);
+      output.WriteDouble(Ammount);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -534,9 +537,9 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Ammmount != 0D) {
+    if (Ammount != 0D) {
       output.WriteRawTag(9);
-      output.WriteDouble(Ammmount);
+      output.WriteDouble(Ammount);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -548,7 +551,7 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Ammmount != 0D) {
+    if (Ammount != 0D) {
       size += 1 + 8;
     }
     if (_unknownFields != null) {
@@ -563,8 +566,8 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
     if (other == null) {
       return;
     }
-    if (other.Ammmount != 0D) {
-      Ammmount = other.Ammmount;
+    if (other.Ammount != 0D) {
+      Ammount = other.Ammount;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -582,7 +585,7 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 9: {
-          Ammmount = input.ReadDouble();
+          Ammount = input.ReadDouble();
           break;
         }
       }
@@ -601,7 +604,7 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 9: {
-          Ammmount = input.ReadDouble();
+          Ammount = input.ReadDouble();
           break;
         }
       }
@@ -611,16 +614,16 @@ public sealed partial class WithdrawalRequest : pb::IMessage<WithdrawalRequest>
 
 }
 
-public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
+public sealed partial class WithdrawalReply : pb::IMessage<WithdrawalReply>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
 #endif
 {
-  private static readonly pb::MessageParser<WithdrawalRply> _parser = new pb::MessageParser<WithdrawalRply>(() => new WithdrawalRply());
+  private static readonly pb::MessageParser<WithdrawalReply> _parser = new pb::MessageParser<WithdrawalReply>(() => new WithdrawalReply());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<WithdrawalRply> Parser { get { return _parser; } }
+  public static pb::MessageParser<WithdrawalReply> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -636,7 +639,7 @@ public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public WithdrawalRply() {
+  public WithdrawalReply() {
     OnConstruction();
   }
 
@@ -644,45 +647,59 @@ public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public WithdrawalRply(WithdrawalRply other) : this() {
-    reply_ = other.reply_;
+  public WithdrawalReply(WithdrawalReply other) : this() {
+    balance_ = other.balance_;
+    success_ = other.success_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public WithdrawalRply Clone() {
-    return new WithdrawalRply(this);
+  public WithdrawalReply Clone() {
+    return new WithdrawalReply(this);
   }
 
-  /// <summary>Field number for the "reply" field.</summary>
-  public const int ReplyFieldNumber = 1;
-  private string reply_ = "";
+  /// <summary>Field number for the "balance" field.</summary>
+  public const int BalanceFieldNumber = 1;
+  private double balance_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Reply {
-    get { return reply_; }
+  public double Balance {
+    get { return balance_; }
     set {
-      reply_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      balance_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "success" field.</summary>
+  public const int SuccessFieldNumber = 2;
+  private bool success_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Success {
+    get { return success_; }
+    set {
+      success_ = value;
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
-    return Equals(other as WithdrawalRply);
+    return Equals(other as WithdrawalReply);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(WithdrawalRply other) {
+  public bool Equals(WithdrawalReply other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Reply != other.Reply) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Balance, other.Balance)) return false;
+    if (Success != other.Success) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -690,7 +707,8 @@ public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Reply.Length != 0) hash ^= Reply.GetHashCode();
+    if (Balance != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Balance);
+    if (Success != false) hash ^= Success.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -709,9 +727,13 @@ public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Reply.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Reply);
+    if (Balance != 0D) {
+      output.WriteRawTag(9);
+      output.WriteDouble(Balance);
+    }
+    if (Success != false) {
+      output.WriteRawTag(16);
+      output.WriteBool(Success);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -723,9 +745,13 @@ public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Reply.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Reply);
+    if (Balance != 0D) {
+      output.WriteRawTag(9);
+      output.WriteDouble(Balance);
+    }
+    if (Success != false) {
+      output.WriteRawTag(16);
+      output.WriteBool(Success);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -737,8 +763,11 @@ public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Reply.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Reply);
+    if (Balance != 0D) {
+      size += 1 + 8;
+    }
+    if (Success != false) {
+      size += 1 + 1;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -748,12 +777,15 @@ public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(WithdrawalRply other) {
+  public void MergeFrom(WithdrawalReply other) {
     if (other == null) {
       return;
     }
-    if (other.Reply.Length != 0) {
-      Reply = other.Reply;
+    if (other.Balance != 0D) {
+      Balance = other.Balance;
+    }
+    if (other.Success != false) {
+      Success = other.Success;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -770,8 +802,12 @@ public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 10: {
-          Reply = input.ReadString();
+        case 9: {
+          Balance = input.ReadDouble();
+          break;
+        }
+        case 16: {
+          Success = input.ReadBool();
           break;
         }
       }
@@ -789,8 +825,12 @@ public sealed partial class WithdrawalRply : pb::IMessage<WithdrawalRply>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
-        case 10: {
-          Reply = input.ReadString();
+        case 9: {
+          Balance = input.ReadDouble();
+          break;
+        }
+        case 16: {
+          Success = input.ReadBool();
           break;
         }
       }
@@ -986,7 +1026,7 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public ReadBalanceReply(ReadBalanceReply other) : this() {
-    reply_ = other.reply_;
+    balance_ = other.balance_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -996,15 +1036,15 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
     return new ReadBalanceReply(this);
   }
 
-  /// <summary>Field number for the "reply" field.</summary>
-  public const int ReplyFieldNumber = 1;
-  private string reply_ = "";
+  /// <summary>Field number for the "balance" field.</summary>
+  public const int BalanceFieldNumber = 1;
+  private double balance_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Reply {
-    get { return reply_; }
+  public double Balance {
+    get { return balance_; }
     set {
-      reply_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      balance_ = value;
     }
   }
 
@@ -1023,7 +1063,7 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Reply != other.Reply) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Balance, other.Balance)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1031,7 +1071,7 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Reply.Length != 0) hash ^= Reply.GetHashCode();
+    if (Balance != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Balance);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1050,9 +1090,9 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Reply.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Reply);
+    if (Balance != 0D) {
+      output.WriteRawTag(9);
+      output.WriteDouble(Balance);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -1064,9 +1104,9 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Reply.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Reply);
+    if (Balance != 0D) {
+      output.WriteRawTag(9);
+      output.WriteDouble(Balance);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -1078,8 +1118,8 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Reply.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Reply);
+    if (Balance != 0D) {
+      size += 1 + 8;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1093,8 +1133,8 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
     if (other == null) {
       return;
     }
-    if (other.Reply.Length != 0) {
-      Reply = other.Reply;
+    if (other.Balance != 0D) {
+      Balance = other.Balance;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1111,8 +1151,8 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 10: {
-          Reply = input.ReadString();
+        case 9: {
+          Balance = input.ReadDouble();
           break;
         }
       }
@@ -1130,8 +1170,8 @@ public sealed partial class ReadBalanceReply : pb::IMessage<ReadBalanceReply>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
-        case 10: {
-          Reply = input.ReadString();
+        case 9: {
+          Balance = input.ReadDouble();
           break;
         }
       }

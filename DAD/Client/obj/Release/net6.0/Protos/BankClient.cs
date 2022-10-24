@@ -25,28 +25,29 @@ namespace BankClient {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdQcm90b3MvQmFua0NsaWVudC5wcm90byIhCg5EZXBvc2l0UmVxdWVzdBIP",
-            "CgdhbW1vdW50GAEgASgBIh0KDERlcG9zaXRSZXBseRINCgVyZXBseRgBIAEo",
-            "CSIlChFXaXRoZHJhd2FsUmVxdWVzdBIQCghhbW1tb3VudBgBIAEoASIgCg9X",
-            "aXRoZHJhd2FsUmVwbHkSDQoFcmVwbHkYASABKAkiFAoSUmVhZEJhbGFuY2VS",
-            "ZXF1ZXN0IiEKEFJlYWRCYWxhbmNlUmVwbHkSDQoFcmVwbHkYASABKAkiEQoP",
-            "UmVnaXN0ZXJSZXF1ZXN0Ig8KDVJlZ2lzdGVyUmVwbHky1wEKEUJhbmtDbGll",
-            "bnRTZXJ2aWNlEikKB0RlcG9zaXQSDy5EZXBvc2l0UmVxdWVzdBoNLkRlcG9z",
-            "aXRSZXBseRIyCgpXaXRoZHJhd2FsEhIuV2l0aGRyYXdhbFJlcXVlc3QaEC5X",
-            "aXRoZHJhd2FsUmVwbHkSNQoLUmVhZEJhbGFuY2USEy5SZWFkQmFsYW5jZVJl",
-            "cXVlc3QaES5SZWFkQmFsYW5jZVJlcGx5EiwKCFJlZ2lzdGVyEhAuUmVnaXN0",
-            "ZXJSZXF1ZXN0Gg4uUmVnaXN0ZXJSZXBseUINqgIKQmFua0NsaWVudGIGcHJv",
-            "dG8z"));
+            "CgdhbW1vdW50GAEgASgBIh8KDERlcG9zaXRSZXBseRIPCgdiYWxhbmNlGAEg",
+            "ASgBIiQKEVdpdGhkcmF3YWxSZXF1ZXN0Eg8KB2FtbW91bnQYASABKAEiMwoP",
+            "V2l0aGRyYXdhbFJlcGx5Eg8KB2JhbGFuY2UYASABKAESDwoHc3VjY2VzcxgC",
+            "IAEoCCIUChJSZWFkQmFsYW5jZVJlcXVlc3QiIwoQUmVhZEJhbGFuY2VSZXBs",
+            "eRIPCgdiYWxhbmNlGAEgASgBIh0KDlJlcGxpY2FSZXF1ZXN0EgsKA2tleRgB",
+            "IAEoCSIOCgxSZXBsaWNhUmVwbHkyqQEKEUJhbmtDbGllbnRTZXJ2aWNlEikK",
+            "B0RlcG9zaXQSDy5EZXBvc2l0UmVxdWVzdBoNLkRlcG9zaXRSZXBseRIyCgpX",
+            "aXRoZHJhd2FsEhIuV2l0aGRyYXdhbFJlcXVlc3QaEC5XaXRoZHJhd2FsUmVw",
+            "bHkSNQoLUmVhZEJhbGFuY2USEy5SZWFkQmFsYW5jZVJlcXVlc3QaES5SZWFk",
+            "QmFsYW5jZVJlcGx5Mj4KEUJhbmt0b0JhbmtTZXJ2aWNlEikKB1JlcGxpY2ES",
+            "Dy5SZXBsaWNhUmVxdWVzdBoNLlJlcGxpY2FSZXBseUINqgIKQmFua0NsaWVu",
+            "dGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.DepositRequest), global::BankClient.DepositRequest.Parser, new[]{ "Ammount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.DepositReply), global::BankClient.DepositReply.Parser, new[]{ "Reply" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.WithdrawalRequest), global::BankClient.WithdrawalRequest.Parser, new[]{ "Ammmount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.WithdrawalReply), global::BankClient.WithdrawalReply.Parser, new[]{ "Reply" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.DepositReply), global::BankClient.DepositReply.Parser, new[]{ "Balance" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.WithdrawalRequest), global::BankClient.WithdrawalRequest.Parser, new[]{ "Ammount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.WithdrawalReply), global::BankClient.WithdrawalReply.Parser, new[]{ "Balance", "Success" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.ReadBalanceRequest), global::BankClient.ReadBalanceRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.ReadBalanceReply), global::BankClient.ReadBalanceReply.Parser, new[]{ "Reply" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.RegisterRequest), global::BankClient.RegisterRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.RegisterReply), global::BankClient.RegisterReply.Parser, null, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.ReadBalanceReply), global::BankClient.ReadBalanceReply.Parser, new[]{ "Balance" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.ReplicaRequest), global::BankClient.ReplicaRequest.Parser, new[]{ "Key" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankClient.ReplicaReply), global::BankClient.ReplicaReply.Parser, null, null, null, null, null)
           }));
     }
     #endregion
@@ -276,7 +277,7 @@ namespace BankClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DepositReply(DepositReply other) : this() {
-      reply_ = other.reply_;
+      balance_ = other.balance_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -286,15 +287,15 @@ namespace BankClient {
       return new DepositReply(this);
     }
 
-    /// <summary>Field number for the "reply" field.</summary>
-    public const int ReplyFieldNumber = 1;
-    private string reply_ = "";
+    /// <summary>Field number for the "balance" field.</summary>
+    public const int BalanceFieldNumber = 1;
+    private double balance_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Reply {
-      get { return reply_; }
+    public double Balance {
+      get { return balance_; }
       set {
-        reply_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        balance_ = value;
       }
     }
 
@@ -313,7 +314,7 @@ namespace BankClient {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Reply != other.Reply) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Balance, other.Balance)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -321,7 +322,7 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Reply.Length != 0) hash ^= Reply.GetHashCode();
+      if (Balance != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Balance);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -340,9 +341,9 @@ namespace BankClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Reply.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Reply);
+      if (Balance != 0D) {
+        output.WriteRawTag(9);
+        output.WriteDouble(Balance);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -354,9 +355,9 @@ namespace BankClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Reply.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Reply);
+      if (Balance != 0D) {
+        output.WriteRawTag(9);
+        output.WriteDouble(Balance);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -368,8 +369,8 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Reply.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Reply);
+      if (Balance != 0D) {
+        size += 1 + 8;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -383,8 +384,8 @@ namespace BankClient {
       if (other == null) {
         return;
       }
-      if (other.Reply.Length != 0) {
-        Reply = other.Reply;
+      if (other.Balance != 0D) {
+        Balance = other.Balance;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -401,8 +402,8 @@ namespace BankClient {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            Reply = input.ReadString();
+          case 9: {
+            Balance = input.ReadDouble();
             break;
           }
         }
@@ -420,8 +421,8 @@ namespace BankClient {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            Reply = input.ReadString();
+          case 9: {
+            Balance = input.ReadDouble();
             break;
           }
         }
@@ -465,7 +466,7 @@ namespace BankClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public WithdrawalRequest(WithdrawalRequest other) : this() {
-      ammmount_ = other.ammmount_;
+      ammount_ = other.ammount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -475,15 +476,15 @@ namespace BankClient {
       return new WithdrawalRequest(this);
     }
 
-    /// <summary>Field number for the "ammmount" field.</summary>
-    public const int AmmmountFieldNumber = 1;
-    private double ammmount_;
+    /// <summary>Field number for the "ammount" field.</summary>
+    public const int AmmountFieldNumber = 1;
+    private double ammount_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public double Ammmount {
-      get { return ammmount_; }
+    public double Ammount {
+      get { return ammount_; }
       set {
-        ammmount_ = value;
+        ammount_ = value;
       }
     }
 
@@ -502,7 +503,7 @@ namespace BankClient {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Ammmount, other.Ammmount)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Ammount, other.Ammount)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -510,7 +511,7 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Ammmount != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Ammmount);
+      if (Ammount != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Ammount);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -529,9 +530,9 @@ namespace BankClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Ammmount != 0D) {
+      if (Ammount != 0D) {
         output.WriteRawTag(9);
-        output.WriteDouble(Ammmount);
+        output.WriteDouble(Ammount);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -543,9 +544,9 @@ namespace BankClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Ammmount != 0D) {
+      if (Ammount != 0D) {
         output.WriteRawTag(9);
-        output.WriteDouble(Ammmount);
+        output.WriteDouble(Ammount);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -557,7 +558,7 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Ammmount != 0D) {
+      if (Ammount != 0D) {
         size += 1 + 8;
       }
       if (_unknownFields != null) {
@@ -572,8 +573,8 @@ namespace BankClient {
       if (other == null) {
         return;
       }
-      if (other.Ammmount != 0D) {
-        Ammmount = other.Ammmount;
+      if (other.Ammount != 0D) {
+        Ammount = other.Ammount;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -591,7 +592,7 @@ namespace BankClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 9: {
-            Ammmount = input.ReadDouble();
+            Ammount = input.ReadDouble();
             break;
           }
         }
@@ -610,7 +611,7 @@ namespace BankClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 9: {
-            Ammmount = input.ReadDouble();
+            Ammount = input.ReadDouble();
             break;
           }
         }
@@ -654,7 +655,8 @@ namespace BankClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public WithdrawalReply(WithdrawalReply other) : this() {
-      reply_ = other.reply_;
+      balance_ = other.balance_;
+      success_ = other.success_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -664,15 +666,27 @@ namespace BankClient {
       return new WithdrawalReply(this);
     }
 
-    /// <summary>Field number for the "reply" field.</summary>
-    public const int ReplyFieldNumber = 1;
-    private string reply_ = "";
+    /// <summary>Field number for the "balance" field.</summary>
+    public const int BalanceFieldNumber = 1;
+    private double balance_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Reply {
-      get { return reply_; }
+    public double Balance {
+      get { return balance_; }
       set {
-        reply_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        balance_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "success" field.</summary>
+    public const int SuccessFieldNumber = 2;
+    private bool success_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Success {
+      get { return success_; }
+      set {
+        success_ = value;
       }
     }
 
@@ -691,7 +705,8 @@ namespace BankClient {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Reply != other.Reply) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Balance, other.Balance)) return false;
+      if (Success != other.Success) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -699,7 +714,8 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Reply.Length != 0) hash ^= Reply.GetHashCode();
+      if (Balance != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Balance);
+      if (Success != false) hash ^= Success.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -718,9 +734,13 @@ namespace BankClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Reply.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Reply);
+      if (Balance != 0D) {
+        output.WriteRawTag(9);
+        output.WriteDouble(Balance);
+      }
+      if (Success != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(Success);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -732,9 +752,13 @@ namespace BankClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Reply.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Reply);
+      if (Balance != 0D) {
+        output.WriteRawTag(9);
+        output.WriteDouble(Balance);
+      }
+      if (Success != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(Success);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -746,8 +770,11 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Reply.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Reply);
+      if (Balance != 0D) {
+        size += 1 + 8;
+      }
+      if (Success != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -761,8 +788,11 @@ namespace BankClient {
       if (other == null) {
         return;
       }
-      if (other.Reply.Length != 0) {
-        Reply = other.Reply;
+      if (other.Balance != 0D) {
+        Balance = other.Balance;
+      }
+      if (other.Success != false) {
+        Success = other.Success;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -779,8 +809,12 @@ namespace BankClient {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            Reply = input.ReadString();
+          case 9: {
+            Balance = input.ReadDouble();
+            break;
+          }
+          case 16: {
+            Success = input.ReadBool();
             break;
           }
         }
@@ -798,8 +832,12 @@ namespace BankClient {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            Reply = input.ReadString();
+          case 9: {
+            Balance = input.ReadDouble();
+            break;
+          }
+          case 16: {
+            Success = input.ReadBool();
             break;
           }
         }
@@ -995,7 +1033,7 @@ namespace BankClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ReadBalanceReply(ReadBalanceReply other) : this() {
-      reply_ = other.reply_;
+      balance_ = other.balance_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1005,15 +1043,15 @@ namespace BankClient {
       return new ReadBalanceReply(this);
     }
 
-    /// <summary>Field number for the "reply" field.</summary>
-    public const int ReplyFieldNumber = 1;
-    private string reply_ = "";
+    /// <summary>Field number for the "balance" field.</summary>
+    public const int BalanceFieldNumber = 1;
+    private double balance_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Reply {
-      get { return reply_; }
+    public double Balance {
+      get { return balance_; }
       set {
-        reply_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        balance_ = value;
       }
     }
 
@@ -1032,7 +1070,7 @@ namespace BankClient {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Reply != other.Reply) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Balance, other.Balance)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1040,7 +1078,7 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Reply.Length != 0) hash ^= Reply.GetHashCode();
+      if (Balance != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Balance);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1059,9 +1097,9 @@ namespace BankClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Reply.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Reply);
+      if (Balance != 0D) {
+        output.WriteRawTag(9);
+        output.WriteDouble(Balance);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1073,9 +1111,9 @@ namespace BankClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Reply.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Reply);
+      if (Balance != 0D) {
+        output.WriteRawTag(9);
+        output.WriteDouble(Balance);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1087,8 +1125,8 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Reply.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Reply);
+      if (Balance != 0D) {
+        size += 1 + 8;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1102,8 +1140,8 @@ namespace BankClient {
       if (other == null) {
         return;
       }
-      if (other.Reply.Length != 0) {
-        Reply = other.Reply;
+      if (other.Balance != 0D) {
+        Balance = other.Balance;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1120,8 +1158,8 @@ namespace BankClient {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            Reply = input.ReadString();
+          case 9: {
+            Balance = input.ReadDouble();
             break;
           }
         }
@@ -1139,8 +1177,8 @@ namespace BankClient {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            Reply = input.ReadString();
+          case 9: {
+            Balance = input.ReadDouble();
             break;
           }
         }
@@ -1150,16 +1188,16 @@ namespace BankClient {
 
   }
 
-  public sealed partial class RegisterRequest : pb::IMessage<RegisterRequest>
+  public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<RegisterRequest> _parser = new pb::MessageParser<RegisterRequest>(() => new RegisterRequest());
+    private static readonly pb::MessageParser<ReplicaRequest> _parser = new pb::MessageParser<ReplicaRequest>(() => new ReplicaRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<RegisterRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<ReplicaRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1175,7 +1213,7 @@ namespace BankClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RegisterRequest() {
+    public ReplicaRequest() {
       OnConstruction();
     }
 
@@ -1183,31 +1221,45 @@ namespace BankClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RegisterRequest(RegisterRequest other) : this() {
+    public ReplicaRequest(ReplicaRequest other) : this() {
+      key_ = other.key_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RegisterRequest Clone() {
-      return new RegisterRequest(this);
+    public ReplicaRequest Clone() {
+      return new ReplicaRequest(this);
+    }
+
+    /// <summary>Field number for the "key" field.</summary>
+    public const int KeyFieldNumber = 1;
+    private string key_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Key {
+      get { return key_; }
+      set {
+        key_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as RegisterRequest);
+      return Equals(other as ReplicaRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(RegisterRequest other) {
+    public bool Equals(ReplicaRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Key != other.Key) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1215,6 +1267,7 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (Key.Length != 0) hash ^= Key.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1233,6 +1286,10 @@ namespace BankClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (Key.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Key);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1243,6 +1300,10 @@ namespace BankClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Key.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Key);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1253,6 +1314,9 @@ namespace BankClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (Key.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Key);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1261,9 +1325,12 @@ namespace BankClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(RegisterRequest other) {
+    public void MergeFrom(ReplicaRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.Key.Length != 0) {
+        Key = other.Key;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1280,6 +1347,10 @@ namespace BankClient {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 10: {
+            Key = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -1295,6 +1366,10 @@ namespace BankClient {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 10: {
+            Key = input.ReadString();
+            break;
+          }
         }
       }
     }
@@ -1302,16 +1377,16 @@ namespace BankClient {
 
   }
 
-  public sealed partial class RegisterReply : pb::IMessage<RegisterReply>
+  public sealed partial class ReplicaReply : pb::IMessage<ReplicaReply>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<RegisterReply> _parser = new pb::MessageParser<RegisterReply>(() => new RegisterReply());
+    private static readonly pb::MessageParser<ReplicaReply> _parser = new pb::MessageParser<ReplicaReply>(() => new ReplicaReply());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<RegisterReply> Parser { get { return _parser; } }
+    public static pb::MessageParser<ReplicaReply> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1327,7 +1402,7 @@ namespace BankClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RegisterReply() {
+    public ReplicaReply() {
       OnConstruction();
     }
 
@@ -1335,25 +1410,25 @@ namespace BankClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RegisterReply(RegisterReply other) : this() {
+    public ReplicaReply(ReplicaReply other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RegisterReply Clone() {
-      return new RegisterReply(this);
+    public ReplicaReply Clone() {
+      return new ReplicaReply(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as RegisterReply);
+      return Equals(other as ReplicaReply);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(RegisterReply other) {
+    public bool Equals(ReplicaReply other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1413,7 +1488,7 @@ namespace BankClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(RegisterReply other) {
+    public void MergeFrom(ReplicaReply other) {
       if (other == null) {
         return;
       }

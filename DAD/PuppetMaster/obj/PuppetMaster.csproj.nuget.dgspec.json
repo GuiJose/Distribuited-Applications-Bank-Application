@@ -1,37 +1,20 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj": {}
+    "C:\\Users\\diogo\\Source\\Repos\\Dad_oficial\\DAD\\PuppetMaster\\PuppetMaster.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj": {
+    "C:\\Users\\diogo\\Source\\Repos\\Dad_oficial\\DAD\\PuppetMaster\\PuppetMaster.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+        "projectUniqueName": "C:\\Users\\diogo\\Source\\Repos\\Dad_oficial\\DAD\\PuppetMaster\\PuppetMaster.csproj",
         "projectName": "PuppetMaster",
-        "projectPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
-        "packagesPath": "C:\\Users\\zesan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\PuppetMaster\\obj\\",
+        "projectPath": "C:\\Users\\diogo\\Source\\Repos\\Dad_oficial\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+        "packagesPath": "C:\\Users\\diogo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diogo\\Source\\Repos\\Dad_oficial\\DAD\\PuppetMaster\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\zesan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-    "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj",
-        "projectName": "PuppetMaster",
-        "projectPath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj",
-        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
+          "C:\\Users\\diogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -68,7 +51,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -77,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

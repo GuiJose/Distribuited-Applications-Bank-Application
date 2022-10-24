@@ -45,17 +45,17 @@ public static partial class BankPaxosService
   }
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::GreetRequest> __Marshaller_GreetRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetRequest.Parser));
+  static readonly grpc::Marshaller<global::GreetRequest3> __Marshaller_GreetRequest3 = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetRequest3.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Marshaller<global::GreetReply> __Marshaller_GreetReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetReply.Parser));
+  static readonly grpc::Marshaller<global::GreetReply3> __Marshaller_GreetReply3 = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GreetReply3.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Method<global::GreetRequest, global::GreetReply> __Method_Greeting = new grpc::Method<global::GreetRequest, global::GreetReply>(
+  static readonly grpc::Method<global::GreetRequest3, global::GreetReply3> __Method_Greeting = new grpc::Method<global::GreetRequest3, global::GreetReply3>(
       grpc::MethodType.Unary,
       __ServiceName,
       "Greeting",
-      __Marshaller_GreetRequest,
-      __Marshaller_GreetReply);
+      __Marshaller_GreetRequest3,
+      __Marshaller_GreetReply3);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -68,7 +68,7 @@ public static partial class BankPaxosService
   public abstract partial class BankPaxosServiceBase
   {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::System.Threading.Tasks.Task<global::GreetReply> Greeting(global::GreetRequest request, grpc::ServerCallContext context)
+    public virtual global::System.Threading.Tasks.Task<global::GreetReply3> Greeting(global::GreetRequest3 request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -91,7 +91,7 @@ public static partial class BankPaxosService
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   public static void BindService(grpc::ServiceBinderBase serviceBinder, BankPaxosServiceBase serviceImpl)
   {
-    serviceBinder.AddMethod(__Method_Greeting, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GreetRequest, global::GreetReply>(serviceImpl.Greeting));
+    serviceBinder.AddMethod(__Method_Greeting, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GreetRequest3, global::GreetReply3>(serviceImpl.Greeting));
   }
 
 }

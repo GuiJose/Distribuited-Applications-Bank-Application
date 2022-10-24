@@ -12,6 +12,7 @@ namespace PaxosServer
 
         public override Task<Promise> Prepare(PrepareRequest request, ServerCallContext context)
         {
+            while (PaxosServer.GetFrozen()) { continue; }
             return Task.FromResult(Promise(request));
         }
 
@@ -22,42 +23,31 @@ namespace PaxosServer
             return new Promise { Value = { paxos.promise(request.ProposerID) } };
         }
 
-<<<<<<< HEAD
-
-/*
-        public override Task<Accepted_message> AcceptRequest(Accept request, ServerCallContext context)
-=======
         public override Task<AliveResponse> Alive(AliveRequest request, ServerCallContext context)
->>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
         {
+            while (PaxosServer.GetFrozen()) { continue; }
             return Task.FromResult(Alive2(request));
         }
 
 
         public AliveResponse Alive2(AliveRequest request)
         {
-<<<<<<< HEAD
-            return new Accepted_message { ProposerID = { paxos.promise(request.ProposerID) } };
-        }
-        
-        */
-=======
             PaxosServer.resetTimer(request.Id);
             PaxosServer.setFrozenFalse(request.Id);
             Console.WriteLine("Recebi um alive do:" + request.Id);
             return new AliveResponse {} ;
         }
 
-        //public override Task<Accepted_message> AcceptRequest(Accept request, ServerCallContext context)
-        //{
-        //  return Task.FromResult(Acceptor(request));
-        //}
+        public override Task<Accepted_message> AcceptRequest(Accept request, ServerCallContext context)
+        {
+            return Task.FromResult(Acceptor(request));
+        }
 
 
-        //public Accepted_message Acceptor(Accept request)
-        //{
-        //return new Accepted_message { Value_promised = { paxos.promise(request.ProposerID) } };
-        //}
->>>>>>> c7f81360ef4b66ec9006b03925ab463f4cdbbab5
+        public Accepted_message Acceptor(Accept request)
+        {
+            List<int> temp_list = paxos.accepted(request.Value, request.ProposerID);
+            return new Accepted_message { ValuePromised = temp_list[0], ProposerID = temp_list[1] };
+        }
     }
 }

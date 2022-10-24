@@ -24,31 +24,31 @@ namespace BankPaxosClient {
     static PaxosBankServersReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Ch1Qcm90b3MvUGF4b3NCYW5rU2VydmVycy5wcm90byIaCgxHcmVldFJlcXVl",
-            "c3QSCgoCaGkYASABKAgiGAoKR3JlZXRSZXBseRIKCgJoaRgBIAEoCDI6ChBC",
-            "YW5rUGF4b3NTZXJ2aWNlEiYKCEdyZWV0aW5nEg0uR3JlZXRSZXF1ZXN0Ggsu",
-            "R3JlZXRSZXBseUISqgIPQmFua1BheG9zQ2xpZW50YgZwcm90bzM="));
+            "Ch1Qcm90b3MvUGF4b3NCYW5rU2VydmVycy5wcm90byIbCg1HcmVldFJlcXVl",
+            "c3QzEgoKAmhpGAEgASgIIhkKC0dyZWV0UmVwbHkzEgoKAmhpGAEgASgIMjwK",
+            "EEJhbmtQYXhvc1NlcnZpY2USKAoIR3JlZXRpbmcSDi5HcmVldFJlcXVlc3Qz",
+            "GgwuR3JlZXRSZXBseTNCEqoCD0JhbmtQYXhvc0NsaWVudGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankPaxosClient.GreetRequest), global::BankPaxosClient.GreetRequest.Parser, new[]{ "Hi" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankPaxosClient.GreetReply), global::BankPaxosClient.GreetReply.Parser, new[]{ "Hi" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankPaxosClient.GreetRequest3), global::BankPaxosClient.GreetRequest3.Parser, new[]{ "Hi" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankPaxosClient.GreetReply3), global::BankPaxosClient.GreetReply3.Parser, new[]{ "Hi" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class GreetRequest : pb::IMessage<GreetRequest>
+  public sealed partial class GreetRequest3 : pb::IMessage<GreetRequest3>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GreetRequest> _parser = new pb::MessageParser<GreetRequest>(() => new GreetRequest());
+    private static readonly pb::MessageParser<GreetRequest3> _parser = new pb::MessageParser<GreetRequest3>(() => new GreetRequest3());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GreetRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<GreetRequest3> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -64,7 +64,7 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetRequest() {
+    public GreetRequest3() {
       OnConstruction();
     }
 
@@ -72,15 +72,15 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetRequest(GreetRequest other) : this() {
+    public GreetRequest3(GreetRequest3 other) : this() {
       hi_ = other.hi_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetRequest Clone() {
-      return new GreetRequest(this);
+    public GreetRequest3 Clone() {
+      return new GreetRequest3(this);
     }
 
     /// <summary>Field number for the "hi" field.</summary>
@@ -98,12 +98,12 @@ namespace BankPaxosClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GreetRequest);
+      return Equals(other as GreetRequest3);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GreetRequest other) {
+    public bool Equals(GreetRequest3 other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -176,7 +176,7 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GreetRequest other) {
+    public void MergeFrom(GreetRequest3 other) {
       if (other == null) {
         return;
       }
@@ -228,16 +228,16 @@ namespace BankPaxosClient {
 
   }
 
-  public sealed partial class GreetReply : pb::IMessage<GreetReply>
+  public sealed partial class GreetReply3 : pb::IMessage<GreetReply3>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GreetReply> _parser = new pb::MessageParser<GreetReply>(() => new GreetReply());
+    private static readonly pb::MessageParser<GreetReply3> _parser = new pb::MessageParser<GreetReply3>(() => new GreetReply3());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GreetReply> Parser { get { return _parser; } }
+    public static pb::MessageParser<GreetReply3> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -253,7 +253,7 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetReply() {
+    public GreetReply3() {
       OnConstruction();
     }
 
@@ -261,15 +261,15 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetReply(GreetReply other) : this() {
+    public GreetReply3(GreetReply3 other) : this() {
       hi_ = other.hi_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetReply Clone() {
-      return new GreetReply(this);
+    public GreetReply3 Clone() {
+      return new GreetReply3(this);
     }
 
     /// <summary>Field number for the "hi" field.</summary>
@@ -287,12 +287,12 @@ namespace BankPaxosClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GreetReply);
+      return Equals(other as GreetReply3);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GreetReply other) {
+    public bool Equals(GreetReply3 other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -365,7 +365,7 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GreetReply other) {
+    public void MergeFrom(GreetReply3 other) {
       if (other == null) {
         return;
       }

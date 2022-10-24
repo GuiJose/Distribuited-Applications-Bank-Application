@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
+using System.Runtime.CompilerServices;
 using System.Timers;
 
 namespace PaxosServer
@@ -20,6 +21,9 @@ namespace PaxosServer
         private static int Port;
         private static Paxos paxos;
         private static Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient> otherPaxosServers = new Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient>();
+        private static bool frozen = false;
+        private static readonly object frozenLock = new object();
+
 
         static void Main(string[] args)
         {
@@ -28,7 +32,7 @@ namespace PaxosServer
             paxos = new Paxos(Int16.Parse(args[0]));
             Port = Int16.Parse(args[1]);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-
+            bool keepRunning = true;
             Server server = new Server
             {
                 Services = { BankPaxosService.BindService(new BankService()).Intercept(new PaxosServerInterceptor()),  
@@ -67,8 +71,39 @@ namespace PaxosServer
             timer3.Start();
 
             Console.WriteLine("Press any key to stop the server...");
-            Console.ReadKey();
+
+            while (keepRunning)
+            {
+                Console.WriteLine("Press 'F' to frozen the process, 'N' to put the process in its normal condition or press" +
+                    "'X' to finish the process.\r\n In case you want to greet the PaxosServer press 'A'\r\n");
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.F:
+                        lock (frozenLock)
+                        {
+                            frozen = true;
+                        }
+                        break;
+                    case ConsoleKey.N:
+                        lock (frozenLock)
+                        {
+                            frozen = false;
+                        }
+                        break;
+                    case ConsoleKey.X:
+                        keepRunning = false;
+                        break;
+                }
+            }
             server.ShutdownAsync().Wait();
+        }
+
+        public static bool GetFrozen()
+        {
+            lock (frozenLock)
+            {
+                return frozen;
+            }
         }
 
         private static void setFrozen1(object sender, ElapsedEventArgs e)
@@ -77,7 +112,7 @@ namespace PaxosServer
             Console.WriteLine("o 1 está parado");
             if (currentLeader%3 == 1 && id == 2)
             {
-                doPrepare();
+                doPrepare(nextNumberToUse);
             }
         }
         private static void setFrozen2(object sender, ElapsedEventArgs e)
@@ -110,20 +145,47 @@ namespace PaxosServer
 
         private static void sendHello(object sender, ElapsedEventArgs e)
         {
+            if (frozen) { return; }
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
                paxosserver.Value.AliveAsync(new AliveRequest { Id = id });
             }
         }
 
-        private static void doPrepare()
+        private static async void doPrepare(int nextNumberToUse)
         {
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
-                paxosserver.Value.Prepare(new PrepareRequest { ProposerID = id });
+                try
+                {
+                    Promise replyy = await (paxosserver.Value.PrepareAsync(new PrepareRequest { ProposerID = nextNumberToUse }, deadline: DateTime.UtcNow.AddSeconds(5)));
+                    if (replyy.Value.Count() == 0) //recebeu uma lista vazia logo o read_ts apresenta um numero maior que o que ele tentou. Vai agora tentar com um maior
+                    {
+                        nextNumberToUse += 3;
+                        doPrepare(nextNumberToUse);
+                    }
+                    else //como ninguem com o id superior ao dele propos nada ele vai entao fazer o accept com o valor que enviou
+                    {
+                        Console.WriteLine(id);
+                        Console.WriteLine("replyy.Value[0] " + replyy.Value[0]);
+                        Console.WriteLine("replyy.Value[1] " + replyy.Value[1]);
+                        doAccept(replyy.Value[0], replyy.Value[1]);
+                    }
+                }
+                catch (RpcException ex) when (ex.StatusCode == StatusCode.DeadlineExceeded) { continue; };
             }
+        }
 
-            nextNumberToUse += 3;
+        private static async void doAccept(int id, int value_to_accept)
+        {
+            foreach(KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
+            {
+                Accepted_message reply_accept = await (paxosserver.Value.AcceptRequestAsync(new Accept { ProposerID = id, Value = value_to_accept }));
+                if (reply_accept.ValuePromised == value_to_accept && reply_accept.ProposerID == id)
+                {
+                    Console.WriteLine("SOU LIDER!!!!");
+                }
+            }
         }
 
         private static void createChannels(string[] args)

@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\DAD",
+    "\\DAD\\PaxosServer",
+    "\\DAD\\PaxosServer\\Protos",
+    "\\DAD\\PuppetMaster"
   ],
-  "SelectedNode": "\\DAD.sln",
+  "SelectedNode": "\\DAD\\PuppetMaster\\configuration_sample.txt",
   "PreviewInSolutionExplorer": false
 }

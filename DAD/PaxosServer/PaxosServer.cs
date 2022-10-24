@@ -161,15 +161,17 @@ namespace PaxosServer
                     Promise replyy = await (paxosserver.Value.PrepareAsync(new PrepareRequest { ProposerID = nextNumberToUse }, deadline: DateTime.UtcNow.AddSeconds(5)));
                     if (replyy.Value.Count() == 0) //recebeu uma lista vazia logo o read_ts apresenta um numero maior que o que ele tentou. Vai agora tentar com um maior
                     {
-                        nextNumberToUse += 3;
-                        doPrepare(nextNumberToUse);
+                        continue;
+                        //nextNumberToUse += 3;
+                        //doPrepare(nextNumberToUse);
                     }
-                    else //como ninguem com o id superior ao dele propos nada ele vai entao fazer o accept com o valor que enviou
+                    else //como ninguem com o id superior ao dele propos nada ele vai fazer o accept com o valor que enviou
                     {
-                        Console.WriteLine(id);
-                        Console.WriteLine("replyy.Value[0] " + replyy.Value[0]);
-                        Console.WriteLine("replyy.Value[1] " + replyy.Value[1]);
-                        doAccept(replyy.Value[0], replyy.Value[1]);
+                        if (replyy.Value[0] == 0) { }; //fazer accept com o id do bank que recebemos para fazer paxos
+                        else
+	                    {
+                            doAccept(replyy.Value[0], replyy.Value[1]);
+	                    }
                     }
                 }
                 catch (RpcException ex) when (ex.StatusCode == StatusCode.DeadlineExceeded) { continue; };

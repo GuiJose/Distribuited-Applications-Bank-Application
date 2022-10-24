@@ -22,7 +22,7 @@
                 lock (this) { read_ts = id; }
 
                 pedido++;
-                return new List<int> { read_ts,write_ts };
+                return new List<int> { write_ts,value };
             }
             pedido++;
             return new List<int> {};

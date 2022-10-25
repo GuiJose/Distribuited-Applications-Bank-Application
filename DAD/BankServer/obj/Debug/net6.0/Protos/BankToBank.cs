@@ -23,17 +23,17 @@ public static partial class BankToBankReflection {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
           "ChdQcm90b3MvQmFua1RvQmFuay5wcm90byIaCgxHcmVldFJlcXVlc3QSCgoC",
-          "aWQYASABKAUiGAoKR3JlZXRSZXBseRIKCgJoaRgBIAEoCCIdCg5SZXBsaWNh",
-          "UmVxdWVzdBILCgNrZXkYASABKAkiDgoMUmVwbGljYVJlcGx5MmYKEUJhbmtU",
-          "b0JhbmtTZXJ2aWNlEiYKCEdyZWV0aW5nEg0uR3JlZXRSZXF1ZXN0GgsuR3Jl",
-          "ZXRSZXBseRIpCgdSZXBsaWNhEg8uUmVwbGljYVJlcXVlc3QaDS5SZXBsaWNh",
-          "UmVwbHliBnByb3RvMw=="));
+          "aWQYASABKAUiGAoKR3JlZXRSZXBseRIKCgJoaRgBIAEoCCIiCg5SZXBsaWNh",
+          "UmVxdWVzdBIQCghjb21tYW5kcxgBIAMoCSIOCgxSZXBsaWNhUmVwbHkyZgoR",
+          "QmFua1RvQmFua1NlcnZpY2USJgoIR3JlZXRpbmcSDS5HcmVldFJlcXVlc3Qa",
+          "Cy5HcmVldFJlcGx5EikKB1JlcGxpY2ESDy5SZXBsaWNhUmVxdWVzdBoNLlJl",
+          "cGxpY2FSZXBseWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::GreetRequest), global::GreetRequest.Parser, new[]{ "Id" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::GreetReply), global::GreetReply.Parser, new[]{ "Hi" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::ReplicaRequest), global::ReplicaRequest.Parser, new[]{ "Key" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ReplicaRequest), global::ReplicaRequest.Parser, new[]{ "Commands" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ReplicaReply), global::ReplicaReply.Parser, null, null, null, null, null)
         }));
   }
@@ -453,7 +453,7 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public ReplicaRequest(ReplicaRequest other) : this() {
-    key_ = other.key_;
+    commands_ = other.commands_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -463,16 +463,15 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
     return new ReplicaRequest(this);
   }
 
-  /// <summary>Field number for the "key" field.</summary>
-  public const int KeyFieldNumber = 1;
-  private string key_ = "";
+  /// <summary>Field number for the "commands" field.</summary>
+  public const int CommandsFieldNumber = 1;
+  private static readonly pb::FieldCodec<string> _repeated_commands_codec
+      = pb::FieldCodec.ForString(10);
+  private readonly pbc::RepeatedField<string> commands_ = new pbc::RepeatedField<string>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Key {
-    get { return key_; }
-    set {
-      key_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
+  public pbc::RepeatedField<string> Commands {
+    get { return commands_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -490,7 +489,7 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Key != other.Key) return false;
+    if(!commands_.Equals(other.commands_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -498,7 +497,7 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Key.Length != 0) hash ^= Key.GetHashCode();
+    hash ^= commands_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -517,10 +516,7 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Key.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Key);
-    }
+    commands_.WriteTo(output, _repeated_commands_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -531,10 +527,7 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Key.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Key);
-    }
+    commands_.WriteTo(ref output, _repeated_commands_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -545,9 +538,7 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Key.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Key);
-    }
+    size += commands_.CalculateSize(_repeated_commands_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -560,9 +551,7 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
     if (other == null) {
       return;
     }
-    if (other.Key.Length != 0) {
-      Key = other.Key;
-    }
+    commands_.Add(other.commands_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -579,7 +568,7 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          Key = input.ReadString();
+          commands_.AddEntriesFrom(input, _repeated_commands_codec);
           break;
         }
       }
@@ -598,7 +587,7 @@ public sealed partial class ReplicaRequest : pb::IMessage<ReplicaRequest>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 10: {
-          Key = input.ReadString();
+          commands_.AddEntriesFrom(ref input, _repeated_commands_codec);
           break;
         }
       }

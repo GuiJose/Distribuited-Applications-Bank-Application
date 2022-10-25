@@ -1,24 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "80vLYt6+8389Mc0CM9RcuSbvcVInxHT/35iLcbetDOy0Bz+uuWJMcZFvnImMXakNwsXasSjtOr97srAatrkDtw==",
+  "dgSpecHash": "kia0fqTXwB3ZjjIWtsZS78vv2AA51HeB4uBge3qLLst3k7MAtpCmYqTPSu/QW3VMIdgFjCBAeVMeobatcK0d3Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\diogo\\Source\\Repos\\Dad_oficial\\DAD\\Client\\Client.csproj",
+  "projectFilePath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\Client\\Client.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\diogo\\.nuget\\packages\\google.protobuf\\3.21.6\\google.protobuf.3.21.6.nupkg.sha512",
-    "C:\\Users\\diogo\\.nuget\\packages\\grpc.core\\2.46.5\\grpc.core.2.46.5.nupkg.sha512",
-    "C:\\Users\\diogo\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
-    "C:\\Users\\diogo\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
-    "C:\\Users\\diogo\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
-    "C:\\Users\\diogo\\.nuget\\packages\\grpc.tools\\2.49.1\\grpc.tools.2.49.1.nupkg.sha512",
-    "C:\\Users\\diogo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
-    "C:\\Users\\diogo\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+    "C:\\Users\\zesan\\.nuget\\packages\\google.protobuf\\3.21.6\\google.protobuf.3.21.6.nupkg.sha512",
+    "C:\\Users\\zesan\\.nuget\\packages\\grpc.core\\2.46.5\\grpc.core.2.46.5.nupkg.sha512",
+    "C:\\Users\\zesan\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
+    "C:\\Users\\zesan\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
+    "C:\\Users\\zesan\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
+    "C:\\Users\\zesan\\.nuget\\packages\\grpc.tools\\2.49.1\\grpc.tools.2.49.1.nupkg.sha512",
+    "C:\\Users\\zesan\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\zesan\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema ao ler o arquivo de cache C:\\Users\\diogo\\Source\\Repos\\Dad_oficial\\DAD\\Client\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

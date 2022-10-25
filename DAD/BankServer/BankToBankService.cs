@@ -35,7 +35,7 @@ namespace BankServer
 
         public ReplicaReply Replicate(ReplicaRequest request)
         {
-            BankServer.executeCommands(request.Key);
+            BankServer.ReplicateCommands(request.Commands.ToList());
             return new ReplicaReply { };
         }
     }

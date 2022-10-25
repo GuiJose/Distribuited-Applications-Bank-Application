@@ -167,7 +167,7 @@ namespace PaxosServer
                     }
                     else //como ninguem com o id superior ao dele propos nada ele vai fazer o accept com o valor que enviou
                     {
-                        if (replyy.Value[0] == 0) { }; //fazer accept com o id do bank que recebemos para fazer paxos
+                        if (replyy.Value[0] == 0) { } //fazer accept com o id do bank que recebemos para fazer paxos
                         else
 	                    {
                             doAccept(replyy.Value[0], replyy.Value[1]);

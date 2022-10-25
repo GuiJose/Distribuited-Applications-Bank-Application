@@ -31,7 +31,6 @@ namespace BankServer
             }
             else
             {
-                 BankServer.executeCommands(key);
                  return new DepositReply { Balance = -1 };
             }
         }
@@ -55,7 +54,6 @@ namespace BankServer
             }
             else
             {
-                BankServer.executeCommands(key);
                 return new WithdrawalReply { Balance = -1, Success = false };
             }
         }

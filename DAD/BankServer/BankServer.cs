@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using BankPaxosClient;
@@ -20,6 +21,7 @@ namespace BankServer
         private static Dictionary<string, BankToBankService.BankToBankServiceClient> otherBankServers = new Dictionary<string, BankToBankService.BankToBankServiceClient>();
         private static Dictionary<string, BankPaxosService.BankPaxosServiceClient> PaxosServers = new Dictionary<string, BankPaxosService.BankPaxosServiceClient>();
         private static Dictionary<string, string> commands = new Dictionary<string, string>();
+        private static List<String> replicateCommands = new List<string>();
         static void Main(string[] args)
         {
             bool keepRunning = true;
@@ -51,6 +53,11 @@ namespace BankServer
             timer.Elapsed += PrimaryElection;
             timer.Start();*/
 
+            var replica = new System.Timers.Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
+
+            replica.AutoReset = true;
+            replica.Elapsed += Replica;
+            replica.Start();
 
             while (keepRunning)
             {
@@ -128,6 +135,21 @@ namespace BankServer
             }
         }
 
+        private static void Replica(object sender, ElapsedEventArgs e)
+        {
+            if (primary)
+            {
+                Console.WriteLine("VOU REPLICAR");
+                foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
+                {
+                    ReplicaRequest request = new ReplicaRequest();
+                    foreach (string rcmd in replicateCommands) request.Commands.Add(rcmd);
+                    ReplicaReply reply = server.Value.Replica(request);
+                }
+                replicateCommands.Clear();
+            }
+        }
+
         private static void GreetBankServers()
         {
             int count = 0;
@@ -161,6 +183,13 @@ namespace BankServer
             }
         }
 
+
+
+        public static void ReplicateCommands(List<string> commands)
+        {
+            foreach( string cmd in commands) executeCommands(cmd);
+        }
+
         public static bool executeCommands(String key)
         {
             Console.WriteLine("COMANDO KEY = " + key);
@@ -172,12 +201,14 @@ namespace BankServer
 
                     account.Deposit(int.Parse(commands[key].Split(" ")[1]));
                     commands.Remove(key);
+                    if(primary) replicateCommands.Add(key);
                     return true;
                 }
                 else if (commands[key].Split(" ")[0] == "W")
                 {
                     bool ok  = account.Withdrawal(int.Parse(commands[key].Split(" ")[1]));
                     commands.Remove(key);
+                    if(primary) replicateCommands.Add(key);
                     return ok;
 
                 }

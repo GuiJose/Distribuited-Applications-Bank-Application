@@ -5,6 +5,7 @@ service PaxosToPaxosService {
   rpc Prepare (PrepareRequest) returns (Promise);
   rpc Accepted (Accepted_message) returns (Decided);
   rpc Alive (AliveRequest) returns (AliveResponse);
+  rpc Commit(CommitRequest) returns (CommitReply);
 }
 
 message AliveRequest{
@@ -16,6 +17,7 @@ message AliveResponse{
 
 message PrepareRequest{
 	int32 proposerID = 1;
+	int32 slot = 2;
 }
 
 message Promise{
@@ -33,5 +35,14 @@ message Accepted_message{
 }
 
 message Decided{
+	bool ok = 1;
+}
+
+message CommitRequest{
+	int32 value = 1;
+	int32 slot = 2;
+}
+
+message CommitReply {
 	bool ok = 1;
 }

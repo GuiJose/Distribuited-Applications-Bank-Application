@@ -20,9 +20,9 @@ namespace PaxosServer
         public Promise Promise(PrepareRequest request)
         {
             Console.WriteLine("Recebi um prepare de:" + request.ProposerID);
-            return new Promise { Value = { paxos.promise(request.ProposerID) } };
+            return new Promise { Value = { paxos.promise(request.ProposerID, request.Slot) } };
         }
-
+/*
         public override Task<AliveResponse> Alive(AliveRequest request, ServerCallContext context)
         {
             while (PaxosServer.GetFrozen()) { continue; }
@@ -30,13 +30,13 @@ namespace PaxosServer
         }
 
 
-        public AliveResponse Alive2(AliveRequest request)
+       /* public AliveResponse Alive2(AliveRequest request)
         {
             PaxosServer.resetTimer(request.Id);
             PaxosServer.setFrozenFalse(request.Id);
             Console.WriteLine("Recebi um alive do:" + request.Id);
             return new AliveResponse {} ;
-        }
+        }*/
 
         public override Task<Accepted_message> AcceptRequest(Accept request, ServerCallContext context)
         {
@@ -49,5 +49,18 @@ namespace PaxosServer
             List<int> temp_list = paxos.accepted(request.Value, request.ProposerID);
             return new Accepted_message { ValuePromised = temp_list[0], ProposerID = temp_list[1] };
         }
+
+
+        public override Task<CommitReply> Commit(CommitRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(Commited(request));
+        }
+
+
+        public CommitReply Commited(CommitRequest request)
+        {
+            return new CommitReply { Ok = paxos.commit(request.Value, request.Slot) };
+        }
+        
     }
 }

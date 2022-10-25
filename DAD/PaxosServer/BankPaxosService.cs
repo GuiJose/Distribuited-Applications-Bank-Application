@@ -1,26 +1,27 @@
-﻿using Grpc.Core;
+﻿using System.Runtime.ExceptionServices;
+using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 
 namespace PaxosServer
 {
+   
     public class BankService : BankPaxosService.BankPaxosServiceBase
     {
+        private bool first = true;
         public BankService()
         {
         }
 
-        public override Task<GreetReply3> Greeting(
-            GreetRequest3 request, ServerCallContext context)
+        public override Task<CompareAndSwapReply> CompareAndSwap(
+            CompareAndSwapRequest request, ServerCallContext context)
         {
-            return Task.FromResult(Reg(request));
+            return Reg(request);
         }
 
-        public GreetReply3 Reg(GreetRequest3 request)
+        public async Task<CompareAndSwapReply> Reg(CompareAndSwapRequest request)
         {
-            Console.WriteLine("Received an hi from bank server.");
-            return new GreetReply3
-            {
-                Hi = true
-            };
+            int value = await PaxosServer.Paxos(request.Value, request.Slot);
+            return new CompareAndSwapReply { Value = value };
         }
     }
 }

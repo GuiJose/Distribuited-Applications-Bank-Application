@@ -24,31 +24,33 @@ namespace BankPaxosClient {
     static PaxosBankServersReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Ch1Qcm90b3MvUGF4b3NCYW5rU2VydmVycy5wcm90byIbCg1HcmVldFJlcXVl",
-            "c3QzEgoKAmhpGAEgASgIIhkKC0dyZWV0UmVwbHkzEgoKAmhpGAEgASgIMjwK",
-            "EEJhbmtQYXhvc1NlcnZpY2USKAoIR3JlZXRpbmcSDi5HcmVldFJlcXVlc3Qz",
-            "GgwuR3JlZXRSZXBseTNCEqoCD0JhbmtQYXhvc0NsaWVudGIGcHJvdG8z"));
+            "Ch1Qcm90b3MvUGF4b3NCYW5rU2VydmVycy5wcm90byI0ChVDb21wYXJlQW5k",
+            "U3dhcFJlcXVlc3QSDQoFdmFsdWUYASABKAUSDAoEc2xvdBgCIAEoBSIkChND",
+            "b21wYXJlQW5kU3dhcFJlcGx5Eg0KBXZhbHVlGAEgASgFMlIKEEJhbmtQYXhv",
+            "c1NlcnZpY2USPgoOQ29tcGFyZUFuZFN3YXASFi5Db21wYXJlQW5kU3dhcFJl",
+            "cXVlc3QaFC5Db21wYXJlQW5kU3dhcFJlcGx5QhKqAg9CYW5rUGF4b3NDbGll",
+            "bnRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankPaxosClient.GreetRequest3), global::BankPaxosClient.GreetRequest3.Parser, new[]{ "Hi" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BankPaxosClient.GreetReply3), global::BankPaxosClient.GreetReply3.Parser, new[]{ "Hi" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankPaxosClient.CompareAndSwapRequest), global::BankPaxosClient.CompareAndSwapRequest.Parser, new[]{ "Value", "Slot" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BankPaxosClient.CompareAndSwapReply), global::BankPaxosClient.CompareAndSwapReply.Parser, new[]{ "Value" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class GreetRequest3 : pb::IMessage<GreetRequest3>
+  public sealed partial class CompareAndSwapRequest : pb::IMessage<CompareAndSwapRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GreetRequest3> _parser = new pb::MessageParser<GreetRequest3>(() => new GreetRequest3());
+    private static readonly pb::MessageParser<CompareAndSwapRequest> _parser = new pb::MessageParser<CompareAndSwapRequest>(() => new CompareAndSwapRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GreetRequest3> Parser { get { return _parser; } }
+    public static pb::MessageParser<CompareAndSwapRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -64,7 +66,7 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetRequest3() {
+    public CompareAndSwapRequest() {
       OnConstruction();
     }
 
@@ -72,45 +74,59 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetRequest3(GreetRequest3 other) : this() {
-      hi_ = other.hi_;
+    public CompareAndSwapRequest(CompareAndSwapRequest other) : this() {
+      value_ = other.value_;
+      slot_ = other.slot_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetRequest3 Clone() {
-      return new GreetRequest3(this);
+    public CompareAndSwapRequest Clone() {
+      return new CompareAndSwapRequest(this);
     }
 
-    /// <summary>Field number for the "hi" field.</summary>
-    public const int HiFieldNumber = 1;
-    private bool hi_;
+    /// <summary>Field number for the "value" field.</summary>
+    public const int ValueFieldNumber = 1;
+    private int value_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Hi {
-      get { return hi_; }
+    public int Value {
+      get { return value_; }
       set {
-        hi_ = value;
+        value_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "slot" field.</summary>
+    public const int SlotFieldNumber = 2;
+    private int slot_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Slot {
+      get { return slot_; }
+      set {
+        slot_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GreetRequest3);
+      return Equals(other as CompareAndSwapRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GreetRequest3 other) {
+    public bool Equals(CompareAndSwapRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Hi != other.Hi) return false;
+      if (Value != other.Value) return false;
+      if (Slot != other.Slot) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -118,7 +134,8 @@ namespace BankPaxosClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Hi != false) hash ^= Hi.GetHashCode();
+      if (Value != 0) hash ^= Value.GetHashCode();
+      if (Slot != 0) hash ^= Slot.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -137,9 +154,13 @@ namespace BankPaxosClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Hi != false) {
+      if (Value != 0) {
         output.WriteRawTag(8);
-        output.WriteBool(Hi);
+        output.WriteInt32(Value);
+      }
+      if (Slot != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Slot);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -151,9 +172,13 @@ namespace BankPaxosClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Hi != false) {
+      if (Value != 0) {
         output.WriteRawTag(8);
-        output.WriteBool(Hi);
+        output.WriteInt32(Value);
+      }
+      if (Slot != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Slot);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -165,8 +190,11 @@ namespace BankPaxosClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Hi != false) {
-        size += 1 + 1;
+      if (Value != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Value);
+      }
+      if (Slot != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Slot);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -176,12 +204,15 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GreetRequest3 other) {
+    public void MergeFrom(CompareAndSwapRequest other) {
       if (other == null) {
         return;
       }
-      if (other.Hi != false) {
-        Hi = other.Hi;
+      if (other.Value != 0) {
+        Value = other.Value;
+      }
+      if (other.Slot != 0) {
+        Slot = other.Slot;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -199,7 +230,11 @@ namespace BankPaxosClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Hi = input.ReadBool();
+            Value = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            Slot = input.ReadInt32();
             break;
           }
         }
@@ -218,7 +253,11 @@ namespace BankPaxosClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Hi = input.ReadBool();
+            Value = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            Slot = input.ReadInt32();
             break;
           }
         }
@@ -228,16 +267,16 @@ namespace BankPaxosClient {
 
   }
 
-  public sealed partial class GreetReply3 : pb::IMessage<GreetReply3>
+  public sealed partial class CompareAndSwapReply : pb::IMessage<CompareAndSwapReply>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GreetReply3> _parser = new pb::MessageParser<GreetReply3>(() => new GreetReply3());
+    private static readonly pb::MessageParser<CompareAndSwapReply> _parser = new pb::MessageParser<CompareAndSwapReply>(() => new CompareAndSwapReply());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GreetReply3> Parser { get { return _parser; } }
+    public static pb::MessageParser<CompareAndSwapReply> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -253,7 +292,7 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetReply3() {
+    public CompareAndSwapReply() {
       OnConstruction();
     }
 
@@ -261,45 +300,45 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetReply3(GreetReply3 other) : this() {
-      hi_ = other.hi_;
+    public CompareAndSwapReply(CompareAndSwapReply other) : this() {
+      value_ = other.value_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GreetReply3 Clone() {
-      return new GreetReply3(this);
+    public CompareAndSwapReply Clone() {
+      return new CompareAndSwapReply(this);
     }
 
-    /// <summary>Field number for the "hi" field.</summary>
-    public const int HiFieldNumber = 1;
-    private bool hi_;
+    /// <summary>Field number for the "value" field.</summary>
+    public const int ValueFieldNumber = 1;
+    private int value_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Hi {
-      get { return hi_; }
+    public int Value {
+      get { return value_; }
       set {
-        hi_ = value;
+        value_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GreetReply3);
+      return Equals(other as CompareAndSwapReply);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GreetReply3 other) {
+    public bool Equals(CompareAndSwapReply other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Hi != other.Hi) return false;
+      if (Value != other.Value) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -307,7 +346,7 @@ namespace BankPaxosClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Hi != false) hash ^= Hi.GetHashCode();
+      if (Value != 0) hash ^= Value.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -326,9 +365,9 @@ namespace BankPaxosClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Hi != false) {
+      if (Value != 0) {
         output.WriteRawTag(8);
-        output.WriteBool(Hi);
+        output.WriteInt32(Value);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -340,9 +379,9 @@ namespace BankPaxosClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Hi != false) {
+      if (Value != 0) {
         output.WriteRawTag(8);
-        output.WriteBool(Hi);
+        output.WriteInt32(Value);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -354,8 +393,8 @@ namespace BankPaxosClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Hi != false) {
-        size += 1 + 1;
+      if (Value != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Value);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -365,12 +404,12 @@ namespace BankPaxosClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GreetReply3 other) {
+    public void MergeFrom(CompareAndSwapReply other) {
       if (other == null) {
         return;
       }
-      if (other.Hi != false) {
-        Hi = other.Hi;
+      if (other.Value != 0) {
+        Value = other.Value;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -388,7 +427,7 @@ namespace BankPaxosClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Hi = input.ReadBool();
+            Value = input.ReadInt32();
             break;
           }
         }
@@ -407,7 +446,7 @@ namespace BankPaxosClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Hi = input.ReadBool();
+            Value = input.ReadInt32();
             break;
           }
         }

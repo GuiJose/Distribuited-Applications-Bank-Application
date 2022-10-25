@@ -12,6 +12,7 @@ namespace BankServer
     public class BankServer
     {
         private static int id;
+        private static int slot = 2;
         private static int port;
         private static bool primary = false;
         private static List<int> banksID = new List<int>();
@@ -47,11 +48,12 @@ namespace BankServer
             createChannels(args);
             GreetBankServers();
 
-            /*var timer = new System.Timers.Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
 
-            timer.AutoReset = true;
-            timer.Elapsed += PrimaryElection;
-            timer.Start();*/
+            var paxos = new System.Timers.Timer(TimeSpan.FromSeconds(30).TotalMilliseconds);
+
+            paxos.AutoReset = true;
+            paxos.Elapsed += PrimaryElection;
+            paxos.Start();
 
             var replica = new System.Timers.Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
 
@@ -124,17 +126,19 @@ namespace BankServer
 
         private static void PrimaryElection(object sender, ElapsedEventArgs e)
         {
-            if (id == 4)
+            foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
             {
-                foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
-                {
 
-                    GreetReply3 reply = paxosserver.Value.Greeting(new GreetRequest3 { Hi = true });
-                    Console.WriteLine(reply.Hi.ToString() + "\r\n");
-                }
+                CompareAndSwapReply reply = paxosserver.Value.CompareAndSwap(new CompareAndSwapRequest { Value = id, Slot = slot });
+                slot++;
+                if (reply.Value == -1) continue;
+                if (reply.Value == id) setPrimary(true);
+                else setPrimary(false);
+                Console.WriteLine(reply.Value.ToString() + "\r\n");
+                Console.WriteLine(primary ? "SOU PRIMARIO" : "NAO SOU PRIMARIO");
             }
         }
-
+        
         private static void Replica(object sender, ElapsedEventArgs e)
         {
             if (primary)

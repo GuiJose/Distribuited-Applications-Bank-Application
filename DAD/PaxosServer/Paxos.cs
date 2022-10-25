@@ -6,37 +6,51 @@
         private int value = 0;
         private int write_ts = 0; //so e trocado no accept
         private int read_ts = 0;
+        private Dictionary<int,int> decisions = new Dictionary<int,int>();
         int pedido = 1;
         public Paxos(int iD)
         {
             this.ID = iD;
         }
 
-        public List<int> promise(int id)
+        public List<int> promise(int id, int slot)
         {
-            
-            Console.WriteLine("recebi o pedido do ID " + id + " pedido " + pedido + " READ = " + read_ts);
-
-            if (id > read_ts)
+            if (!decisions.ContainsKey(slot))
             {
-                lock (this) { read_ts = id; }
-
-                pedido++;
-                return new List<int> { write_ts,value };
+                if (id > read_ts)
+                {
+                    lock (this) { read_ts = id; }
+                    return new List<int> { write_ts, value };
+                }
             }
-            pedido++;
             return new List<int> {};
         }
         public List<int> accepted(int id, int value_to_accept)
         {
-            if (read_ts == id) { write_ts = id; value = value_to_accept; };
+            if (read_ts == id) 
+            {
+                lock (this)
+                {
+                    write_ts = id;
+                    value = value_to_accept;
+                }
+            };
+
             return new List<int> { id, value_to_accept };
         }
-            public int getID()
+            public int getID(){ return ID; }
+
+        public bool commit (int value, int slot)
         {
-            return ID;
+            if (!decisions.ContainsKey(slot))
+            {
+                lock (this) { decisions.Add(slot, value); }
+                return true;
+            }
+            return false;
         }
 
-
+        public bool hasSlot(int slot) { return decisions.ContainsKey(slot); }
+        public int getSlot(int slot) { return decisions[slot]; }
     }
 }

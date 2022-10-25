@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Timers;
 
@@ -44,19 +45,10 @@ namespace PaxosServer
 
             createChannels(args);
 
-            //Começar processo Paxos
-            /* Esqueleto:
-             processo_paxos(){
-                PREPARE_PROMISSE();
-                VERIFICAÇÕES
-                ACCEPT_ACCEPTED();
-                FOI ACEITE?
-                DEVOLVER RESPOSTA AO BANCO
-            }
-            */
+         
             //Quando recebe mensagem dos bancos executa este codigo a baixo (transformar em função)
 
-            //Fazer accept
+           /* //Fazer accept
             timerHello.AutoReset = true;
             timerHello.Elapsed += sendHello;
             timerHello.Start();
@@ -68,7 +60,7 @@ namespace PaxosServer
             timer2.Start();
             timer3.AutoReset = true;
             timer3.Elapsed += setFrozen3;
-            timer3.Start();
+            timer3.Start();*/
 
             Console.WriteLine("Press any key to stop the server...");
 
@@ -105,7 +97,7 @@ namespace PaxosServer
                 return frozen;
             }
         }
-
+        /*
         private static void setFrozen1(object sender, ElapsedEventArgs e)
         {
             is1Frozen = true;
@@ -143,51 +135,81 @@ namespace PaxosServer
         }
 
 
-        private static void sendHello(object sender, ElapsedEventArgs e)
+       /* private static void sendHello(object sender, ElapsedEventArgs e)
         {
             if (frozen) { return; }
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
                paxosserver.Value.AliveAsync(new AliveRequest { Id = id });
             }
+        }*/
+
+        //Começar processo Paxos
+        /* Esqueleto:
+         processo_paxos(){
+            PREPARE_PROMISSE();
+            VERIFICAÇÕES
+            ACCEPT_ACCEPTED();
+            FOI ACEITE?
+            DEVOLVER RESPOSTA AO BANCO
+        }
+        */
+
+        public static async Task<int> Paxos(int value, int slot)
+        {
+            int valueToPropose = await doPrepare(value, slot);
+            int valueAccepted = await doAccept(id, valueToPropose);
+            if( await doCommit(valueAccepted, slot)) return valueAccepted;
+            return 0;
         }
 
-        private static async void doPrepare(int nextNumberToUse)
+
+        private static async Task<int> doPrepare(int nextNumberToUse, int slot)
         {
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
                 try
                 {
-                    Promise replyy = await (paxosserver.Value.PrepareAsync(new PrepareRequest { ProposerID = nextNumberToUse }, deadline: DateTime.UtcNow.AddSeconds(5)));
-                    if (replyy.Value.Count() == 0) //recebeu uma lista vazia logo o read_ts apresenta um numero maior que o que ele tentou. Vai agora tentar com um maior
+                    Promise reply = await (paxosserver.Value.PrepareAsync(new PrepareRequest { ProposerID = id, Slot = slot }, deadline: DateTime.UtcNow.AddSeconds(5)));
+                    if (reply.Value.Count() == 0) //recebeu uma lista vazia logo o read_ts apresenta um numero maior que o que ele tentou. Vai agora tentar com um maior
                     {
                         continue;
-                        //nextNumberToUse += 3;
-                        //doPrepare(nextNumberToUse);
                     }
                     else //como ninguem com o id superior ao dele propos nada ele vai fazer o accept com o valor que enviou
                     {
-                        if (replyy.Value[0] == 0) { } //fazer accept com o id do bank que recebemos para fazer paxos
+                        if (reply.Value[0] == 0) { return nextNumberToUse; } //fazer accept com o id do bank que recebemos para fazer paxos
                         else
 	                    {
-                            doAccept(replyy.Value[0], replyy.Value[1]);
+                            return reply.Value[1];
 	                    }
                     }
                 }
                 catch (RpcException ex) when (ex.StatusCode == StatusCode.DeadlineExceeded) { continue; };
             }
+            return 0;
         }
 
-        private static async void doAccept(int id, int value_to_accept)
+        private static async Task<int> doAccept(int id, int value_to_accept)
         {
             foreach(KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
                 Accepted_message reply_accept = await (paxosserver.Value.AcceptRequestAsync(new Accept { ProposerID = id, Value = value_to_accept }));
                 if (reply_accept.ValuePromised == value_to_accept && reply_accept.ProposerID == id)
                 {
-                    Console.WriteLine("SOU LIDER!!!!");
+                    return reply_accept.ValuePromised;
                 }
             }
+            return 0;
+        }
+
+        private static async Task<bool> doCommit(int value_to_commit, int slot)
+        {
+            foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
+            {
+                CommitReply commit = await (paxosserver.Value.CommitAsync(new CommitRequest { Slot = slot, Value = value_to_commit }));
+                return commit.Ok;
+            }
+            return false;
         }
 
         private static void createChannels(string[] args)
@@ -205,7 +227,7 @@ namespace PaxosServer
         {
             return id;
         }
-
+/*
         public static void resetTimer(int i)
         {
             if (i == 1)
@@ -223,7 +245,7 @@ namespace PaxosServer
                 timer3.Stop();
                 timer3.Start();
             }
-        }
+        }*/
     }
 }
 

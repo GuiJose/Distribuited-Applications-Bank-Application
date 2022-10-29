@@ -12,7 +12,7 @@ namespace BankServer
     public class BankServer
     {
         private static int id;
-        private static int slot = 2;
+        private static int slot = 1;
         private static int port;
         private static bool primary = false;
         private static List<int> banksID = new List<int>();
@@ -30,9 +30,7 @@ namespace BankServer
             port = Int16.Parse(args[1]);
             banksID.Add(id);
             const string ServerHostname = "localhost";
-
             Console.WriteLine(id);
-
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             Server server = new Server
@@ -126,16 +124,21 @@ namespace BankServer
 
         private static void PrimaryElection(object sender, ElapsedEventArgs e)
         {
+            setPrimary(false);
             foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
             {
 
                 CompareAndSwapReply reply = paxosserver.Value.CompareAndSwap(new CompareAndSwapRequest { Value = id, Slot = slot });
                 slot++;
-                if (reply.Value == -1) continue;
+                if (reply.Value == 0) continue;
                 if (reply.Value == id) setPrimary(true);
                 else setPrimary(false);
                 Console.WriteLine(reply.Value.ToString() + "\r\n");
                 Console.WriteLine(primary ? "SOU PRIMARIO" : "NAO SOU PRIMARIO");
+            }
+            if (primary)
+            {
+                ReplicateCommands(commands.Keys.ToList());
             }
         }
         

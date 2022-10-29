@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\Client\\Client.csproj": {}
+    "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\Client\\Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\Client\\Client.csproj": {
+    "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\Client\\Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\Client\\Client.csproj",
+        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\Client\\Client.csproj",
         "projectName": "Client",
-        "projectPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\Client\\Client.csproj",
-        "packagesPath": "C:\\Users\\zesan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zesan\\source\\repos\\Dad\\DAD\\Client\\obj\\",
+        "projectPath": "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\Client\\Client.csproj",
+        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\Client\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\zesan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -65,8 +65,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -75,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

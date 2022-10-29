@@ -22,21 +22,6 @@ namespace PaxosServer
             Console.WriteLine("Recebi um prepare de:" + request.ProposerID);
             return new Promise { Value = { paxos.promise(request.ProposerID, request.Slot) } };
         }
-/*
-        public override Task<AliveResponse> Alive(AliveRequest request, ServerCallContext context)
-        {
-            while (PaxosServer.GetFrozen()) { continue; }
-            return Task.FromResult(Alive2(request));
-        }
-
-
-       /* public AliveResponse Alive2(AliveRequest request)
-        {
-            PaxosServer.resetTimer(request.Id);
-            PaxosServer.setFrozenFalse(request.Id);
-            Console.WriteLine("Recebi um alive do:" + request.Id);
-            return new AliveResponse {} ;
-        }*/
 
         public override Task<Accepted_message> AcceptRequest(Accept request, ServerCallContext context)
         {

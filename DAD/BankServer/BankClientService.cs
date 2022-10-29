@@ -14,6 +14,8 @@ namespace BankServer
         public override Task<DepositReply> Deposit(
             DepositRequest request, ServerCallContext context)
         {
+
+            Monitor.Wait(BankServer.GetFrozen());
             while (BankServer.GetFrozen()){}
             return Task.FromResult(Reg(request, context));
         }

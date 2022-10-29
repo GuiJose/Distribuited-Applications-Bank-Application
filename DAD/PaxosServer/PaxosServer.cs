@@ -9,14 +9,10 @@ namespace PaxosServer
 {
     public class PaxosServer
     {
-        private static System.Timers.Timer timerHello = new System.Timers.Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
-        private static System.Timers.Timer timer1 = new System.Timers.Timer(TimeSpan.FromSeconds(30).TotalMilliseconds);
-        private static System.Timers.Timer timer2 = new System.Timers.Timer(TimeSpan.FromSeconds(30).TotalMilliseconds);
-        private static System.Timers.Timer timer3 = new System.Timers.Timer(TimeSpan.FromSeconds(30).TotalMilliseconds);
-        private static bool is1Frozen = false;
-        private static bool is2Frozen = false;
-        private static bool is3Frozen = false;
-        private static int currentLeader = 1;
+        private static string[] configurationText = File.ReadAllLines("configuration_sample.txt");
+        private static bool suspect1 = false;
+        private static bool suspect2 = false;
+        private static bool suspect3 = false;
         private static int nextNumberToUse;
         private static int id;
         private static int Port;
@@ -34,6 +30,9 @@ namespace PaxosServer
             Port = Int16.Parse(args[1]);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             bool keepRunning = true;
+
+            bool x = checkLeader(1);
+
             Server server = new Server
             {
                 Services = { BankPaxosService.BindService(new BankService()).Intercept(new PaxosServerInterceptor()),  
@@ -44,23 +43,6 @@ namespace PaxosServer
             Console.WriteLine("PaxosServer server listening on port " + Port);
 
             createChannels(args);
-
-         
-            //Quando recebe mensagem dos bancos executa este codigo a baixo (transformar em função)
-
-           /* //Fazer accept
-            timerHello.AutoReset = true;
-            timerHello.Elapsed += sendHello;
-            timerHello.Start();
-            timer1.AutoReset = true;
-            timer1.Elapsed += setFrozen1;
-            timer1.Start();
-            timer2.AutoReset = true;
-            timer2.Elapsed += setFrozen2;
-            timer2.Start();
-            timer3.AutoReset = true;
-            timer3.Elapsed += setFrozen3;
-            timer3.Start();*/
 
             Console.WriteLine("Press any key to stop the server...");
 
@@ -97,70 +79,116 @@ namespace PaxosServer
                 return frozen;
             }
         }
-        /*
-        private static void setFrozen1(object sender, ElapsedEventArgs e)
-        {
-            is1Frozen = true;
-            Console.WriteLine("o 1 está parado");
-            if (currentLeader%3 == 1 && id == 2)
-            {
-                doPrepare(nextNumberToUse);
-            }
-        }
-        private static void setFrozen2(object sender, ElapsedEventArgs e)
-        {
-            is2Frozen = true;
-            Console.WriteLine("o 2 está parado");
-        }
-        private static void setFrozen3(object sender, ElapsedEventArgs e)
-        {
-            is3Frozen = true;
-            Console.WriteLine("o 3 está parado");
-        }
-
-        public static void setFrozenFalse(int id)
-        {
-            if (id == 1)
-            {
-                is1Frozen = false;
-            }
-            else if (id == 2)
-            {
-                is2Frozen = false;
-            }
-            else
-            {
-                is3Frozen = false;
-            }
-        }
-
-
-       /* private static void sendHello(object sender, ElapsedEventArgs e)
-        {
-            if (frozen) { return; }
-            foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
-            {
-               paxosserver.Value.AliveAsync(new AliveRequest { Id = id });
-            }
-        }*/
-
-        //Começar processo Paxos
-        /* Esqueleto:
-         processo_paxos(){
-            PREPARE_PROMISSE();
-            VERIFICAÇÕES
-            ACCEPT_ACCEPTED();
-            FOI ACEITE?
-            DEVOLVER RESPOSTA AO BANCO
-        }
-        */
-
+      
         public static async Task<int> Paxos(int value, int slot)
         {
-            int valueToPropose = await doPrepare(value, slot);
-            int valueAccepted = await doAccept(id, valueToPropose);
-            if( await doCommit(valueAccepted, slot)) return valueAccepted;
+            if (readConfigurationLines(slot))
+            {
+                int valueToPropose = await doPrepare(value, slot);
+                int valueAccepted = await doAccept(id, valueToPropose);
+                if (await doCommit(valueAccepted, slot)) return valueAccepted;
+                return 0;
+            }
             return 0;
+        }
+
+        private static bool readConfigurationLines(int slot)
+        {
+            foreach (string line in configurationText)
+            {
+                if (line[0] == 'F' && Int32.Parse(line.Split(" ")[1]) == slot){
+
+                    if (id == 1)
+                    {
+                        string tuplo = line.Split(")")[1].Substring(1);
+                        string frozen = tuplo.Split(" ")[2];
+                        if (frozen == "S")
+                        {
+                            suspect2 = true;
+                        }
+                        else
+                        {
+                            suspect2 = false;
+                        }
+
+                        tuplo = line.Split(")")[2].Substring(1);
+                        frozen = tuplo.Split(" ")[2];
+                        if (frozen == "S")
+                        {
+                            suspect3 = true;
+                        }
+                        else
+                        {
+                            suspect3 = false;
+                        }
+                    }
+                    else if (id == 2)
+                    {
+                        string tuplo = line.Split(")")[0].Substring(1);
+                        string frozen = tuplo.Split(" ")[2];
+                        if (frozen == "S")
+                        {
+                            suspect1 = true;
+                        }
+                        else
+                        {
+                            suspect1 = false;
+                        }
+
+                        tuplo = line.Split(")")[2].Substring(1);
+                        frozen = tuplo.Split(" ")[2];
+                        if (frozen == "S")
+                        {
+                            suspect3 = true;
+                        }
+                        else
+                        {
+                            suspect3 = false;
+                        }
+                    }
+                    else
+                    {
+                        string tuplo = line.Split(")")[0].Substring(1);
+                        string frozen = tuplo.Split(" ")[2];
+                        if (frozen == "S")
+                        {
+                            suspect1 = true;
+                        }
+                        else
+                        {
+                            suspect1 = false;
+                        }
+
+                        tuplo = line.Split(")")[1].Substring(1);
+                        frozen = tuplo.Split(" ")[2];
+                        if (frozen == "S")
+                        {
+                            suspect2 = true;
+                        }
+                        else
+                        {
+                            suspect2 = false;
+                        }
+                    }
+                }
+            }
+            return checkLeader(slot);
+        }
+
+        private static bool checkLeader(int slot)
+        {
+            if (id == 2 && suspect1 == true)
+            {
+                return true;
+            }
+            else if (id == 3 && suspect1 == true && suspect2 == true) { 
+                return true; 
+            }
+            else if (id == 1)
+            {
+                return true;
+            }
+            return false;
         }
 
 
@@ -227,25 +255,6 @@ namespace PaxosServer
         {
             return id;
         }
-/*
-        public static void resetTimer(int i)
-        {
-            if (i == 1)
-            {
-                timer1.Stop();
-                timer1.Start();
-            }
-            else if (i == 2)
-            {
-                timer2.Stop();
-                timer2.Start();
-            }
-            else
-            {
-                timer3.Stop();
-                timer3.Start();
-            }
-        }*/
     }
 }
 

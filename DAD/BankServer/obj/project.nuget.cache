@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cIZT5EzmmmRTNo4YbfRZVeHF7iU1kEoXnM+8nAq+a13sFj3/SLT9j9uT1f2fgp7fzcK+4lvLly9p4ccANVCRdg==",
+  "dgSpecHash": "0Qfi7fFa+iafKUpWxctB3F7rjE+Oz45MosgM/Ch7NL3x9xNFhLV8cVuEoIzwD3y9QfUBNoV1rEM7n64eWE+KYg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\BankServer\\BankServer.csproj",
+  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\BankServer\\BankServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\google.protobuf\\3.21.6\\google.protobuf.3.21.6.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\grpc.core\\2.46.5\\grpc.core.2.46.5.nupkg.sha512",

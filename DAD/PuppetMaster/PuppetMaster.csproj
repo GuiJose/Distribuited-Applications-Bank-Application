@@ -15,6 +15,9 @@
     <None Update="configuration_sample.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+	<None Update="bank_client_script_sample.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
   </ItemGroup>
 
 </Project>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj": {}
+    "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj": {
+    "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj",
         "projectName": "PuppetMaster",
-        "projectPath": "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+        "projectPath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj",
         "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\PuppetMaster\\obj\\",
+        "outputPath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",

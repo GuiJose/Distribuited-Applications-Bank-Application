@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ctkN5MDvVDSj+yOLQJff25l1VkGNFqsvgzrKeEqy5NJqyJJfEfAKR8ZlzuIF27qGoQfFGAA1w1ebLgip9pergw==",
+  "dgSpecHash": "OIcv6TRp33od2CmuK52+gzAt7mcv9lY2T6E5+z+H/d3Sg1IpnAHseL8pORhrtL61Bd2YXvID9qOyjGuo05cu3Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\Dad\\DAD\\PuppetMaster\\PuppetMaster.csproj",
+  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\DAD\\DAD\\PuppetMaster\\PuppetMaster.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",

@@ -7,6 +7,7 @@ List<string> paxosPorts = new List<string>();
 int numberClients = 0;
 
 Dictionary<string, string> processes = new Dictionary<string, string>();
+List<string> configurationFiles = new List<string>();
 
 int iD = 1;
 
@@ -25,6 +26,7 @@ foreach (string line in text)
         else
         {
             numberClients++;
+            configurationFiles.Add(line.Split(' ')[3]);
         }
     }
 }
@@ -92,10 +94,13 @@ for (int i = 0; i < bankPorts.Count(); i++)
 
 //inicializar os clientes
 
+int clientsRunning = 0;
+
 for (int i = 0; i < numberClients; i++)
 {
     ProcessStartInfo client = new ProcessStartInfo("C:/Users/Asus/source/repos/Dad/DAD/Client/bin/Debug/net6.0/Client.exe");
     client.ArgumentList.Add(iD.ToString());
+    client.ArgumentList.Add(configurationFiles[clientsRunning]);
     iD++;
     foreach (string port in bankPorts)
     {
@@ -104,6 +109,7 @@ for (int i = 0; i < numberClients; i++)
     client.CreateNoWindow = false;
     client.UseShellExecute = true;
     Process p = Process.Start(client);
+    clientsRunning++;
 }
 
 

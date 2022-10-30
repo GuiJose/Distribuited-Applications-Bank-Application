@@ -2,6 +2,7 @@
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
+using System.Globalization;
 
 namespace Client
 {
@@ -31,13 +32,13 @@ namespace Client
                 {
                     case ConsoleKey.D:
                         Console.WriteLine("\r\nHow much do you want to deposit ?\r\n");
-                        double ammount = Convert.ToDouble(Console.ReadLine());
+                        double ammount = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                         executeDeposit(ammount);
                         break;
                     
                     case ConsoleKey.W:
                         Console.WriteLine("\r\nHow much do you want to withdrawal ?\r\n");
-                        double ammount2 = Convert.ToDouble(Console.ReadLine());
+                        double ammount2 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                         executeWithdrawal(ammount2);
                         break;
 
@@ -57,11 +58,11 @@ namespace Client
             {
                 if (line[0] == 'D')
                 {
-                    executeDeposit(Convert.ToDouble(line.Split(' ')[1]));
+                    executeDeposit(double.Parse(line.Split(' ')[1], CultureInfo.InvariantCulture));
                 }
                 else if (line[0] == 'W')
                 {
-                    executeWithdrawal(Convert.ToDouble(line.Split(' ')[1]));
+                    executeWithdrawal(double.Parse(line.Split(' ')[1], CultureInfo.InvariantCulture));
                 }
                 else if (line[0] == 'R')
                 {
@@ -73,7 +74,7 @@ namespace Client
 
         private static void executeDeposit(double ammount)
         {
-            Console.WriteLine("You are trying to deposit " + ammount.ToString() + "euros.");
+            Console.WriteLine("You are trying to deposit " + ammount.ToString() + " euros.");
             DepositRequest request = new DepositRequest { Ammount = ammount };
             foreach (KeyValuePair<string, BankClientService.BankClientServiceClient> server in servers)
             {
@@ -85,7 +86,7 @@ namespace Client
         }
         private static void executeWithdrawal(double ammount)
         {
-            Console.WriteLine("You are trying to withdrawal " + ammount.ToString() + "euros.");
+            Console.WriteLine("You are trying to withdrawal " + ammount.ToString() + " euros.");
             WithdrawalRequest request = new WithdrawalRequest { Ammount = ammount };
             foreach (KeyValuePair<string, BankClientService.BankClientServiceClient> server in servers)
             {

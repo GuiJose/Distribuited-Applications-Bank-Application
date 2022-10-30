@@ -20,18 +20,18 @@ namespace BankServer
 
         public DepositReply Reg(DepositRequest request, ServerCallContext context)
         {
-            Console.WriteLine("Received request to deposit");
             string key = context.RequestHeaders.GetValue("dad");
+            Console.WriteLine(request.Ammount.ToString());
             BankServer.AddCommands(key, "D " + request.Ammount.ToString());
+
             if (BankServer.getPrimary())
             {
-           
                 BankServer.executeCommands(key);
                 return new DepositReply { Balance = account.GetBalance() };
             }
             else
             {
-                 return new DepositReply { Balance = -1 };
+                return new DepositReply { Balance = -1.0 };
             }
         }
 
@@ -50,7 +50,7 @@ namespace BankServer
             if (BankServer.getPrimary())
             {
                 bool ok = BankServer.executeCommands(key);
-                return new WithdrawalReply { Balance = account.GetBalance(), Success = ok };
+                return new WithdrawalReply { Balance = account.GetBalance(), Success = true };
             }
             else
             {

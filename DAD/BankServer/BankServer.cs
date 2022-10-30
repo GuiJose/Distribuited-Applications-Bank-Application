@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using BankPaxosClient;
@@ -48,7 +49,7 @@ namespace BankServer
             GreetBankServers();
 
 
-            var paxos = new System.Timers.Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
+            var paxos = new System.Timers.Timer(TimeSpan.FromSeconds(30).TotalMilliseconds);
 
             paxos.AutoReset = true;
             paxos.Elapsed += PrimaryElection;
@@ -221,15 +222,14 @@ namespace BankServer
             {
                 if (commands[key].Split(" ")[0] == "D")
                 {
-
-                    account.Deposit(int.Parse(commands[key].Split(" ")[1]));
+                    account.Deposit(Convert.ToDouble(commands[key].Split(" ")[1]));
                     commands.Remove(key);
                     if(primary) replicateCommands.Add(key);
                     return true;
                 }
                 else if (commands[key].Split(" ")[0] == "W")
                 {
-                    bool ok  = account.Withdrawal(int.Parse(commands[key].Split(" ")[1]));
+                    bool ok  = account.Withdrawal(Convert.ToDouble(commands[key].Split(" ")[1]));
                     commands.Remove(key);
                     if(primary) replicateCommands.Add(key);
                     return ok;

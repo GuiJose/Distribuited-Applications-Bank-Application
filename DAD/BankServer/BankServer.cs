@@ -47,7 +47,7 @@ namespace BankServer
             GreetBankServers();
 
 
-            var paxos = new System.Timers.Timer(TimeSpan.FromSeconds(30).TotalMilliseconds);
+            var paxos = new System.Timers.Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
 
             paxos.AutoReset = true;
             paxos.Elapsed += PrimaryElection;
@@ -124,22 +124,37 @@ namespace BankServer
 
         private static void PrimaryElection(object sender, ElapsedEventArgs e)
         {
-            setPrimary(false);
+            Console.WriteLine("ENVIEI PEDIDO DE PAXOS");
             foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
             {
-
                 CompareAndSwapReply reply = paxosserver.Value.CompareAndSwap(new CompareAndSwapRequest { Value = id, Slot = slot });
-                slot++;
-                if (reply.Value == 0) continue;
+                Console.WriteLine("Slot: " + slot.ToString());
+                if (reply.Value == 0)
+                {
+                    Console.WriteLine("Deu continue");
+                    continue;
+                }
+                    
                 if (reply.Value == id) setPrimary(true);
-                else setPrimary(false);
+                else 
+                {
+                    if (primary)
+                    {
+                        Console.WriteLine("VOU REPLICAR PORQUE DEIXEI DE SER LÍDER");
+                        foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
+                        {
+                            ReplicaRequest request = new ReplicaRequest();
+                            foreach (string rcmd in replicateCommands) request.Commands.Add(rcmd);
+                            server.Value.ReplicaAsync(request);
+                        }
+                        replicateCommands.Clear();
+                    }
+                    setPrimary(false);
+                }
                 Console.WriteLine(reply.Value.ToString() + "\r\n");
                 Console.WriteLine(primary ? "SOU PRIMARIO" : "NAO SOU PRIMARIO");
             }
-            if (primary)
-            {
-                ReplicateCommands(commands.Keys.ToList());
-            }
+            slot++;
         }
         
         private static void Replica(object sender, ElapsedEventArgs e)

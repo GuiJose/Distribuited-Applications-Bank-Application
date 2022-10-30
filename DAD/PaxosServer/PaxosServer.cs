@@ -81,9 +81,16 @@ namespace PaxosServer
         {
             if (readConfigurationLines(slot))
             {
+                Console.WriteLine("Vou avançar com o Paxos");
                 int valueToPropose = await doPrepare(value, slot);
                 int valueAccepted = await doAccept(id, valueToPropose);
-                if (await doCommit(valueAccepted, slot)) return valueAccepted;
+                if (await doCommit(valueAccepted, slot))
+                {
+                    Console.WriteLine("DEU PAXOS");
+                    Console.WriteLine(valueAccepted);
+                    return valueAccepted;
+                }
+                Console.WriteLine("Não deu Paxos");
                 return 0;
             }
             return 0;

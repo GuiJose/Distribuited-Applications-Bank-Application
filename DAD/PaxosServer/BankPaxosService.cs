@@ -34,16 +34,15 @@ namespace PaxosServer
                 first = true;
                 value = await PaxosServer.Paxos(request.Value, request.Slot);
                 decided = true;
-                Monitor.PulseAll(decided);
             }
-            else if (!decided){
-                Monitor.Wait(decided);
-            }
+
+            while (!decided) { }
 
             if (id == 3)
             {
                 decided = false;
                 first = false;
+                idMessage = 0;
             }
             return new CompareAndSwapReply { Value = value };
         }

@@ -27,7 +27,8 @@ namespace BankServer
         {
             bool keepRunning = true;
             id = Int16.Parse(args[0]);
-            port = Int16.Parse(args[1]);
+            int numberBanks = Int16.Parse(args[1]);
+            port = Int16.Parse(args[2]);
             banksID.Add(id);
             const string ServerHostname = "localhost";
             Console.WriteLine(id);
@@ -43,7 +44,7 @@ namespace BankServer
             Console.WriteLine("ChatServer server listening on port " + port);
 
 
-            createChannels(args);
+            createChannels(args, numberBanks);
             GreetBankServers();
 
 
@@ -99,11 +100,11 @@ namespace BankServer
                 return frozen;
             }
         }
-        private static void createChannels(string[] args)
+        private static void createChannels(string[] args, int numberBanks)
         {
-            for (int i = 2; i < args.Length; i++)
+            for (int i = 3; i < args.Length; i++)
             {
-                if (i < 4)
+                if (i < (3 + numberBanks-1))
                 {
                     GrpcChannel channel = GrpcChannel.ForAddress("http://localhost:" + args[i]);
                     CallInvoker interceptingInvoker = channel.Intercept(new BankServerInterceptor());

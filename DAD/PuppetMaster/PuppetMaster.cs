@@ -66,6 +66,7 @@ for (int i = 0; i < bankPorts.Count(); i++)
     List<string> sendingPorts = new List<string>();
     sendingPorts.Add(iD.ToString());
     iD++;
+    sendingPorts.Add(bankPorts.Count().ToString());
     sendingPorts.Add(bankPorts[i]);
     foreach (string port in bankPorts)
     {

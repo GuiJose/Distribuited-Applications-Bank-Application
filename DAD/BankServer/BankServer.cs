@@ -143,6 +143,10 @@ namespace BankServer
                 Console.WriteLine(reply.Value.ToString() + "\r\n");
                 Console.WriteLine(primary ? "SOU PRIMARIO" : "NAO SOU PRIMARIO");
             }
+            if (primary)
+            {
+                ReplicateCommands(commands.Keys.ToList());
+            }
             slot++;
         }
         

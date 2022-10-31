@@ -81,18 +81,21 @@ namespace PaxosServer
             {
                 Console.WriteLine("Vou avançar com o Paxos");
                 int valueToPropose = await doPrepare(value, slot);
+                if (valueToPropose == 0)
+                {
+                    return 0;
+                }
                 int valueAccepted = await doAccept(id, valueToPropose);
                 if (await doCommit(valueAccepted, slot))
                 {
                     Console.WriteLine(valueAccepted);
                     return valueAccepted;
                 }
-                return 0;
             }
             return 0;
         }
 
-        private static async Task<int> doPrepare(int nextNumberToUse, int slot)
+        private static async Task<int> doPrepare(int numberToPropose, int slot)
         {
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
@@ -101,11 +104,11 @@ namespace PaxosServer
                     Promise reply = await (paxosserver.Value.PrepareAsync(new PrepareRequest { ProposerID = id, Slot = slot }, deadline: DateTime.UtcNow.AddSeconds(5)));
                     if (reply.Value.Count() == 0) //recebeu uma lista vazia logo o read_ts apresenta um numero maior que o que ele tentou. Vai agora tentar com um maior
                     {
-                        continue;
+                        return 0;
                     }
                     else //como ninguem com o id superior ao dele propos nada ele vai fazer o accept com o valor que enviou
                     {
-                        if (reply.Value[0] == 0) { return nextNumberToUse; } //fazer accept com o id do bank que recebemos para fazer paxos
+                        if (reply.Value[0] == 0) { return numberToPropose; } //fazer accept com o id do bank que recebemos para fazer paxos
                         else
                         {
                             return reply.Value[1];

@@ -83,3 +83,4 @@ C:\Users\diogo\source\repos\Dad_oficial\DAD\PuppetMaster\obj\Debug\net6.0\Puppet
 C:\Users\diogo\source\repos\Dad_oficial\DAD\PuppetMaster\obj\Debug\net6.0\PuppetMaster.genruntimeconfig.cache
 C:\Users\diogo\source\repos\Dad_oficial\DAD\PuppetMaster\obj\Debug\net6.0\ref\PuppetMaster.dll
 C:\Users\Asus\source\repos\DAD\DAD\PuppetMaster\bin\Debug\net6.0\bank_client_script_sample.txt
+C:\Users\diogo\source\repos\Dad_oficial\DAD\PuppetMaster\bin\Debug\net6.0\bank_client_script_sample.txt

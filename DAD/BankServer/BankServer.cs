@@ -20,6 +20,8 @@ namespace BankServer
         private static Dictionary<string, BankPaxosService.BankPaxosServiceClient> PaxosServers = new Dictionary<string, BankPaxosService.BankPaxosServiceClient>();
         private static Dictionary<string, string> commands = new Dictionary<string, string>();
         private static List<String> replicateCommands = new List<string>();
+        private static string[] configurationText = File.ReadAllLines("configuration_sample.txt");
+        private static int current_lider;
         static void Main(string[] args)
         {
             bool keepRunning = true;
@@ -113,17 +115,72 @@ namespace BankServer
             }
         }
 
+        private static int decider()//vai receber o id do processo, e id ultimo lider
+        {
+            if (current_lider == id)
+            {
+                return id;
+            }
+            foreach (string line in configurationText)
+            {
+                if (line[0] == 'F' && Int32.Parse(line.Split(" ")[1]) == slot) //selects the line
+                {
+                    if (current_lider == 4)
+                    {
+                        string tuplo = line.Split(")")[3].Substring(1);
+                        string sus = tuplo.Split(" ")[2];
+                        if (sus == "S")
+                        {
+                            return id;
+                        }
+                        else //case of being NS
+                        {
+                            return current_lider;
+                        }
+                    }
+                    if (current_lider == 5)
+                    {
+                        string tuplo = line.Split(")")[4].Substring(1);
+                        string sus = tuplo.Split(" ")[2];
+                        if (sus == "S")
+                        {
+                            return id;
+                        }
+                        else //case of being NS
+                        {
+                            return current_lider;
+                        }
+                    }
+                    if (current_lider == 6)
+                    {
+                        string tuplo = line.Split(")")[5].Substring(1);
+                        string sus = tuplo.Split(" ")[2];
+                        if (sus == "S")
+                        {
+                            return id;
+                        }
+                        else //case of being NS
+                        {
+                            return current_lider;
+                        }
+                    }
+                }
+            }
+            return 1;
+        }
+
         private static void PrimaryElection(object sender, ElapsedEventArgs e)
         {
             Console.WriteLine("ENVIEI PEDIDO DE PAXOS");
             foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
             {
-                CompareAndSwapReply reply = paxosserver.Value.CompareAndSwap(new CompareAndSwapRequest { Value = id, Slot = slot });
+                Console.WriteLine("Decider + " + decider());
+                CompareAndSwapReply reply = paxosserver.Value.CompareAndSwap(new CompareAndSwapRequest { Value = decider(), Slot = slot });
                 if (reply.Value == 0)
                 {
                     continue;
                 }
-                    
+                current_lider = reply.Value;
                 if (reply.Value == id) setPrimary(true);
                 else 
                 {
@@ -168,12 +225,16 @@ namespace BankServer
         private static void GreetBankServers()
         {
             int count = 0;
+
             foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
             {
                 GreetReply reply = server.Value.Greeting(new GreetRequest { Id = id });
                 if (reply.Hi) count++;
             }
-            if (count == otherBankServers.Count && id == banksID.Min()) setPrimary(true);          
+            current_lider = banksID.Min();
+            Console.WriteLine("ESTE E O CURRENT_LIDER" + current_lider);
+            while (count != otherBankServers.Count) { }
+            if (id == banksID.Min()) setPrimary(true);
         }
 
         public static List<int> getBankID() { return banksID; }

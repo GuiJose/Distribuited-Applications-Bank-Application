@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Timers;
+﻿using System.Timers;
 using BankPaxosClient;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
@@ -44,10 +40,8 @@ namespace BankServer
             server.Start();
             Console.WriteLine("ChatServer server listening on port " + port);
 
-
             createChannels(args, numberBanks);
             GreetBankServers();
-
 
             var paxos = new System.Timers.Timer(TimeSpan.FromSeconds(30).TotalMilliseconds);
 
@@ -64,7 +58,7 @@ namespace BankServer
             while (keepRunning)
             {
                 Console.WriteLine("Press 'F' to frozen the process, 'N' to put the process in its normal condition or press" +
-                    "'X' to finish the process.\r\n In case you want to greet the PaxosServer press 'A'\r\n");
+                    "'X' to finish the process.\r\n");
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.F:
@@ -78,11 +72,6 @@ namespace BankServer
                         {
                             frozen = false;
                         }
-                        break;
-                    case ConsoleKey.A:
-                        //GreetRequest request = new GreetRequest { Hi = true };
-                        //GreetReply reply = paxosServer.Greeting(request);
-                        //Console.WriteLine(reply.ToString());
                         break;
 
                     case ConsoleKey.X:
@@ -130,10 +119,8 @@ namespace BankServer
             foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
             {
                 CompareAndSwapReply reply = paxosserver.Value.CompareAndSwap(new CompareAndSwapRequest { Value = id, Slot = slot });
-                Console.WriteLine("Slot: " + slot.ToString());
                 if (reply.Value == 0)
                 {
-                    Console.WriteLine("Deu continue");
                     continue;
                 }
                     

@@ -670,6 +670,9 @@ public sealed partial class Promise : pb::IMessage<Promise>
   private static readonly pb::FieldCodec<int> _repeated_value_codec
       = pb::FieldCodec.ForInt32(10);
   private readonly pbc::RepeatedField<int> value_ = new pbc::RepeatedField<int>();
+  /// <summary>
+  /// id do lider maior que ja fez prepare, e o seu valor.
+  /// </summary>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public pbc::RepeatedField<int> Value {

@@ -21,7 +21,7 @@ message PrepareRequest{
 }
 
 message Promise{
-	repeated int32 value = 1;
+	repeated int32 value = 1; // id do lider maior que ja fez prepare, e o seu valor.
 }
 
 message Accept{

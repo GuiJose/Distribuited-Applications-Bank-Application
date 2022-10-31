@@ -20,8 +20,8 @@ namespace Client
             createChannels(args);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
-            System.Threading.Thread.Sleep(2000);
-
+            sleep(2000);
+            
             executeFileCommmands(operationsText);
 
             while (keepRunnning)
@@ -68,8 +68,16 @@ namespace Client
                 {
                     executeRead();
                 }
-                else {}
+                else if (line[0] == 'S')
+                {
+                    sleep(int.Parse(line.Split(' ')[1]));
+                }
+                
             }
+        }
+        private static void sleep(int t)
+        {
+            System.Threading.Thread.Sleep(t);
         }
 
         private static void executeDeposit(double ammount)

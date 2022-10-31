@@ -23,7 +23,7 @@
                     return new List<int> { write_ts, value };
                 }
             }
-            return new List<int> {};
+            return new List<int> { };
         }
         public List<int> accepted(int id, int value_to_accept)
         {
@@ -38,7 +38,7 @@
 
             return new List<int> { id, value_to_accept };
         }
-            public int getID(){ return ID; }
+        public int getID(){ return ID; }
 
         public bool commit (int value, int slot)
         {

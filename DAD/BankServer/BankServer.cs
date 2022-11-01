@@ -166,15 +166,14 @@ namespace BankServer
                     }
                 }
             }
-            return 1;
+            return id;
         }
 
         private static void PrimaryElection(object sender, ElapsedEventArgs e)
         {
-            Console.WriteLine("ENVIEI PEDIDO DE PAXOS");
+            Console.WriteLine("ENVIEI PEDIDO DE PAXOS COM ID = " + decider());
             foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
             {
-                Console.WriteLine("Decider + " + decider());
                 CompareAndSwapReply reply = paxosserver.Value.CompareAndSwap(new CompareAndSwapRequest { Value = decider(), Slot = slot });
                 if (reply.Value == 0)
                 {
@@ -224,20 +223,18 @@ namespace BankServer
 
         private static void GreetBankServers()
         {
-            int count = 0;
+            int minId = id;
 
             foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
             {
                 GreetReply reply = server.Value.Greeting(new GreetRequest { Id = id });
-                if (reply.Hi) count++;
+                if (reply.Id < minId) minId = reply.Id;
             }
-            current_lider = banksID.Min();
-            Console.WriteLine("ESTE E O CURRENT_LIDER" + current_lider);
-            while (count != otherBankServers.Count) { }
-            if (id == banksID.Min()) setPrimary(true);
+            current_lider = minId;
+            if (id == minId) setPrimary(true);
         }
-
-        public static List<int> getBankID() { return banksID; }
+        
+        public static int getId() { return id; }
 
         private static void setPrimary(bool value) { primary = value; }
 

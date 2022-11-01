@@ -31,6 +31,12 @@ foreach (string line in text)
     }
 }
 
+
+string currentDir = Environment.CurrentDirectory;
+string paxosDir = currentDir.Replace("PuppetMaster", "PaxosServer") + "/PaxosServer.exe";
+string bankDir = currentDir.Replace("PuppetMaster", "BankServer") + "/BankServer.exe";
+string clientDir = currentDir.Replace("PuppetMaster", "Client") + "/Client.exe";
+
 //inicializar os servidores paxos
 for (int i = 0; i < paxosPorts.Count(); i++)
 {
@@ -46,7 +52,7 @@ for (int i = 0; i < paxosPorts.Count(); i++)
         }
     }
     
-    ProcessStartInfo paxosServer = new ProcessStartInfo("C:/Users/diogo/source/repos/Dad_oficial/DAD/PaxosServer/bin/Debug/net6.0/PaxosServer.exe");
+    ProcessStartInfo paxosServer = new ProcessStartInfo(paxosDir);
     foreach (string port in sendingPorts)
     {
         paxosServer.ArgumentList.Add(port);
@@ -80,7 +86,7 @@ for (int i = 0; i < bankPorts.Count(); i++)
         sendingPorts.Add(port);
     }
 
-    ProcessStartInfo bankServer = new ProcessStartInfo("C:/Users/diogo/source/repos/Dad_oficial/DAD/BankServer/bin/Debug/net6.0/BankServer.exe");
+    ProcessStartInfo bankServer = new ProcessStartInfo(bankDir);
 
     foreach (string port in sendingPorts)
     {
@@ -99,7 +105,7 @@ int clientsRunning = 0;
 
 for (int i = 0; i < numberClients; i++)
 {
-    ProcessStartInfo client = new ProcessStartInfo("C:/Users/diogo/source/repos/Dad_oficial/DAD/Client/bin/Debug/net6.0/Client.exe");
+    ProcessStartInfo client = new ProcessStartInfo(clientDir);
     client.ArgumentList.Add(iD.ToString());
     client.ArgumentList.Add(configurationFiles[clientsRunning]);
     iD++;

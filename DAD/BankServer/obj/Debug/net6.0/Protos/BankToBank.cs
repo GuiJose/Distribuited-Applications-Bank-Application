@@ -23,7 +23,7 @@ public static partial class BankToBankReflection {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
           "ChdQcm90b3MvQmFua1RvQmFuay5wcm90byIaCgxHcmVldFJlcXVlc3QSCgoC",
-          "aWQYASABKAUiGAoKR3JlZXRSZXBseRIKCgJoaRgBIAEoCCIiCg5SZXBsaWNh",
+          "aWQYASABKAUiGAoKR3JlZXRSZXBseRIKCgJpZBgBIAEoBSIiCg5SZXBsaWNh",
           "UmVxdWVzdBIQCghjb21tYW5kcxgBIAMoCSIOCgxSZXBsaWNhUmVwbHkyZgoR",
           "QmFua1RvQmFua1NlcnZpY2USJgoIR3JlZXRpbmcSDS5HcmVldFJlcXVlc3Qa",
           "Cy5HcmVldFJlcGx5EikKB1JlcGxpY2ESDy5SZXBsaWNhUmVxdWVzdBoNLlJl",
@@ -32,7 +32,7 @@ public static partial class BankToBankReflection {
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::GreetRequest), global::GreetRequest.Parser, new[]{ "Id" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GreetReply), global::GreetReply.Parser, new[]{ "Hi" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GreetReply), global::GreetReply.Parser, new[]{ "Id" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ReplicaRequest), global::ReplicaRequest.Parser, new[]{ "Commands" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::ReplicaReply), global::ReplicaReply.Parser, null, null, null, null, null)
         }));
@@ -264,7 +264,7 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public GreetReply(GreetReply other) : this() {
-    hi_ = other.hi_;
+    id_ = other.id_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -274,15 +274,15 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
     return new GreetReply(this);
   }
 
-  /// <summary>Field number for the "hi" field.</summary>
-  public const int HiFieldNumber = 1;
-  private bool hi_;
+  /// <summary>Field number for the "id" field.</summary>
+  public const int IdFieldNumber = 1;
+  private int id_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Hi {
-    get { return hi_; }
+  public int Id {
+    get { return id_; }
     set {
-      hi_ = value;
+      id_ = value;
     }
   }
 
@@ -301,7 +301,7 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Hi != other.Hi) return false;
+    if (Id != other.Id) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -309,7 +309,7 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Hi != false) hash ^= Hi.GetHashCode();
+    if (Id != 0) hash ^= Id.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -328,9 +328,9 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Hi != false) {
+    if (Id != 0) {
       output.WriteRawTag(8);
-      output.WriteBool(Hi);
+      output.WriteInt32(Id);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -342,9 +342,9 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Hi != false) {
+    if (Id != 0) {
       output.WriteRawTag(8);
-      output.WriteBool(Hi);
+      output.WriteInt32(Id);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -356,8 +356,8 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Hi != false) {
-      size += 1 + 1;
+    if (Id != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -371,8 +371,8 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
     if (other == null) {
       return;
     }
-    if (other.Hi != false) {
-      Hi = other.Hi;
+    if (other.Id != 0) {
+      Id = other.Id;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -390,7 +390,7 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 8: {
-          Hi = input.ReadBool();
+          Id = input.ReadInt32();
           break;
         }
       }
@@ -409,7 +409,7 @@ public sealed partial class GreetReply : pb::IMessage<GreetReply>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 8: {
-          Hi = input.ReadBool();
+          Id = input.ReadInt32();
           break;
         }
       }

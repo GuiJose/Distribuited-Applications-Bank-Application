@@ -19,12 +19,7 @@ namespace BankServer
 
         public GreetReply Reg(GreetRequest request)
         {
-            if (!BankServer.getBankID().Contains(request.Id))
-            {
-                BankServer.getBankID().Add(request.Id);
-                return new GreetReply { Hi = true };
-            }
-            return new GreetReply { Hi = false };
+            return new GreetReply { Id = BankServer.getId() };
         }
 
 

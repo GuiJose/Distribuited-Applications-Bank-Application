@@ -14,14 +14,17 @@ namespace BankServer
         public override Task<DepositReply> Deposit(
             DepositRequest request, ServerCallContext context)
         {
-            while (BankServer.GetFrozen()){}
+            while (BankServer.GetFrozen())
+            {
+                Monitor.Wait(BankServer.getFrozenObject());
+            }
             return Task.FromResult(Reg(request, context));
         }
 
         public DepositReply Reg(DepositRequest request, ServerCallContext context)
         {
+            Console.WriteLine("Received request to Deposit");
             string key = context.RequestHeaders.GetValue("dad");
-            Console.WriteLine(request.Ammount.ToString());
             BankServer.AddCommands(key, "D " + request.Ammount.ToString());
 
             if (BankServer.getPrimary())

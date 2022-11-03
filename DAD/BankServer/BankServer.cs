@@ -15,7 +15,6 @@ namespace BankServer
         private static List<int> banksID = new List<int>();
         private static BankAccount account = new BankAccount();
         private static bool frozen = false;
-        private static readonly object frozenLock = new object();
         private static Dictionary<string, BankToBankService.BankToBankServiceClient> otherBankServers = new Dictionary<string, BankToBankService.BankToBankServiceClient>();
         private static Dictionary<string, BankPaxosService.BankPaxosServiceClient> PaxosServers = new Dictionary<string, BankPaxosService.BankPaxosServiceClient>();
         private static Dictionary<string, string> commands = new Dictionary<string, string>();
@@ -23,6 +22,8 @@ namespace BankServer
         private static string[] configurationText = File.ReadAllLines("configuration_sample.txt");
         private static int current_lider;
         private static int numberSlots = readNumberSlots();
+        private static object frozenObject = new object();
+
         static void Main(string[] args)
         {
             bool keepRunning = true;
@@ -66,16 +67,10 @@ namespace BankServer
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.F:
-                        lock (frozenLock)
-                        {
                             frozen = true;
-                        }
                         break;
                     case ConsoleKey.N:
-                        lock (frozenLock)
-                        {
                             frozen = false;
-                        }
                         break;
 
                     case ConsoleKey.X:
@@ -87,13 +82,9 @@ namespace BankServer
             server.ShutdownAsync().Wait();
         }
 
-        public static bool GetFrozen()
-        {
-            lock (frozenLock)
-            {
-                return frozen;
-            }
-        }
+        public static object getFrozenObject() { return frozenObject; }
+
+        public static bool GetFrozen() { return frozen; }
         private static void createChannels(string[] args, int numberBanks)
         {
             for (int i = 3; i < args.Length; i++)
@@ -113,6 +104,61 @@ namespace BankServer
                     BankPaxosService.BankPaxosServiceClient server = new BankPaxosService.BankPaxosServiceClient(interceptingInvoker);
                     string host = "http://localhost:" + args[i];
                     PaxosServers.Add(host, server);
+                }
+            }
+        }
+
+        private static void isFrozen()
+        {
+            foreach (string line in configurationText)
+            {
+                if (line[0] == 'F' && Int32.Parse(line.Split(" ")[1]) == slot) //selects the line
+                {
+                    if (id == 4)
+                    {
+                        string tuplo = line.Split(")")[3].Substring(1);
+                        string froz = tuplo.Split(" ")[1];
+                        froz = froz.Remove(froz.Length - 1, 1);
+                        if (froz == "F")
+                        {
+                            frozen = true;
+                        }
+                        else
+                        {
+                            frozen = false;
+                            //Monitor.PulseAll(frozenObject);
+                        }
+                    }
+                    if (id == 5)
+                    {
+                        string tuplo = line.Split(")")[4].Substring(1);
+                        string froz = tuplo.Split(" ")[1];
+                        froz = froz.Remove(froz.Length - 1, 1);
+                        if (froz == "F")
+                        {
+                            frozen = true;
+                        }
+                        else
+                        {
+                            frozen = false;
+                            //Monitor.Pulse(frozenObject);
+                        }
+                    }
+                    if (id == 6)
+                    {
+                        string tuplo = line.Split(")")[5].Substring(1);
+                        string froz = tuplo.Split(" ")[1];
+                        froz = froz.Remove(froz.Length - 1, 1);
+                        if (froz == "F")
+                        {
+                            frozen = true;
+                        }
+                        else
+                        {
+                            frozen = false;
+                            //Monitor.Pulse(frozenObject);
+                        }
+                    }
                 }
             }
         }
@@ -201,6 +247,7 @@ namespace BankServer
             {
                 return;
             }
+            isFrozen();
             Console.WriteLine("ENVIEI PEDIDO DE PAXOS COM ID = " + decider());
             foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
             {

@@ -86,31 +86,40 @@ namespace Client
             DepositRequest request = new DepositRequest { Ammount = ammount };
             foreach (KeyValuePair<string, BankClientService.BankClientServiceClient> server in servers)
             {
-                DepositReply reply = server.Value.Deposit(request);
-                if (reply.Balance != -1)
-                    Console.WriteLine("Well Done! Your current balance is:" + reply.Balance.ToString() + "\r\n");
-                else continue;
+                try
+                {
+                    DepositReply reply = server.Value.Deposit(request, deadline: DateTime.UtcNow.AddSeconds(1));
+                    if (reply.Balance != -1)
+                        Console.WriteLine("Well Done! Your current balance is:" + reply.Balance.ToString() + "\r\n");
+                    else continue;
+                }
+                catch (RpcException ex) when (ex.StatusCode == StatusCode.DeadlineExceeded) { continue; };
             }
         }
-        private static void executeWithdrawal(double ammount)
+
+private static void executeWithdrawal(double ammount)
         {
             Console.WriteLine("You are trying to withdrawal " + ammount.ToString() + " euros.");
             WithdrawalRequest request = new WithdrawalRequest { Ammount = ammount };
             foreach (KeyValuePair<string, BankClientService.BankClientServiceClient> server in servers)
             {
-                WithdrawalReply reply = server.Value.Withdrawal(request);
-                if (reply.Success)
+                try 
                 {
-                    Console.WriteLine("Well Done! Your current balance is:" + reply.Balance.ToString() + "\r\n");
+                    WithdrawalReply reply = server.Value.Withdrawal(request, deadline: DateTime.UtcNow.AddSeconds(1));
+                    if (reply.Success)
+                    {
+                        Console.WriteLine("Well Done! Your current balance is:" + reply.Balance.ToString() + "\r\n");
+                    }
+                    else if (!reply.Success && reply.Balance != -1)
+                    {
+                        Console.WriteLine("You don't have enough money! Your current balance is:" + reply.Balance.ToString() + "\r\n");
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
-                else if (!reply.Success && reply.Balance != -1)
-                {
-                    Console.WriteLine("You don't have enough money! Your current balance is:" + reply.Balance.ToString() + "\r\n");
-                }
-                else
-                {
-                    continue;
-                }
+                catch (RpcException ex) when (ex.StatusCode == StatusCode.DeadlineExceeded) { continue; };
             }
         }
 
@@ -120,8 +129,12 @@ namespace Client
             ReadBalanceRequest request = new ReadBalanceRequest { };
             foreach (KeyValuePair<string, BankClientService.BankClientServiceClient> server in servers)
             {
-                ReadBalanceReply reply = server.Value.ReadBalance(request);
-                Console.WriteLine("\r\nYour current balance is:" + reply.Balance.ToString() + "\r\n");
+                try
+                {
+                    ReadBalanceReply reply = server.Value.ReadBalance(request, deadline: DateTime.UtcNow.AddSeconds(1));
+                    Console.WriteLine("\r\nYour current balance is:" + reply.Balance.ToString() + "\r\n");
+                }
+                catch (RpcException ex) when (ex.StatusCode == StatusCode.DeadlineExceeded) { continue; };
             }
         }
 

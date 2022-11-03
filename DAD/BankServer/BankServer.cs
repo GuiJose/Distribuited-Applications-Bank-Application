@@ -22,6 +22,7 @@ namespace BankServer
         private static List<String> replicateCommands = new List<string>();
         private static string[] configurationText = File.ReadAllLines("configuration_sample.txt");
         private static int current_lider;
+        private static int numberSlots = readNumberSlots();
         static void Main(string[] args)
         {
             bool keepRunning = true;
@@ -32,6 +33,7 @@ namespace BankServer
             const string ServerHostname = "localhost";
             Console.WriteLine(id);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            int slotDuration = readSlotDuration();
 
             Server server = new Server
             {
@@ -45,13 +47,13 @@ namespace BankServer
             createChannels(args, numberBanks);
             GreetBankServers();
 
-            var paxos = new System.Timers.Timer(TimeSpan.FromSeconds(30).TotalMilliseconds);
+            var paxos = new System.Timers.Timer(TimeSpan.FromSeconds(slotDuration).TotalMilliseconds);
 
             paxos.AutoReset = true;
             paxos.Elapsed += PrimaryElection;
             paxos.Start();
 
-            var replica = new System.Timers.Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
+            var replica = new System.Timers.Timer(TimeSpan.FromSeconds(10).TotalMilliseconds);
 
             replica.AutoReset = true;
             replica.Elapsed += Replica;
@@ -115,6 +117,30 @@ namespace BankServer
             }
         }
 
+        private static int readSlotDuration()
+        {
+            foreach (string line in configurationText)
+            {
+                if (line[0] == 'D')
+                {
+                    return Int32.Parse(line.Split(" ")[1]);
+                }
+            }
+            return 30;
+        }
+
+        private static int readNumberSlots()
+        {
+            foreach (string line in configurationText)
+            {
+                if (line[0] == 'S')
+                {
+                    return Int32.Parse(line.Split(" ")[1]);
+                }
+            }
+            return 0;
+        }
+
         private static int decider()//vai receber o id do processo, e id ultimo lider
         {
             if (current_lider == id)
@@ -171,6 +197,10 @@ namespace BankServer
 
         private static void PrimaryElection(object sender, ElapsedEventArgs e)
         {
+            if (slot > numberSlots)
+            {
+                return;
+            }
             Console.WriteLine("ENVIEI PEDIDO DE PAXOS COM ID = " + decider());
             foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
             {

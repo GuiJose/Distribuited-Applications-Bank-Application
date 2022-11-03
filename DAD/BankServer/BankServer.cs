@@ -189,6 +189,7 @@ namespace BankServer
 
         private static int decider()//vai receber o id do processo, e id ultimo lider
         {
+            int i = PaxosServers.Count();
             if (current_lider == id)
             {
                 return id;
@@ -197,44 +198,22 @@ namespace BankServer
             {
                 if (line[0] == 'F' && Int32.Parse(line.Split(" ")[1]) == slot) //selects the line
                 {
-                    if (current_lider == 4)
+                    foreach (int bank in banksID)
                     {
-                        string tuplo = line.Split(")")[3].Substring(1);
-                        string sus = tuplo.Split(" ")[2];
-                        if (sus == "S")
+                        if (current_lider == bank)
                         {
-                            return id;
+                            string tuplo = line.Split(")")[i].Substring(1);
+                            string sus = tuplo.Split(" ")[2];
+                            if (sus == "S")
+                            {
+                                return id;
+                            }
+                            else //case of being NS
+                            {
+                                return current_lider;
+                            }
                         }
-                        else //case of being NS
-                        {
-                            return current_lider;
-                        }
-                    }
-                    if (current_lider == 5)
-                    {
-                        string tuplo = line.Split(")")[4].Substring(1);
-                        string sus = tuplo.Split(" ")[2];
-                        if (sus == "S")
-                        {
-                            return id;
-                        }
-                        else //case of being NS
-                        {
-                            return current_lider;
-                        }
-                    }
-                    if (current_lider == 6)
-                    {
-                        string tuplo = line.Split(")")[5].Substring(1);
-                        string sus = tuplo.Split(" ")[2];
-                        if (sus == "S")
-                        {
-                            return id;
-                        }
-                        else //case of being NS
-                        {
-                            return current_lider;
-                        }
+                        i++;
                     }
                 }
             }
@@ -305,10 +284,12 @@ namespace BankServer
             foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
             {
                 GreetReply reply = server.Value.Greeting(new GreetRequest { Id = id });
+                banksID.Add(reply.Id);
                 if (reply.Id < minId) minId = reply.Id;
             }
             current_lider = minId;
             if (id == minId) setPrimary(true);
+            banksID.Sort();
         }
         
         public static int getId() { return id; }

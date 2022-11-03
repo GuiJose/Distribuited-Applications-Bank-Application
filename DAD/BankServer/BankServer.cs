@@ -110,54 +110,29 @@ namespace BankServer
 
         private static void isFrozen()
         {
+            int i = PaxosServers.Count();
             foreach (string line in configurationText)
             {
                 if (line[0] == 'F' && Int32.Parse(line.Split(" ")[1]) == slot) //selects the line
                 {
-                    if (id == 4)
+                    foreach (int bank in banksID)
                     {
-                        string tuplo = line.Split(")")[3].Substring(1);
-                        string froz = tuplo.Split(" ")[1];
-                        froz = froz.Remove(froz.Length - 1, 1);
-                        if (froz == "F")
+                        if (bank == id)
                         {
-                            frozen = true;
+                            string tuplo = line.Split(")")[i].Substring(1);
+                            string froz = tuplo.Split(" ")[1];
+                            froz = froz.Remove(froz.Length - 1, 1);
+                            if (froz == "F")
+                            {
+                                frozen = true;
+                            }
+                            else
+                            {
+                                frozen = false;
+                                //Monitor.PulseAll(frozenObject);
+                            }
                         }
-                        else
-                        {
-                            frozen = false;
-                            //Monitor.PulseAll(frozenObject);
-                        }
-                    }
-                    if (id == 5)
-                    {
-                        string tuplo = line.Split(")")[4].Substring(1);
-                        string froz = tuplo.Split(" ")[1];
-                        froz = froz.Remove(froz.Length - 1, 1);
-                        if (froz == "F")
-                        {
-                            frozen = true;
-                        }
-                        else
-                        {
-                            frozen = false;
-                            //Monitor.Pulse(frozenObject);
-                        }
-                    }
-                    if (id == 6)
-                    {
-                        string tuplo = line.Split(")")[5].Substring(1);
-                        string froz = tuplo.Split(" ")[1];
-                        froz = froz.Remove(froz.Length - 1, 1);
-                        if (froz == "F")
-                        {
-                            frozen = true;
-                        }
-                        else
-                        {
-                            frozen = false;
-                            //Monitor.Pulse(frozenObject);
-                        }
+                        i++;
                     }
                 }
             }
@@ -227,6 +202,7 @@ namespace BankServer
                 return;
             }
             isFrozen();
+            Console.WriteLine("FROZEN? = " + frozen);
             Console.WriteLine("ENVIEI PEDIDO DE PAXOS COM ID = " + decider());
             foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
             {

@@ -46,17 +46,17 @@ namespace BankPaxosClient {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::BankPaxosClient.GreetRequest3> __Marshaller_GreetRequest3 = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BankPaxosClient.GreetRequest3.Parser));
+    static readonly grpc::Marshaller<global::BankPaxosClient.CompareAndSwapRequest> __Marshaller_CompareAndSwapRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BankPaxosClient.CompareAndSwapRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::BankPaxosClient.GreetReply3> __Marshaller_GreetReply3 = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BankPaxosClient.GreetReply3.Parser));
+    static readonly grpc::Marshaller<global::BankPaxosClient.CompareAndSwapReply> __Marshaller_CompareAndSwapReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BankPaxosClient.CompareAndSwapReply.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::BankPaxosClient.GreetRequest3, global::BankPaxosClient.GreetReply3> __Method_Greeting = new grpc::Method<global::BankPaxosClient.GreetRequest3, global::BankPaxosClient.GreetReply3>(
+    static readonly grpc::Method<global::BankPaxosClient.CompareAndSwapRequest, global::BankPaxosClient.CompareAndSwapReply> __Method_CompareAndSwap = new grpc::Method<global::BankPaxosClient.CompareAndSwapRequest, global::BankPaxosClient.CompareAndSwapReply>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "Greeting",
-        __Marshaller_GreetRequest3,
-        __Marshaller_GreetReply3);
+        "CompareAndSwap",
+        __Marshaller_CompareAndSwapRequest,
+        __Marshaller_CompareAndSwapReply);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -92,24 +92,24 @@ namespace BankPaxosClient {
       }
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::BankPaxosClient.GreetReply3 Greeting(global::BankPaxosClient.GreetRequest3 request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::BankPaxosClient.CompareAndSwapReply CompareAndSwap(global::BankPaxosClient.CompareAndSwapRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return Greeting(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return CompareAndSwap(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::BankPaxosClient.GreetReply3 Greeting(global::BankPaxosClient.GreetRequest3 request, grpc::CallOptions options)
+      public virtual global::BankPaxosClient.CompareAndSwapReply CompareAndSwap(global::BankPaxosClient.CompareAndSwapRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_Greeting, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_CompareAndSwap, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::BankPaxosClient.GreetReply3> GreetingAsync(global::BankPaxosClient.GreetRequest3 request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::BankPaxosClient.CompareAndSwapReply> CompareAndSwapAsync(global::BankPaxosClient.CompareAndSwapRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return GreetingAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return CompareAndSwapAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::BankPaxosClient.GreetReply3> GreetingAsync(global::BankPaxosClient.GreetRequest3 request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::BankPaxosClient.CompareAndSwapReply> CompareAndSwapAsync(global::BankPaxosClient.CompareAndSwapRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_Greeting, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_CompareAndSwap, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

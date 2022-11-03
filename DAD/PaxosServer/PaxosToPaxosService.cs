@@ -10,6 +10,18 @@ namespace PaxosServer
             this.paxos = paxos;
         }
 
+        public override Task<GreetReply> Greeting(
+            GreetRequest request, ServerCallContext context)
+        {
+            Console.WriteLine("Received an Hi from another Paxos Server.");
+            return Task.FromResult(Reg(request));
+        }
+
+        public GreetReply Reg(GreetRequest request)
+        {
+            return new GreetReply { Id = PaxosServer.getId() };
+        }
+
         public override Task<Promise> Prepare(PrepareRequest request, ServerCallContext context)
         {
             while (PaxosServer.GetFrozen()) { continue; }

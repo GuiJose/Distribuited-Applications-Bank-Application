@@ -16,7 +16,7 @@ namespace PaxosServer
         private static Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient> otherPaxosServers = new Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient>();
         private static bool frozen = false;
         private static readonly object frozenLock = new object();
-
+        private static List<int> paxosServersID = new List<int>();
 
         static void Main(string[] args)
         {
@@ -25,8 +25,6 @@ namespace PaxosServer
             Port = Int16.Parse(args[1]);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             bool keepRunning = true;
-
-            bool x = checkLeader(1);
 
             Server server = new Server
             {
@@ -38,6 +36,7 @@ namespace PaxosServer
             Console.WriteLine("PaxosServer server listening on port " + Port);
 
             createChannels(args);
+            GreetPaxosServers();
 
             Console.WriteLine("Press any key to stop the server...");
 
@@ -48,16 +47,10 @@ namespace PaxosServer
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.F:
-                        lock (frozenLock)
-                        {
-                            frozen = true;
-                        }
+                        frozen = true;
                         break;
                     case ConsoleKey.N:
-                        lock (frozenLock)
-                        {
-                            frozen = false;
-                        }
+                        frozen = false;
                         break;
                     case ConsoleKey.X:
                         keepRunning = false;
@@ -74,6 +67,8 @@ namespace PaxosServer
                 return frozen;
             }
         }
+
+        public static int getId() { return id; }
       
         public static async Task<int> Paxos(int value, int slot)
         {
@@ -145,103 +140,48 @@ namespace PaxosServer
 
         private static bool readConfigurationLines(int slot)
         {
+            int i = 0;
+            int leader = 0;
             foreach (string line in configurationText)
             {
-                if (line[0] == 'F' && Int32.Parse(line.Split(" ")[1]) == slot){
-
-                    if (id == 1)
+                if (line[0] == 'F' && Int32.Parse(line.Split(" ")[1]) == slot)
+                {
+                    foreach (int e in paxosServersID)
                     {
-                        string tuplo = line.Split(")")[1].Substring(1);
-                        string frozen = tuplo.Split(" ")[2];
-                        if (frozen == "S")
+                        if (e < id)
                         {
-                            suspect2 = true;
-                        }
-                        else
-                        {
-                            suspect2 = false;
-                        }
+                            string tuplo = line.Split(")")[i++].Substring(1);
+                            string frozen;
+                            if (i == 1)
+                            {
+                                frozen = tuplo.Split(" ")[4];
 
-                        tuplo = line.Split(")")[2].Substring(1);
-                        frozen = tuplo.Split(" ")[2];
-                        if (frozen == "S")
-                        {
-                            suspect3 = true;
+                            }
+                            else 
+                            {
+                                frozen = tuplo.Split(" ")[2];
+                            }
+                            if (frozen == "S")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                leader = e;
+                                break;
+                            }
                         }
-                        else
+                        else if (e == id)
                         {
-                            suspect3 = false;
-                        }
-                    }
-                    else if (id == 2)
-                    {
-                        string tuplo = line.Split(")")[0].Substring(1);
-                        string frozen = tuplo.Split(" ")[2];
-                        if (frozen == "S")
-                        {
-                            suspect1 = true;
-                        }
-                        else
-                        {
-                            suspect1 = false;
-                        }
-
-                        tuplo = line.Split(")")[2].Substring(1);
-                        frozen = tuplo.Split(" ")[2];
-                        if (frozen == "S")
-                        {
-                            suspect3 = true;
-                        }
-                        else
-                        {
-                            suspect3 = false;
-                        }
-                    }
-                    else
-                    {
-                        string tuplo = line.Split(")")[0].Substring(1);
-                        string frozen = tuplo.Split(" ")[2];
-                        if (frozen == "S")
-                        {
-                            suspect1 = true;
-                        }
-                        else
-                        {
-                            suspect1 = false;
-                        }
-
-                        tuplo = line.Split(")")[1].Substring(1);
-                        frozen = tuplo.Split(" ")[2];
-                        if (frozen == "S")
-                        {
-                            suspect2 = true;
-                        }
-                        else
-                        {
-                            suspect2 = false;
+                            leader = id;
+                            break;
                         }
                     }
                 }
             }
-            return checkLeader(slot);
+            return leader == id;
         }
-
-        private static bool checkLeader(int slot)
-        {
-            if (id == 2 && suspect1 == true)
-            {
-                return true;
-            }
-            else if (id == 3 && suspect1 == true && suspect2 == true) { 
-                return true; 
-            }
-            else if (id == 1)
-            {
-                return true;
-            }
-            return false;
-        }
-
+            
         private static void createChannels(string[] args)
         {
             for (int i = 2; i < args.Length; i++)
@@ -256,6 +196,17 @@ namespace PaxosServer
         public static int getID()
         {
             return id;
+        }
+
+        private static void GreetPaxosServers()
+        {
+            paxosServersID.Add(id);
+            foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> server in otherPaxosServers)
+            {
+                GreetReply reply = server.Value.Greeting(new GreetRequest { Id = id });
+                paxosServersID.Add(reply.Id);
+            }
+            paxosServersID.Sort();
         }
     }
 }

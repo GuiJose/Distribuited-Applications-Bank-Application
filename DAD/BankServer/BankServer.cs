@@ -162,7 +162,7 @@ namespace BankServer
             return 0;
         }
 
-        private static int decider()//vai receber o id do processo, e id ultimo lider
+        private static int decider()
         {
             int i = PaxosServers.Count();
             if (current_lider == id)

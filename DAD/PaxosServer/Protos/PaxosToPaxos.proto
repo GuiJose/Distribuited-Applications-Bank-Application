@@ -6,6 +6,14 @@ service PaxosToPaxosService {
   rpc Accepted (Accepted_message) returns (Decided);
   rpc Alive (AliveRequest) returns (AliveResponse);
   rpc Commit(CommitRequest) returns (CommitReply);
+  rpc Greeting (GreetRequest) returns (GreetReply);
+}
+
+message GreetRequest {
+	int32 id = 1;
+}
+message GreetReply {
+	int32 id = 1;
 }
 
 message AliveRequest{

@@ -25,11 +25,13 @@ namespace BankServer
 
         public override Task<ReplicaReply> Replica(ReplicaRequest request, ServerCallContext context)
         {
+            while (BankServer.GetFrozen()){}
             return Task.FromResult(Replicate(request));
         }
 
         public ReplicaReply Replicate(ReplicaRequest request)
         {
+
             BankServer.ReplicateCommands(request.Commands.ToList());
             return new ReplicaReply { };
         }

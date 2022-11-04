@@ -14,6 +14,7 @@ namespace PaxosServer
         private static bool frozen = false;
         private static readonly object frozenLock = new object();
         private static List<int> paxosServersID = new List<int>();
+        private static int _slot;
 
         static void Main(string[] args)
         {
@@ -67,6 +68,11 @@ namespace PaxosServer
 
         public static int getId() { return id; }
       
+        public static void update_slot(int round)
+        {
+            _slot = round;
+        }
+
         public static async Task<int> Paxos(int value, int slot)
         {
             if (readConfigurationLines(slot))
@@ -89,6 +95,8 @@ namespace PaxosServer
 
         private static async Task<int> doPrepare(int numberToPropose, int slot)
         {
+            int count = 1;
+            int number_to_propose;
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
                 try
@@ -100,14 +108,19 @@ namespace PaxosServer
                     }
                     else //como ninguem com o id superior ao dele propos nada ele vai fazer o accept com o valor que enviou
                     {
-                        if (reply.Value[0] == 0) { return numberToPropose; } //fazer accept com o id do bank que recebemos para fazer paxos
+                        if (reply.Value[0] == 0) { count++; } //fazer accept com o id do bank que recebemos para fazer paxos
                         else
                         {
-                            return reply.Value[1];
+                            count++; 
+                            number_to_propose = reply.Value[1];
                         }
                     }
                 }
                 catch (RpcException ex) when (ex.StatusCode == StatusCode.DeadlineExceeded) { continue; };
+            }
+            if (count > paxosServersID.Count()/2)
+            {
+                return numberToPropose; 
             }
             return 0;
         }
@@ -178,7 +191,45 @@ namespace PaxosServer
             }
             return leader == id;
         }
-            
+
+        public static void isFrozen()
+        {
+            int i = 0;
+            string froz;
+            foreach (string line in configurationText)
+            {
+                if (line[0] == 'F' && Int32.Parse(line.Split(" ")[1]) == _slot) //selects the line
+                {
+                    foreach (int paxos in paxosServersID)
+                    {
+                        if (paxos == id)
+                        {
+                            string tuplo = line.Split(")")[i].Substring(1);
+                            if (i == 0)
+                            {
+                                froz = tuplo.Split(" ")[3];
+                            }
+                            else
+                            {
+                                froz = tuplo.Split(" ")[1];
+                            }
+                            froz = froz.Remove(froz.Length - 1, 1);
+                            if (froz == "F")
+                            {
+                                frozen = true;
+                            }
+                            else
+                            {
+                                frozen = false;
+                            }
+                        }
+                        i++;
+                    }
+                }
+            }
+        }
+
+
         private static void createChannels(string[] args)
         {
             for (int i = 2; i < args.Length; i++)

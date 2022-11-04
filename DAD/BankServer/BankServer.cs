@@ -129,7 +129,6 @@ namespace BankServer
                             else
                             {
                                 frozen = false;
-                                Monitor.PulseAll(frozenObject);
                             }
                         }
                         i++;
@@ -202,45 +201,47 @@ namespace BankServer
                 return;
             }
             isFrozen();
-            Console.WriteLine("FROZEN? = " + frozen);
-            Console.WriteLine("ENVIEI PEDIDO DE PAXOS COM ID = " + decider());
-            foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
+            if (!frozen)
             {
-                CompareAndSwapReply reply = paxosserver.Value.CompareAndSwap(new CompareAndSwapRequest { Value = decider(), Slot = slot });
-                if (reply.Value == 0)
+                Console.WriteLine("ENVIEI PEDIDO DE PAXOS COM ID = " + decider());
+                foreach (KeyValuePair<string, BankPaxosService.BankPaxosServiceClient> paxosserver in PaxosServers)
                 {
-                    continue;
-                }
-                current_lider = reply.Value;
-                if (reply.Value == id) setPrimary(true);
-                else 
-                {
-                    if (primary)
+                    CompareAndSwapReply reply = paxosserver.Value.CompareAndSwap(new CompareAndSwapRequest { Value = decider(), Slot = slot });
+                    if (reply.Value == 0)
                     {
-                        Console.WriteLine("VOU REPLICAR PORQUE DEIXEI DE SER LÍDER");
-                        foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
-                        {
-                            ReplicaRequest request = new ReplicaRequest();
-                            foreach (string rcmd in replicateCommands) request.Commands.Add(rcmd);
-                            server.Value.ReplicaAsync(request);
-                        }
-                        replicateCommands.Clear();
+                        continue;
                     }
-                    setPrimary(false);
+                    current_lider = reply.Value;
+                    if (reply.Value == id) setPrimary(true);
+                    else
+                    {
+                        if (primary)
+                        {
+                            Console.WriteLine("VOU REPLICAR PORQUE DEIXEI DE SER LÍDER");
+                            foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
+                            {
+                                ReplicaRequest request = new ReplicaRequest();
+                                foreach (string rcmd in replicateCommands) request.Commands.Add(rcmd);
+                                server.Value.ReplicaAsync(request);
+                            }
+                            replicateCommands.Clear();
+                        }
+                        setPrimary(false);
+                    }
+                    Console.WriteLine(reply.Value.ToString() + "\r\n");
+                    Console.WriteLine(primary ? "SOU PRIMARIO" : "NAO SOU PRIMARIO");
                 }
-                Console.WriteLine(reply.Value.ToString() + "\r\n");
-                Console.WriteLine(primary ? "SOU PRIMARIO" : "NAO SOU PRIMARIO");
-            }
-            if (primary)
-            {
-                ReplicateCommands(commands.Keys.ToList());
+                if (primary)
+                {
+                    ReplicateCommands(commands.Keys.ToList());
+                }
             }
             slot++;
         }
         
         private static void Replica(object sender, ElapsedEventArgs e)
         {
-            if (primary)
+            if (primary && !frozen)
             {
                 Console.WriteLine("VOU REPLICAR");
                 foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)

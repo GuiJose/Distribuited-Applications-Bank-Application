@@ -129,7 +129,7 @@ namespace BankServer
                             else
                             {
                                 frozen = false;
-                                //Monitor.PulseAll(frozenObject);
+                                Monitor.PulseAll(frozenObject);
                             }
                         }
                         i++;

@@ -7,9 +7,6 @@ namespace PaxosServer
     public class PaxosServer
     {
         private static string[] configurationText = File.ReadAllLines("configuration_sample.txt");
-        private static bool suspect1 = false;
-        private static bool suspect2 = false;
-        private static bool suspect3 = false;
         private static int id;
         private static int Port;
         private static Paxos paxos;

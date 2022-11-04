@@ -18,6 +18,7 @@ namespace PaxosServer
         public override Task<CompareAndSwapReply> CompareAndSwap(
             CompareAndSwapRequest request, ServerCallContext context)
         {
+
             return Reg(request);
         }
 
@@ -38,12 +39,12 @@ namespace PaxosServer
 
             while (!decided) { }
 
-            if (id == 3)
-            {
-                decided = false;
-                first = false;
-                idMessage = 0;
-            }
+            System.Threading.Thread.Sleep(500);
+
+            decided = false;
+            first = false;
+            idMessage = 0;
+            
             return new CompareAndSwapReply { Value = value };
         }
     }

@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\DAD",
+    "\\DAD\\BankServer",
+    "\\DAD\\PaxosServer"
   ],
+  "SelectedNode": "\\DAD\\PaxosServer\\BankPaxosService.cs",
   "PreviewInSolutionExplorer": false
 }

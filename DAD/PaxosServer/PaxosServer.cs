@@ -12,7 +12,7 @@ namespace PaxosServer
         private static Paxos paxos;
         private static Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient> otherPaxosServers = new Dictionary<string, PaxosToPaxosService.PaxosToPaxosServiceClient>();
         private static bool frozen = false;
-        private static readonly object frozenLock = new object();
+        private static object frozenLock = new object();
         private static List<int> paxosServersID = new List<int>();
         private static int _slot;
 
@@ -41,7 +41,7 @@ namespace PaxosServer
             while (keepRunning)
             {
                 Console.WriteLine("Press 'F' to frozen the process, 'N' to put the process in its normal condition or press" +
-                    "'X' to finish the process.\r\n In case you want to greet the PaxosServer press 'A'\r\n");
+                    "'X' to finish the process.\r\n");
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.F:
@@ -79,16 +79,10 @@ namespace PaxosServer
             {
                 Console.WriteLine("Vou avançar com o Paxos");
                 int valueToPropose = await doPrepare(value, slot);
-                if (valueToPropose == 0)
-                {
-                    return 0;
-                }
+                if (valueToPropose == 0) { return 0; }
                 int valueAccepted = await doAccept(id, valueToPropose);
-                if (await doCommit(valueAccepted, slot))
-                {
-                    Console.WriteLine(valueAccepted);
-                    return valueAccepted;
-                }
+                if (valueAccepted == 0) { return 0; }
+                if (await doCommit(valueAccepted, slot)) { return valueAccepted; }
             }
             return 0;
         }
@@ -96,12 +90,12 @@ namespace PaxosServer
         private static async Task<int> doPrepare(int numberToPropose, int slot)
         {
             int count = 1;
-            int number_to_propose;
+            int number_to_propose = numberToPropose;
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
                 try
                 {
-                    Promise reply = await (paxosserver.Value.PrepareAsync(new PrepareRequest { ProposerID = id, Slot = slot }, deadline: DateTime.UtcNow.AddSeconds(5)));
+                    Promise reply = await (paxosserver.Value.PrepareAsync(new PrepareRequest { ProposerID = id, Slot = slot }, deadline: DateTime.UtcNow.AddSeconds(1)));
                     if (reply.Value.Count() == 0) //recebeu uma lista vazia logo o read_ts apresenta um numero maior que o que ele tentou. Vai agora tentar com um maior
                     {
                         return 0;
@@ -120,30 +114,48 @@ namespace PaxosServer
             }
             if (count > paxosServersID.Count()/2)
             {
-                return numberToPropose; 
+                return number_to_propose; 
             }
             return 0;
         }
 
         private static async Task<int> doAccept(int id, int value_to_accept)
         {
+            int count = 1;
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
-                Accepted_message reply_accept = await (paxosserver.Value.AcceptRequestAsync(new Accept { ProposerID = id, Value = value_to_accept }));
-                if (reply_accept.ValuePromised == value_to_accept && reply_accept.ProposerID == id)
+                try
                 {
-                    return reply_accept.ValuePromised;
+                    Accepted_message reply_accept = await (paxosserver.Value.AcceptRequestAsync(new Accept { ProposerID = id, Value = value_to_accept }, deadline: DateTime.UtcNow.AddSeconds(1)));
+                    if (reply_accept.ValuePromised == value_to_accept && reply_accept.ProposerID == id)
+                    {
+                        count++;
+                    }
                 }
+                catch (RpcException ex) when (ex.StatusCode == StatusCode.DeadlineExceeded) { continue; };
+            }
+            if (count > otherPaxosServers.Count() / 2)
+            {
+                return value_to_accept;
             }
             return 0;
         }
 
         private static async Task<bool> doCommit(int value_to_commit, int slot)
         {
+            int count = 1;
             foreach (KeyValuePair<string, PaxosToPaxosService.PaxosToPaxosServiceClient> paxosserver in otherPaxosServers)
             {
-                CommitReply commit = await (paxosserver.Value.CommitAsync(new CommitRequest { Slot = slot, Value = value_to_commit }));
-                return commit.Ok;
+                try
+                {
+                    CommitReply commit = await (paxosserver.Value.CommitAsync(new CommitRequest { Slot = slot, Value = value_to_commit }, deadline: DateTime.UtcNow.AddSeconds(1)));
+                    count++;
+                }
+                catch (RpcException ex) when (ex.StatusCode == StatusCode.DeadlineExceeded) { continue; };
+            }
+            if (count > otherPaxosServers.Count() / 2)
+            {
+                return true;
             }
             return false;
         }
@@ -178,17 +190,18 @@ namespace PaxosServer
                             else
                             {
                                 leader = e;
-                                break;
+                                return leader == id;
                             }
                         }
                         else if (e == id)
                         {
                             leader = id;
-                            break;
+                            return leader == id;
                         }
                     }
                 }
             }
+            leader = paxosServersID.Min();
             return leader == id;
         }
 
@@ -216,17 +229,26 @@ namespace PaxosServer
                             froz = froz.Remove(froz.Length - 1, 1);
                             if (froz == "F")
                             {
-                                frozen = true;
+                                lock(frozenLock) 
+                                {
+                                    frozen = true;
+                                }
+                                return;
                             }
                             else
                             {
-                                frozen = false;
+                                lock (frozenLock)
+                                {
+                                    frozen = false;
+                                }
+                                return;
                             }
                         }
                         i++;
                     }
                 }
             }
+            frozen = false;
         }
 
 

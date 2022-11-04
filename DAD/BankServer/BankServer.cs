@@ -22,8 +22,9 @@ namespace BankServer
         private static string[] configurationText = File.ReadAllLines("configuration_sample.txt");
         private static int current_lider;
         private static int numberSlots = readNumberSlots();
-        private static object frozenObject = new object();
-
+        private static object commmandsLock = new object();
+        private static object replicateCommmandsLock = new object();
+        private static object frozenLock = new object();
         static void Main(string[] args)
         {
             bool keepRunning = true;
@@ -67,10 +68,16 @@ namespace BankServer
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.F:
+                        lock (frozenLock)
+                        {
                             frozen = true;
+                        }
                         break;
                     case ConsoleKey.N:
+                        lock (frozenLock)
+                        {
                             frozen = false;
+                        }
                         break;
 
                     case ConsoleKey.X:
@@ -81,8 +88,6 @@ namespace BankServer
             }
             server.ShutdownAsync().Wait();
         }
-
-        public static object getFrozenObject() { return frozenObject; }
 
         public static bool GetFrozen() { return frozen; }
         private static void createChannels(string[] args, int numberBanks)
@@ -124,17 +129,26 @@ namespace BankServer
                             froz = froz.Remove(froz.Length - 1, 1);
                             if (froz == "F")
                             {
-                                frozen = true;
+                                lock (frozenLock)
+                                {
+                                    frozen = true;
+                                }
+                                return;
                             }
                             else
                             {
-                                frozen = false;
+                                lock (frozenLock)
+                                {
+                                    frozen = false;
+                                }
+                                return;
                             }
                         }
                         i++;
                     }
                 }
             }
+            frozen = false;
         }
 
         private static int readSlotDuration()
@@ -213,21 +227,7 @@ namespace BankServer
                     }
                     current_lider = reply.Value;
                     if (reply.Value == id) setPrimary(true);
-                    else
-                    {
-                        if (primary)
-                        {
-                            Console.WriteLine("VOU REPLICAR PORQUE DEIXEI DE SER LÍDER");
-                            foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
-                            {
-                                ReplicaRequest request = new ReplicaRequest();
-                                foreach (string rcmd in replicateCommands) request.Commands.Add(rcmd);
-                                server.Value.ReplicaAsync(request);
-                            }
-                            replicateCommands.Clear();
-                        }
-                        setPrimary(false);
-                    }
+                    else setPrimary(false);
                     Console.WriteLine(reply.Value.ToString() + "\r\n");
                     Console.WriteLine(primary ? "SOU PRIMARIO" : "NAO SOU PRIMARIO");
                 }
@@ -244,13 +244,16 @@ namespace BankServer
             if (primary && !frozen)
             {
                 Console.WriteLine("VOU REPLICAR");
-                foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
+                lock (replicateCommmandsLock)
                 {
-                    ReplicaRequest request = new ReplicaRequest();
-                    foreach (string rcmd in replicateCommands) request.Commands.Add(rcmd);
-                    ReplicaReply reply = server.Value.Replica(request);
+                    foreach (KeyValuePair<string, BankToBankService.BankToBankServiceClient> server in otherBankServers)
+                    {
+                        ReplicaRequest request = new ReplicaRequest();
+                        foreach (string rcmd in replicateCommands) request.Commands.Add(rcmd);
+                        ReplicaReply reply = server.Value.Replica(request);
+                    }
+                    replicateCommands.Clear();
                 }
-                replicateCommands.Clear();
             }
         }
 
@@ -301,26 +304,28 @@ namespace BankServer
         public static bool executeCommands(String key)
         {
             Console.WriteLine("COMANDO KEY = " + key);
-
-            if (commands.ContainsKey(key))
+            lock (commmandsLock)
             {
-                if (commands[key].Split(" ")[0] == "D")
+                if (commands.ContainsKey(key))
                 {
-                    account.Deposit(Convert.ToDouble(commands[key].Split(" ")[1]));
-                    commands.Remove(key);
-                    if(primary) replicateCommands.Add(key);
-                    return true;
-                }
-                else if (commands[key].Split(" ")[0] == "W")
-                {
-                    bool ok  = account.Withdrawal(Convert.ToDouble(commands[key].Split(" ")[1]));
-                    commands.Remove(key);
-                    if(primary) replicateCommands.Add(key);
-                    return ok;
+                    if (commands[key].Split(" ")[0] == "D")
+                    {
+                        account.Deposit(Convert.ToDouble(commands[key].Split(" ")[1]));
+                        commands.Remove(key);
+                        if (primary) replicateCommands.Add(key);
+                        return true;
+                    }
+                    else if (commands[key].Split(" ")[0] == "W")
+                    {
+                        bool ok = account.Withdrawal(Convert.ToDouble(commands[key].Split(" ")[1]));
+                        commands.Remove(key);
+                        if (primary) replicateCommands.Add(key);
+                        return ok;
 
+                    }
                 }
+                return true;
             }
-            return true;
         }
     }
 

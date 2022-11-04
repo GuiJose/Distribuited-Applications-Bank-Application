@@ -7,7 +7,6 @@
         private int write_ts = 0; //so e trocado no accept
         private int read_ts = 0;
         private Dictionary<int, int> decisions = new Dictionary<int, int>();
-        int pedido = 1;
         public Paxos(int iD)
         {
             this.ID = iD;
@@ -34,11 +33,11 @@
                     write_ts = id;
                     value = value_to_accept;
                 }
+                return new List<int> { id, value_to_accept };
             };
 
-            return new List<int> { id, value_to_accept };
+            return new List<int> { -1, -1 };
         }
-        public int getID() { return ID; }
 
         public bool commit(int value, int slot)
         { 
@@ -55,8 +54,5 @@
             }
             return false;
         }
-
-        public bool hasSlot(int slot) { return decisions.ContainsKey(slot); }
-        public int getSlot(int slot) { return decisions[slot]; }
     }
 }

@@ -3,7 +3,7 @@
     public class BankAccount
     {
         private static double balance = 0;
-        private static readonly object balanceLock = new object();
+        private static object balanceLock = new object();
 
         public BankAccount()
         {

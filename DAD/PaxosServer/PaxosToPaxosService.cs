@@ -24,7 +24,7 @@ namespace PaxosServer
 
         public override Task<Promise> Prepare(PrepareRequest request, ServerCallContext context)
         {
-            while (PaxosServer.GetFrozen()) { continue; }
+            while (PaxosServer.GetFrozen()) { }
             return Task.FromResult(Promise(request));
         }
 
@@ -43,13 +43,16 @@ namespace PaxosServer
 
         public Accepted_message Acceptor(Accept request)
         {
-            List<int> temp_list = paxos.accepted(request.Value, request.ProposerID);
-            return new Accepted_message { ValuePromised = temp_list[0], ProposerID = temp_list[1] };
+            while (PaxosServer.GetFrozen()) { }
+            List<int> temp_list = paxos.accepted(request.ProposerID, request.Value);
+
+            return new Accepted_message { ValuePromised = temp_list[1], ProposerID = temp_list[0] };
         }
 
 
         public override Task<CommitReply> Commit(CommitRequest request, ServerCallContext context)
         {
+            while (PaxosServer.GetFrozen()) { }
             return Task.FromResult(Commited(request));
         }
 

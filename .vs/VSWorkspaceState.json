@@ -5,6 +5,6 @@
     "\\DAD\\BankServer",
     "\\DAD\\PaxosServer"
   ],
-  "SelectedNode": "\\DAD\\PaxosServer\\BankPaxosService.cs",
+  "SelectedNode": "\\DAD\\BankServer\\BankServer.cs",
   "PreviewInSolutionExplorer": false
 }

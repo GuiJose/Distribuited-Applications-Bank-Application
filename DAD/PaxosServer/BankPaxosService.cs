@@ -24,31 +24,34 @@ namespace PaxosServer
 
         public async Task<CompareAndSwapReply> Reg(CompareAndSwapRequest request)
         {
-            PaxosServer.update_slot(request.Slot); //111 222
+            PaxosServer.update_slot(request.Slot);
             PaxosServer.isFrozen();
-            while (!PaxosServer.GetFrozen())
+            Console.WriteLine(PaxosServer.GetFrozen()); 
+            if (PaxosServer.GetFrozen())
             {
-                int id = 0;
-                lock (idMessageLock)
-                {
-                    idMessage++;
-                    id = idMessage;
-                }
-                if (!first)
-                {
-                    first = true;
-                    value = await PaxosServer.Paxos(request.Value, request.Slot);
-                    decided = true;
-                }
-
-                while (!decided) { }
-
-                System.Threading.Thread.Sleep(500);
-
-                decided = false;
-                first = false;
-                idMessage = 0;
+                return new CompareAndSwapReply { Value = 0 };
             }
+
+            int id = 0;
+            lock (idMessageLock)
+            {
+            idMessage++;
+            id = idMessage;
+            }
+            if (!first)
+            {
+            first = true;
+            value = await PaxosServer.Paxos(request.Value, request.Slot);
+            decided = true;
+            }
+
+            while (!decided) { }
+
+            System.Threading.Thread.Sleep(3);
+
+            decided = false;
+            first = false;
+            idMessage = 0;
             return new CompareAndSwapReply { Value = value };
         }
     }

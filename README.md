@@ -1,4 +1,4 @@
-# Dad
+# Distributed Applications Development
 DAD - Bank Aplication
 Project developed in C#. Our goal was to build a bank application, maintained by many servers. 
 Between servers it was used primary-backup replication. 
